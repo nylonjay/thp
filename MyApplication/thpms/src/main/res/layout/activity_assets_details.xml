@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray"
+    android:fitsSystemWindows="true"
+    tools:context=".activities.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:padding="10dp"
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总资产"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="@color/white"
+                android:textSize="16dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5000.02"
+                android:textColor="@color/white"
+                android:textSize="30dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit_height"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/unit_margin_left_right">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的购物卡"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content"
+            android:text="￥236.2"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit_height"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/unit_margin_left_right">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的购物卡"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+
+        <TextView
+            android:id="@+id/trueBalance"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content"
+            android:text="6张"/></RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit_height"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/unit_margin_left_right">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的购物卡"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+
+        <TextView
+            android:id="@+id/electricBalance"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content"
+            android:text="6张"/></RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit_height"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/unit_margin_left_right">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的购物卡"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+
+        <TextView
+            android:id="@+id/tvCardQuanlity"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content"
+            android:text="6张"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

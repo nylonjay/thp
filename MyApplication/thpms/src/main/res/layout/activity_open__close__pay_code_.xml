@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="thp.csii.com.activities.ForgetPasswordActivity">
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置支付密码,用于虹支付验证"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/text_gray"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="40dp"/>
+
+    <com.csii.powerenter.PEEditText
+        android:id="@+id/ed_pe"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/small_unit_height"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:background="@drawable/shape_input_area"
+        android:lineSpacingExtra="@dimen/my_vertical_margin"
+        android:layout_below="@+id/tv_1"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+
+    <LinearLayout
+        android:id="@+id/ed_btn"
+        android:layout_below="@+id/ed_pe"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/unit_height"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="@dimen/unit_height"
+        android:orientation="horizontal">
+
+
+
+        <EditText
+            android:id="@+id/ed_sms"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/u45"
+            android:hint="请输入验证码"
+            android:textColor="@color/text_gray"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:layout_weight="8"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="获取验证码"
+            android:textColor="@color/text_gray"
+            android:background="@drawable/u97"
+            android:id="@+id/btn_sms" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit_height"
+        android:background="@drawable/u349"
+        android:text="确认设置"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:id="@+id/btn_set_code"
+        android:layout_below="@+id/ed_btn"
+        android:layout_marginTop="50dp"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

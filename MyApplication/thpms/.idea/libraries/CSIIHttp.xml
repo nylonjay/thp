@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CSIIHttp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/CSIIHttp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

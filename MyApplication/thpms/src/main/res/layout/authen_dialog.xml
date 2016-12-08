@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_bg"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:src="@drawable/u194"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提示"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_gray"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/text_gray"
+            android:text="@string/suthtication_invacation"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:id="@+id/text_dialog" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="取消"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/u530"
+            android:id="@+id/cancle" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:text="去实名"
+            android:background="@drawable/u105"
+            android:textColor="@color/white"
+            android:id="@+id/positive" />
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

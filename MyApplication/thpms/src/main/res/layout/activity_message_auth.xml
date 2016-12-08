@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="thp.csii.com.activities.MessageAuthActivity">
+
+    <LinearLayout
+        android:id="@+id/words"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/pay_text_color"
+        android:text="@string/send_mesage"/>
+
+        <TextView
+            android:id="@+id/tv_currentPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/text_red"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ed_btn"
+        android:layout_below="@+id/words"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="@dimen/unit_height"
+        android:orientation="horizontal">
+
+
+
+    <EditText
+        android:id="@+id/ed_sms"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/u45"
+        android:textSize="14dp"
+        android:inputType="number"
+        android:hint="请输入验证码"
+        android:textColor="#999999"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_weight="8"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="获取验证码"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:textColor="@color/text_red"
+            android:background="@drawable/bg_identify_code_normal"
+            android:id="@+id/btn_sms" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit_height"
+        android:background="@drawable/next_step_gray"
+        android:text="开启购物卡支付"
+        android:layout_below="@+id/ed_btn"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:clickable="false"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:id="@+id/btn_next_step" />
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

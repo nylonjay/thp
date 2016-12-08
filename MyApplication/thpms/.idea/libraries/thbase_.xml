@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="thbase-">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/jars/libs/locSDK_6.23.jar!/" />
+      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/res" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/jars/libs/jsr305-1.3.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/jars/libs/ksoap2-android-assembly-2.6.4-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/jars/libs/android-support-v4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/jars/libs/nineoldandroids-2.4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/jars/libs/gson-2.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/thbase/jars/libs/android-support-v7-recyclerview.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

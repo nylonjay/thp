@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cancle_bg"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:src="@drawable/icon_caveat"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提示"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_gray"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/text_gray"
+                android:text="@string/suthtication_invacation"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:id="@+id/text_dialog" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center">
+            <Button
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:text="否"
+                android:gravity="center"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/text_dark_gray"
+                android:background="@drawable/gray_bg"
+                android:id="@+id/cancle" />
+
+            <Button
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+                android:text="是"
+                android:gravity="center"
+                android:background="@drawable/net_step_bg"
+                android:textColor="@color/white"
+                android:id="@+id/positive" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

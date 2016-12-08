@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 购物车浮窗 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_error"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#f6f6f6"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/load_err_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="我已经很努力了，奈何网络不给力~" />
+    <ImageView
+        android:id="@+id/load_err_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/load_err_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dip"
+        android:contentDescription="@null"
+        android:src="@drawable/image_noloading" />
+
+    <Button
+        android:id="@+id/reload_bu"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_below="@id/load_err_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/button_white_selector"
+        android:text="@string/load_reload" />
+
+</RelativeLayout>

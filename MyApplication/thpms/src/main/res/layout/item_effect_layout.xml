@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/bg_gray"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/shopping_card_selector">
+
+        <ImageView
+            android:id="@+id/sp_bg"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rainbow_shoppingcard_placeholder"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/sp_bg"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="余额:"
+            android:textSize="@dimen/text_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textColor="@color/black"
+            android:id="@+id/tv_ye"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/tv_ye"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_red"
+            android:text="￥ 500"
+            android:id="@+id/tv_amount" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="永久有效"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/tv_explain" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

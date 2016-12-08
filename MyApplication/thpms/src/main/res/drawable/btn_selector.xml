@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "@drawable/ok1"表示未点击按钮时的图片 -->
+<!-- "@drawable/ok2"表示点击按钮时的图片 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:state_pressed="false"
+        android:drawable="@color/white"
+        />
+    <item
+        android:state_pressed="true"
+        android:drawable="@color/gray"
+        />
+</selector>

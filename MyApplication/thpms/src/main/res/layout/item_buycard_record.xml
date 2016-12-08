@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/unit_height"
+            android:layout_margin="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/date_time"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:text="2016-08-2 15:15:06"
+                android:textColor="@color/text_dark_gray"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总金额"
+                android:id="@+id/tv_sum"
+                android:layout_below="@+id/date_time"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥ 5000"
+                android:textColor="@color/text_red"
+                android:layout_below="@+id/date_time"
+                android:layout_toRightOf="@+id/tv_sum"
+                android:layout_marginTop="10dp"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_gray"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="right|center_vertical"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:textColor="@color/text_gray"
+            android:text="订单详情 >"/>
+    </LinearLayout>
+
+</LinearLayout>

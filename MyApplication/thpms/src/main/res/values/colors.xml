@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparen_color">#00000000</color>
+    <color name="trans_black">#ae323232</color>
+    <color name="red">#E31D1A</color>
+    <color name="white">#ffffff</color>
+    <color name="title_color">#000000</color>
+    <color name="black">#323232</color>
+    <color name="gray">#f6f6f6</color>
+    <color name="text_gray">#999999</color>
+    <color name="text_dark_gray">#343434</color>
+    <color name="line_gray">#dcdcdc</color>
+    <color name="dark_blue">#FF0079FF</color>
+    <color name="text_red">#fe473c</color>
+    <color name="text_light_gray">#9b9b9b</color>
+    <color name="card_bg_red">#ff5b91</color>
+    <color name="step_green">#95CF23</color>
+    <color name="light_blue">#70DCF7</color>
+    <color name="stone">#DDD5AD</color>
+    <color name="base_red">#fe473C</color>
+    <color name="th_color_black">#ff000000</color>
+    <color name="pay_text_color">#999999</color>
+    <color name="bg_gray">#f6f6f6</color>
+    <color name="xys">#55292421</color>
+    <color name="thirty_two">#323232</color>
+</resources>

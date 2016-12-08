@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/tv_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:text="预览效果
+            "/>
+        <ImageView
+            android:id="@+id/img_middle"
+            android:layout_below="@+id/tv_top"
+            android:layout_width="250dp"
+            android:layout_centerInParent="true"
+            android:layout_height="120dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@drawable/bg1"/>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/unit_height"
+            android:background="@drawable/u349"
+            android:text="使用卡片背景"
+            android:textColor="@color/white"
+            android:layout_below="@+id/img_middle"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+    </RelativeLayout>
+
+</LinearLayout>

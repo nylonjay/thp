@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <cn.rainbow.thbase.ui.pulltorefresh.PullToRefreshListView
+        android:id="@+id/common_list_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dip"
+        app:isAutoPullUp="true"
+        android:scrollbars="none"
+        android:visibility="invisible"
+        android:fadingEdge="none" />
+    <ViewStub
+        android:id="@+id/common_list_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/vs_load_err"/>
+
+    <ViewStub
+        android:id="@+id/common_list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/vs_message_empty"/>
+
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="RAINBOW">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/RAINBOW.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

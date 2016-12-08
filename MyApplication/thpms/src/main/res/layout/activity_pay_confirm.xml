@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:fitsSystemWindows="false"
+    tools:context="thp.csii.com.activities.PayConfirmActivity">
+
+    <TextView
+        android:id="@+id/order_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="红领巾订单-100321321"
+        android:textSize="14dp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/order_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_info"
+        android:layout_marginTop="20dp"
+        android:text=""
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit_height"
+        android:background="@drawable/net_step_bg"
+        android:text="立即支付"
+        android:textSize="14dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:id="@+id/btn_pay"
+        android:layout_below="@+id/order_amount"
+        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true" />
+
+    <View
+        android:id="@+id/view_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-50dp"
+        android:alpha="0.5"
+        android:visibility="gone"
+        android:background="@color/black"/>
+
+
+</RelativeLayout>

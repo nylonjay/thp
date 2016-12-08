@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="thp.csii.com.activities.ChargeSucceedActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/icon_charge_succed"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@color/white">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/u129"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="付款成功"
+                    android:textColor="@color/text_red"
+                    android:layout_margin="5dp"/>
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/white">
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="查看购物卡"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/shape_input_area"/>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="返回虹支付"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/shape_input_area"/>
+        </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/unit_height"
+                android:gravity="center_vertical|left"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textColor="@color/black"
+                android:text="购物卡详情"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line_gray"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_dark_gray"
+                android:text="将购物卡赠好友?"
+                android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:textColor="@color/text_gray"
+                android:text="@string/first_way"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_gray"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="8dp"
+                android:text="@string/second_way"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_dark_gray"
+                android:text="自己使用购物卡?"
+                android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:textColor="@color/text_gray"
+                android:text="@string/use_card_myself"/>
+
+            <ListView
+                android:id="@+id/cardlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/unit_height"
+                android:background="@drawable/u349"
+                android:text="绑定"
+                android:textColor="@color/white"
+                android:layout_below="@+id/read_checkbox"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

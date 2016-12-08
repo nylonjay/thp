@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- 购物车浮窗 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_has_not_re"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+
+
+    <ImageView android:id="@+id/message_not_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_nosp"
+        android:layout_centerInParent="true"
+        />
+    <TextView
+        android:id="@+id/tv_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无购物卡哦~"
+        android:textColor="@color/text_gray"
+        android:layout_below="@+id/message_not_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+</RelativeLayout>

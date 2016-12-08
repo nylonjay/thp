@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="buy_card_record" type="id">买卡记录</item>
+    <item name="forget_password" type="id">忘记密码</item>
+</resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="thp.csii.com.activities.MessageAuthActivity">
+
+    <LinearLayout
+        android:id="@+id/words"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:text="@string/send_mesage"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13556873047"
+            android:textColor="@color/red"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ed_btn"
+        android:layout_below="@+id/words"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="@dimen/unit_height"
+        android:orientation="horizontal">
+
+
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/u45"
+            android:hint="请输入验证码"
+            android:textColor="@color/text_gray"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:layout_weight="8"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="获取验证码"
+            android:textColor="@color/text_gray"
+            android:background="@drawable/u97"
+            android:id="@+id/btn_sms" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next_step"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit_height"
+        android:background="@drawable/u32"
+        android:text="下一步"
+        android:layout_below="@+id/ed_btn"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+    <!--
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+        -->
+
+</RelativeLayout>

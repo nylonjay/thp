@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="thp.csii.com.activities.Pay_SettingActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--<include layout="@layout/pay_settin_re1"-->
+            <!--&gt;</include>-->
+        <!--<include layout="@layout/pay_setting_re2"></include>-->
+        <include layout="@layout/pay_setting_re3"></include>
+        <include layout="@layout/pay_setting_re4"></include>
+        <!--隐藏页面  -->
+
+        <!--<include layout="@layout/pay_setting_re5"></include>-->
+        <include layout="@layout/pay_setting_re6"></include>
+        <!--隐藏页面 -->
+        <!--<include layout="@layout/pay_setting_re7"></include>-->
+        <include layout="@layout/pay_setting_re8"></include>
+        <!--隐藏页面 -->
+
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

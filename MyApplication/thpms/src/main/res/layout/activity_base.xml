@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_basetitle_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
+    <LinearLayout
+        android:id="@+id/ll_basetitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="0dp"
+            android:background="@drawable/btn_selector"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/tv_basetitle_back"
+                android:layout_width="12dp"
+                android:layout_height="20dp"
+
+                />
+            <TextView
+                android:id="@+id/tv_cancle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                android:textSize="14dp"
+                android:visibility="gone"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8">
+            <TextView
+                android:id="@+id/tv_basetitle_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="标题"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/btn_selector"
+            android:layout_weight="2">
+            <ImageView
+                android:id="@+id/tv_basetitle_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
