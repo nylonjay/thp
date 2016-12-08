@@ -211,6 +211,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private void findView() {
         LogUtil.e(BaseActivity.this,"test,pust");
+        System.out.print("sdasdaiushduiahsdiuh");
         tv_cancle= (TextView) findViewById(R.id.tv_cancle);
         llRoot = (RelativeLayout) findViewById(R.id.ll_basetitle_root);
         llBasetitleBack = (LinearLayout) findViewById(R.id.ll_basetitle_back);
