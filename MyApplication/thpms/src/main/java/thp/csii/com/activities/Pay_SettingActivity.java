@@ -104,16 +104,15 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
 
                     break;
                 case 3:
-                    LogUtil.e(Pay_SettingActivity.this,"修改成功以后hf_str=="+hf_str);
-                    if (hf_str.equals("0")){
+                    if (null!=hf_str&&hf_str.equals("0")){
                         shswitchview1.setOn(false);
                         re_pf.setVisibility(View.GONE);
-                    }else if (hf_str.equals("1")){
+                    }else if (null!=hf_str&&hf_str.equals("1")){
                         shswitchview1.setOn(true);
                         re_pf.setVisibility(View.VISIBLE);
                         tv_pf_hwm.setText(pf_hwm+"/笔");
                     }
-                    new Thread(thread).start();
+                    //new Thread(thread).start();
                     break;
                 case 5:
                     ModifyPaySetting(HttpUrls.modifyPayFunConfirm);
@@ -309,9 +308,9 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         LogUtil.e(Pay_SettingActivity.this,"hf_st=="+hf_str);
         param.put("pin_data",pwd);
         param.put("pf_flag",Math.abs(Integer.parseInt(hf_str)-1)+"");
-        param.put("day_hwm","200.00");
-        param.put("pay_hwm","200.00");
-        param.put("pf_hwm","200.00");
+        param.put("day_hwm","20000.00");
+        param.put("pay_hwm","20000.00");
+        param.put("pf_hwm","20000.00");
         param.put("resToken",token.getUniqueId());
         param.put("pf_day_hwm",pf_day_hwm);
         param.put("pcode_flag",pcode_flag);
@@ -328,13 +327,12 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res=json.getJSONObject("res");
                 if (null!=res){
-                    JSONObject dataMap=res.getJSONObject("dataMap");
-                   // JSONObject rsvc=dataMap.getJSONObject("rsvc");
                     if ("0000".equals(res.getString("status"))){
-                        if (hf_str.equals("1")){
-                            hf_str="0";
-                        }else if (hf_str.equals("0")){
-                            hf_str="1";
+                        JSONObject dataMap=res.getJSONObject("dataMap");
+                        JSONObject rsvc=dataMap.getJSONObject("rsvc");
+                        if (null!=rsvc){
+                            hf_str=rsvc.getString("pfFlag");
+                            LogUtil.e(Pay_SettingActivity.this,"修改成功以后hf_str=="+hf_str);
                         }
                         hand.sendEmptyMessage(3);
                     }else{

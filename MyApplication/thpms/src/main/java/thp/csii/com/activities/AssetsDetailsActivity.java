@@ -20,7 +20,6 @@ public class AssetsDetailsActivity extends BaseActivity implements View.OnClickL
         setBackView(R.drawable.u194);
         setTitleText(R.string.assets_detail);
         imageViewBack.setOnClickListener(this);
-        //sadasdasda
     }
 
     @Override
