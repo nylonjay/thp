@@ -22,6 +22,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.com.csii.mobile.http.util.LogUtil;
 import thp.csii.com.activities.AuthenticationActivity;
 import thp.csii.com.activities.SetFastPayCodeActivity;
 import thp.csii.com.activities.SetPayCode_First_Activity;
@@ -209,6 +210,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void findView() {
+        LogUtil.e(BaseActivity.this,"test,pust");
         tv_cancle= (TextView) findViewById(R.id.tv_cancle);
         llRoot = (RelativeLayout) findViewById(R.id.ll_basetitle_root);
         llBasetitleBack = (LinearLayout) findViewById(R.id.ll_basetitle_back);
