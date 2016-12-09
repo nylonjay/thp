@@ -227,10 +227,10 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
         param.put("pin_data",true_peed.getValue(timestamp));
         param.put("resToken",token.getUniqueId());
         param.put("pcode_flag","1");
-        param.put("pay_hwm","200.00");
-        param.put("pf_day_hwm","200.00");
-        param.put("day_hwm","200.00");
-        param.put("pf_hwm","200.00");
+        param.put("pay_hwm","300.00");
+        param.put("pf_day_hwm","500.00");
+        param.put("day_hwm","300.00");
+        param.put("pf_hwm","300.00");
         param.put("pf_flag","1");
         String url =  Constant.SERVERHOST + Constant.AppName + mUrl;
         headers.put("Accept-Language", "zh-CN,zh;q=0.8");

@@ -28,6 +28,7 @@ public class Pay_Set_Pre extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class));
+               // Pay_Set_Pre.this.finish();
             }
         });
         ll_back= (LinearLayout) findViewById(R.id.ll_back);

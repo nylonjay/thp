@@ -1,5 +1,6 @@
 package thp.csii.com.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,7 +29,7 @@ public class SelectHwmActivity extends BaseActivity {
     private HwmAdaper mAdapter;
     private int selection=0;
     private LinearLayout ll_back;
-    private int postion;
+    private int  mpostion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,9 @@ public class SelectHwmActivity extends BaseActivity {
         setTitleText(R.string.select_hwm);
         setBackView(R.drawable.u194);
         slist.add(hwm1);slist.add(hwm2);slist.add(hwm3);
-        postion=getIntent().getIntExtra("postion",0);
+        mpostion=getIntent().getIntExtra("postion",0);
 
-        cuarr=slist.get(postion);
+        cuarr=slist.get(mpostion);
         initViews();
     }
 
@@ -59,6 +60,10 @@ public class SelectHwmActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mAdapter.selectHwm((int) id);
+                Intent in=new Intent();
+                in.putExtra("hwm",cuarr[position]);
+                SelectHwmActivity.this.setResult(RESULT_OK,in);
+                SelectHwmActivity.this.finish();
             }
         });
     }

@@ -51,6 +51,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
     private String hf_str;
     private String pwd;
     private boolean shsready=false;
+    String action;
     /**
      *Pay_SettingActivity  付款设置
      *@author nylon
@@ -65,13 +66,14 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         pwd=getIntent().getStringExtra("pwd");
         setBackView(R.drawable.u194);
         setTitleText(R.string.pay_set);
+        showProDialog();
+        new Thread(thread).start();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        showProDialog();
-        new Thread(thread).start();
+
     }
     Runnable thread = new Runnable() {
         @Override
@@ -112,6 +114,8 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                         re_pf.setVisibility(View.VISIBLE);
                         tv_pf_hwm.setText(pf_hwm+"/笔");
                     }
+                    tv_pay_hwm.setText(pay_hwm+"/笔");
+                    tv_day_hwm.setText(day_hwm+"/笔");
                     //new Thread(thread).start();
                     break;
                 case 5:
@@ -236,6 +240,9 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                 if (isOn) {
                     tv_hide_string1.setVisibility(View.VISIBLE);
                     re_pf.setVisibility(View.VISIBLE);
+                    if (null==pf_hwm){
+                        pf_hwm="300.00";
+                    }
                     tv_pf_hwm.setText(pf_hwm);
                 } else {
                     tv_hide_string1.setVisibility(View.GONE);
@@ -244,7 +251,8 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                 LogUtil.e(Pay_SettingActivity.this,"onswitch");
                 if (null!=hf_str&&shsready){
                     LogUtil.e(Pay_SettingActivity.this,"更改之前的值为:"+aa);
-                   // LogUtil.e(Pay_SettingActivity.this,"更改之后的值:"+hf_str);
+                    // LogUtil.e(Pay_SettingActivity.this,"更改之后的值:"+hf_str);
+                    action="switch";
                     showDialog(true);
                     new Thread(sendable).start();
                 }
@@ -303,16 +311,22 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         httpControl.TimeOut = 20 * 1000;
         Map<String, String> headers = new HashMap<String, String>();
         Map<String, String> param = new HashMap<String, String>();
-        //  true_peed.setPublicKey(TianHongPayMentUtil.PUBLICKEY);
-        //  String timestamp=Long.toString(token.getAccessDate());
         LogUtil.e(Pay_SettingActivity.this,"hf_st=="+hf_str);
         param.put("pin_data",pwd);
-        param.put("pf_flag",Math.abs(Integer.parseInt(hf_str)-1)+"");
-        param.put("day_hwm","20000.00");
-        param.put("pay_hwm","20000.00");
-        param.put("pf_hwm","20000.00");
+        if (action.equals("switch")){
+            param.put("pf_flag",Math.abs(Integer.parseInt(pf_flag)-1)+"");
+        }else{
+            param.put("pf_flag",pf_flag);
+        }
+        param.put("day_hwm",day_hwm);
+        param.put("pay_hwm",pay_hwm);
+        param.put("pf_hwm",pf_hwm);
         param.put("resToken",token.getUniqueId());
-        param.put("pf_day_hwm",pf_day_hwm);
+        if(null!=pf_day_hwm){
+            param.put("pf_day_hwm",pf_day_hwm);
+        }else {
+            param.put("pf_day_hwm","500.00");
+        }
         param.put("pcode_flag",pcode_flag);
         String url =  Constant.SERVERHOST + Constant.AppName + mUrl;
         headers.put("Accept-Language", "zh-CN,zh;q=0.8");
@@ -331,7 +345,15 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                         JSONObject dataMap=res.getJSONObject("dataMap");
                         JSONObject rsvc=dataMap.getJSONObject("rsvc");
                         if (null!=rsvc){
-                            hf_str=rsvc.getString("pfFlag");
+                            pay_hwm=rsvc.getString("payHwm");
+                            day_hwm=rsvc.getString("dayHwm");
+                            pf_hwm=rsvc.getString("pfHwm");
+                            pf_flag=rsvc.getString("pfFlag");
+                            pcode_flag=rsvc.getString("pcodeFlag");
+                            pf_day_hwm=rsvc.getString("pfdayHwm");
+                            hf_str=pf_flag;
+                            LogUtil.e(Pay_SettingActivity.this,"modify:"+"pay_hwm="+pay_hwm+"day_hwm="+day_hwm+"pf_hwm="+pf_hwm
+                                    +"pf_flag=="+pf_flag+"pcodeflag=="+pcode_flag+"pf_dayhwm==="+pf_day_hwm);
                             LogUtil.e(Pay_SettingActivity.this,"修改成功以后hf_str=="+hf_str);
                         }
                         hand.sendEmptyMessage(3);
@@ -365,17 +387,43 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         if (i == R.id.re_pf) {
             in=new Intent(Pay_SettingActivity.this,SelectHwmActivity.class);
             in.putExtra("postion",0);
-            startActivity(in);
+            startActivityForResult(in,101);
         }else if (i==R.id.re_pay){
             in=new Intent(Pay_SettingActivity.this,SelectHwmActivity.class);
             in.putExtra("postion",1);
-            startActivity(in);
+            startActivityForResult(in,102);
         }else if (i==R.id.re_day){
             in=new Intent(Pay_SettingActivity.this,SelectHwmActivity.class);
             in.putExtra("postion",2);
-            startActivity(in);
+            startActivityForResult(in,103);
         }
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //   super.onActivityResult(requestCode, resultCode, data);
+        //  ToastUtil.shortNToast(Pay_SettingActivity.this,"requesCode=="+requestCode);
+        LogUtil.e(Pay_SettingActivity.this,"onactivityresult"+"resultcode=="+resultCode+"requestcode=="+requestCode);
+        if (resultCode==RESULT_OK){
+            action="result";
+            ToastUtil.shortNToast(Pay_SettingActivity.this,"requesCode=="+requestCode);
+            switch (requestCode){
+                case 101:
+                    pf_hwm=data.getStringExtra("hwm");
+                    new Thread(sendable).start();
+                    break;
+                case 102:
+                    pay_hwm=data.getStringExtra("hwm");
+                    new Thread(sendable).start();
+                    break;
+                case 103:
+                    day_hwm=data.getStringExtra("hwm");
+                    new Thread(sendable).start();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

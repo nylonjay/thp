@@ -58,6 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/re_bottom"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
         android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
@@ -65,9 +67,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:paddingTop="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="30dp"
             android:gravity="center"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:drawableTop="@drawable/icon_yue"
             android:text="绑定购物卡"/>
@@ -75,8 +77,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:paddingTop="@dimen/activity_horizontal_margin"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:layout_marginRight="30dp"
             android:drawableTop="@drawable/icon_yue"
@@ -93,7 +95,7 @@
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="fill_parent"
             android:background="@drawable/qrshape"
             android:orientation="vertical">
             <TextView
@@ -103,14 +105,15 @@
                 android:text="总资产"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:textSize="14dp"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/text_gray"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/tv_title"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -118,13 +121,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:textSize="10sp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
                     android:text="￥"/>
                 <TextView
                     android:id="@+id/tv_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
+                    android:textSize="30dp"
                     android:text="--"/>
             </LinearLayout>
 
@@ -132,7 +136,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="-15dp"
+                android:layout_marginLeft="-16dp"
                 android:layout_marginTop="100dp"
                 android:layout_alignParentLeft="true"
                 android:src="@drawable/oval"/>
@@ -140,7 +144,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="-15dp"
+                android:layout_marginRight="-16dp"
                 android:layout_marginTop="100dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/oval"/>
@@ -148,16 +152,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:id="@+id/xuxian"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
                 android:background="@drawable/pay_bg_line"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="115dp"/>
 
             <TextView
                 android:id="@+id/tv_goldcard"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="95dp"
                 android:background="@drawable/stone"
                 android:layout_centerHorizontal="true"
@@ -172,17 +176,17 @@
                 android:text="  "
                 android:layout_below="@+id/tv_goldcard"
                 android:layout_centerHorizontal="true"
-                android:textSize="25sp"
+                android:textSize="20dp"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+                android:layout_marginTop="8dp"/>
 
             <ImageView
                 android:id="@+id/img_yiweima"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="96dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/tv_code"
                 android:layout_centerHorizontal="true" />
             <ImageView
@@ -192,13 +196,14 @@
                 android:src="@drawable/cancle_bg"
                 android:layout_below="@+id/img_yiweima"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+                android:layout_marginTop="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="7dp"
                 android:text="每分钟自动更新"
                 android:layout_centerHorizontal="true"
+                android:textSize="12dp"
                 android:layout_below="@+id/img_ewm"
                 android:textColor="@color/text_gray"
                 android:id="@+id/tv_min"/>
