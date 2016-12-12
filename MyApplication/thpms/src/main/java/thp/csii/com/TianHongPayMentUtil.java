@@ -344,7 +344,8 @@ public class TianHongPayMentUtil {
                     //开始验证支付密码
                     break;
                 case 404:
-                    ToastUtil.shortToast(CurrentContext,"服务器无响应");
+                   // ToastUtil.shortToast(CurrentContext,"服务器无响应");
+                    mPayOrderListener.OnNetWorkError();
 
                     break;
                 case 20:
