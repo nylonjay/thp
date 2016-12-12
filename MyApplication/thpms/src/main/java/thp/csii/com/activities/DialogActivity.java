@@ -41,6 +41,7 @@ import cn.com.csii.mobile.http.ResultInterface;
 import cn.com.csii.mobile.http.util.LogUtil;
 import thp.csii.com.BaseActivity;
 import thp.csii.com.BaseTokenActivity;
+import thp.csii.com.QRPaySuccedActivity;
 import thp.csii.com.R;
 import thp.csii.com.TianHongPayMentUtil;
 import thp.csii.com.callback.PeedChangeListener;
@@ -271,7 +272,6 @@ public class DialogActivity extends Activity {
         if (null!=chanl){
             param.put("chanl",chanl);
         }
-        // param.put("pcode","1008645423131");
         String timestamp=String.valueOf(token.getAccessDate());
         true_peed.setPublicKey(TianHongPayMentUtil.PUBLICKEY);
         param.put("pin_data",true_peed.getValue(timestamp));
@@ -295,6 +295,10 @@ public class DialogActivity extends Activity {
                    // showMyToastAutoDismiss(res.getString("msg"));
                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(json.toJSONString());
                     true_peed.clear();
+                    if (TianHongPayMentUtil.from.equals("qr")){
+                        Intent in=new Intent(DialogActivity.this, QRPaySuccedActivity.class);
+                        startActivity(in);
+                    }
                     for (Activity a:TianHongPayMentUtil.pwdactivities){
                         a.finish();
                     }
@@ -336,10 +340,7 @@ public class DialogActivity extends Activity {
                         true_peed.clear();
                         //dialog.dismiss();
                     }
-
                 }
-              //  StopPregressImage();
-               /// hand.sendEmptyMessage(0);
             }
             @Override
             public void onError(Object o) {

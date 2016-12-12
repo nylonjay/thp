@@ -52,4 +52,5 @@
     <string name="sp_detail">购物卡详情</string>
     <string name="pay_set">支付设置</string>
     <string name="select_hwm">选择金额</string>
+    <string name="pay_success">付款成功</string>
 </resources>

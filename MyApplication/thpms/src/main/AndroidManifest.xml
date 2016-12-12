@@ -223,7 +223,8 @@
             android:theme="@style/activityTransulentTheme" />
         <activity android:name=".activities.Pay_Set_Pre" />
         <activity android:name=".activities.DetailUsedCardActivity" />
-        <activity android:name=".activities.SelectHwmActivity"></activity>
+        <activity android:name=".activities.SelectHwmActivity" />
+        <activity android:name=".QRPaySuccedActivity"></activity>
     </application>
 
 </manifest>

@@ -8,10 +8,26 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.administrator.hnnnn.MaddeActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btn_test"
+            android:text="点击测试otid" />
     <Button
         android:layout_width="150dp"
         android:layout_height="80dp"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/btn_getqr"
@@ -20,7 +36,6 @@
         android:layout_width="150dp"
         android:layout_height="80dp"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_below="@+id/btn_getqr"
         android:layout_centerHorizontal="true"
         android:id="@+id/btn_pay"
         android:text="点击开始订单支付" />
@@ -30,7 +45,6 @@
         android:layout_centerInParent="true"
         android:layout_height="80dp"
         android:id="@+id/btn_main"
-        android:layout_below="@+id/btn_pay"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="点击跳转到虹支付首页" />
     <Button
@@ -38,7 +52,6 @@
         android:layout_centerInParent="true"
         android:layout_height="80dp"
         android:id="@+id/btn_qry"
-        android:layout_below="@+id/btn_main"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="获取红包余额" />
 
@@ -47,7 +60,8 @@
         android:layout_centerInParent="true"
         android:layout_height="80dp"
         android:id="@+id/btn_QR"
-        android:layout_below="@+id/btn_qry"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="请求付款码" />
+    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

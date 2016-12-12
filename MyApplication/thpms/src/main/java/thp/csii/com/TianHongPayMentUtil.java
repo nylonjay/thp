@@ -285,7 +285,7 @@ public class TianHongPayMentUtil {
             System.err.println("授权登录发生错误!" + e.getMessage());
             hand.sendEmptyMessage(404);
             mPayOrderListener.OnAcessLoginFailed();
-           // hand.sendEmptyMessage(406);
+            // hand.sendEmptyMessage(406);
 
         }
     }
@@ -394,7 +394,7 @@ public class TianHongPayMentUtil {
                         pcode=dataMap.getString("pcode");
                         ent_mode=dataMap.getString("ent_mode");
                         hand.sendEmptyMessage(1);//开始查询账户信息
-                       // b.putString("chanl");
+                        // b.putString("chanl");
                     }else {
                         mPayOrderListener.PayFailed(res.getString("errmsg"));
                     }
@@ -442,6 +442,12 @@ public class TianHongPayMentUtil {
                 if ("0000".equals(res.getString("status"))) {
                     ToastUtil.shortToast(CurrentContext, res.getString("msg"));
                     mPayOrderListener.PaySucced(json.toJSONString());
+                    if ("qr".equals(from)){
+                        Intent in = new Intent(CurrentContext,QRPaySuccedActivity.class);
+                        in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        in.putExtra("amount",currentOder.getAmount());
+                        CurrentContext.startActivity(in);
+                    }
                     // PayConfirmActivity.this.onPaySuccess(res.getString("msg"));
                 } else if ("4444".equals(res.getString("status"))) {
                     mPayOrderListener.PayFailed(json.toJSONString());
@@ -589,7 +595,7 @@ public class TianHongPayMentUtil {
         new Thread(getqr).start();
 
     }
-    private String from;
+    public static String from;
     public void GetQRSecrectMessage(String msg){
         String a=msg.substring(msg.indexOf("&"),msg.length());
         otid=a.substring(a.indexOf("="),a.length());
