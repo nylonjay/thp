@@ -18,16 +18,16 @@ public class AssetsDetailsActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assets_details);
         setBackView(R.drawable.u194);
-        setTitleText(R.string.assets_detail);
         imageViewBack.setOnClickListener(this);
+        setTitleText(R.string.assets_detail);
     }
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_basetitle_back) {
-            AssetsDetailsActivity.this.finish();
-
+            AssetsDetailsActivity.this.finish();//dwdwd
+            //wdk;wkd;lwk
         }
     }
 }
