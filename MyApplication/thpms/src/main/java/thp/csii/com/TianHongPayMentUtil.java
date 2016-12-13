@@ -596,7 +596,7 @@ public class TianHongPayMentUtil {
         new Thread(getqr).start();
 
     }
-    public static String from;
+    public static String from="";
     public void GetQRSecrectMessage(String msg){
         String a=msg.substring(msg.indexOf("&"),msg.length());
         otid=a.substring(a.indexOf("="),a.length());
