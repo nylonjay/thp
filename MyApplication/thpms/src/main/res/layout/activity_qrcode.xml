@@ -148,13 +148,13 @@
                 android:layout_marginTop="100dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/oval"/>
-            <View
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:id="@+id/xuxian"
                 android:layout_marginLeft="17dp"
                 android:layout_marginRight="17dp"
-                android:background="@drawable/pay_bg_line"
+                android:src="@drawable/pay_bg_line"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="115dp"/>
 

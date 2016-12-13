@@ -66,7 +66,7 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madde);
         // initData();
-        Constant.setSERVERHOST("http://192.168.208.136:8080");
+        Constant.setSERVERHOST("http://192.168.163.38:8080");
         btn_test= (Button) findViewById(R.id.btn_test);
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
