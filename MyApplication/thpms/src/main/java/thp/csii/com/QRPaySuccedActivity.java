@@ -20,6 +20,7 @@ public class QRPaySuccedActivity extends BaseActivity {
         setBackView(R.drawable.u194);
         amount=getIntent().getStringExtra("amount");
         initViews();
+        //nylon 2016.12.13
     }
 
     private void initViews() {
