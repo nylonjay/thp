@@ -283,8 +283,9 @@ public class TianHongPayMentUtil {
 
         } catch (Exception e) {
             System.err.println("授权登录发生错误!" + e.getMessage());
-            hand.sendEmptyMessage(404);
-            mPayOrderListener.OnAcessLoginFailed();
+          //  hand.sendEmptyMessage(404);
+            //mPayOrderListener.OnAcessLoginFailed();
+            mQryAmountListner.OnQryAmountHBYEFailed("授权错误");
             // hand.sendEmptyMessage(406);
 
         }
@@ -345,7 +346,7 @@ public class TianHongPayMentUtil {
                     break;
                 case 404:
                    // ToastUtil.shortToast(CurrentContext,"服务器无响应");
-                    mPayOrderListener.OnNetWorkError();
+                   // mPayOrderListener.OnNetWorkError();
 
                     break;
                 case 20:
