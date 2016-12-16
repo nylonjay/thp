@@ -391,6 +391,7 @@ public class TianHongPayMentUtil {
                 JSONObject res=json.getJSONObject("res");
                 if (null!=res){
                     if (res.getString("status").equals("0000")){
+                        LogUtil.e(TianHongPayMentUtil.CurrentContext,res.toJSONString());
                         JSONObject dataMap=res.getJSONObject("dataMap");
                         chanl=dataMap.getString("chanl");
                         pcode=dataMap.getString("pcode");
@@ -442,17 +443,17 @@ public class TianHongPayMentUtil {
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res = json.getJSONObject("res");
                 if ("0000".equals(res.getString("status"))) {
-                    ToastUtil.shortToast(CurrentContext, res.getString("msg"));
-                    mPayOrderListener.PaySucced(json.toJSONString());
+                    JSONObject dataMap=res.getJSONObject("dataMap");
+                    mPayOrderListener.PaySucced(res.getString("msg"));
                     if ("qr".equals(from)){
                         Intent in = new Intent(CurrentContext,QRPaySuccedActivity.class);
                         in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        in.putExtra("amount",currentOder.getAmount());
+                        in.putExtra("amount",dataMap.getString("trsAmt"));
                         CurrentContext.startActivity(in);
                     }
                     // PayConfirmActivity.this.onPaySuccess(res.getString("msg"));
                 } else if ("4444".equals(res.getString("status"))) {
-                    mPayOrderListener.PayFailed(json.toJSONString());
+                    mPayOrderListener.PayFailed(res.getString("errmsg"));
                     if (res.getString("errcode").equals("00005")){//令牌校验失败
                         ToastUtil.shortToast(CurrentContext,res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("00013")){//用户会话失效
@@ -632,8 +633,6 @@ public class TianHongPayMentUtil {
                 JSONObject res = json.getJSONObject("res");
                 if (null != res) {
                     if ("0000".equals(res.getString("status"))){
-
-
                         JSONObject datamap = res.getJSONObject("dataMap");
                         if (null != datamap) {
                             JSONObject rsvc = datamap.getJSONObject("rsvc");

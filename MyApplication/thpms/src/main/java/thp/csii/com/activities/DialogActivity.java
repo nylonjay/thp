@@ -289,14 +289,17 @@ public class DialogActivity extends Activity {
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res = json.getJSONObject("res");
                 //myprogress.setVisibility(View.INVISIBLE);
+                LogUtil.e(TianHongPayMentUtil.CurrentContext,"扫码支付之后 res=="+res.toJSONString());
                 StopPregressImage();
                 if ("0000".equals(res.getString("status"))) {
                 //    ToastUtil.shortToast(DialogActivity.this,res.getString("msg"));
                    // showMyToastAutoDismiss(res.getString("msg"));
-                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(json.toJSONString());
+                    JSONObject dataMap=res.getJSONObject("dataMap");
+                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
                     true_peed.clear();
                     if (TianHongPayMentUtil.from.equals("qr")){
                         Intent in=new Intent(DialogActivity.this, QRPaySuccedActivity.class);
+                        in.putExtra("amount",dataMap.getString("trsAmt"));
                         startActivity(in);
                     }
                     for (Activity a:TianHongPayMentUtil.pwdactivities){
