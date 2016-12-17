@@ -170,8 +170,6 @@ public class DialogActivity extends Activity {
         attr.inScrollView=false;
         true_peed.initialize(attr,DialogActivity.this);//新初始化方法，用户
         true_peed.addTextChangedListener(new PeedChangeListener(true_peed,hand));
-
-
         peds=new TextView[6];
         pe1= (TextView) findViewById(R.id.password_edit1);
         pe2= (TextView) findViewById(R.id.password_edit2);
@@ -216,7 +214,7 @@ public class DialogActivity extends Activity {
                    // overridePendingTransition(R.anim.activity_close,0);
                     break;
                 case 5:
-                    LogUtil.e(DialogActivity.this,"开始订单消费");
+                    LogUtil.e(DialogActivity.this,"开始非免密订单消费");
                     PayOrders(HttpUrls.oderCounsume);
                     break;
                 case 101:
@@ -292,7 +290,7 @@ public class DialogActivity extends Activity {
                 LogUtil.e(TianHongPayMentUtil.CurrentContext,"扫码支付之后 res=="+res.toJSONString());
                 StopPregressImage();
                 if ("0000".equals(res.getString("status"))) {
-                //    ToastUtil.shortToast(DialogActivity.this,res.getString("msg"));
+                //ToastUtil.shortToast(DialogActivity.this,res.getString("msg"));
                    // showMyToastAutoDismiss(res.getString("msg"));
                     JSONObject dataMap=res.getJSONObject("dataMap");
                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
