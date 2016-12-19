@@ -308,6 +308,9 @@ public class DialogActivity extends Activity {
                     if (res.getString("errcode").equals("55")){
                         initChanceDialog(res.getJSONObject("dataMap").getString("pinRetry"));
                     }
+                    if (res.getString("errcode").equals("5")){
+                        ToastUtil.shortNToast(DialogActivity.this,res.getString("errmsg"));
+                    }
                     if (res.getString("errcode").equals("36")){
                         initChanceDialog("0");
                     }
