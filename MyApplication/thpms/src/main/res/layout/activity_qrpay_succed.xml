@@ -53,6 +53,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_back2"
         android:layout_below="@+id/li_2"
         android:layout_width="80dp"
         android:layout_height="30dp"

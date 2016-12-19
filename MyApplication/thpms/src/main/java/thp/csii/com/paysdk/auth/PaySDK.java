@@ -129,14 +129,23 @@ public class PaySDK {
                 JSONObject jsonurl = ConnectUtil.doPost(getaccessloginurl, params,"utf-8");
 
                 if (null == jsonurl) {
+                    if (null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("获取登录授权加密失败");
+                    }
                     throw new Exception("获取授权登录加密密钥失败!");
                 }
                 JSONObject res2 = jsonurl.getJSONObject("res");
                 if (null == res2) {
+                    if (null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("获取登录授权加密失败");
+                    }
                     throw new Exception("获取授权登录加密密钥失败!");
                 }
                 String status2 = res2.getString("status");
                 if (status2.equals("4444")) {
+                    if (null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("获取登录授权加密失败");
+                    }
                     throw new Exception("获取授权登录加密密钥失败:" + res2.getString("errcode") + " " + res2.getString("errmsg"));
                 } else {
                     url = res2.getJSONObject("dataMap").getString("redirectUrl");
@@ -146,7 +155,9 @@ public class PaySDK {
             }
 
         } catch (Exception e) {
-       //     logger.error("error generateAccessURI!", e);
+            if (null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("获取登录授权加密失败");
+            }
             e.printStackTrace();
             throw new PaymentSDKException(e.getMessage(), e);
         }

@@ -297,7 +297,7 @@ public class DialogActivity extends Activity {
                     true_peed.clear();
                     if (TianHongPayMentUtil.from.equals("qr")){
                         Intent in=new Intent(DialogActivity.this, QRPaySuccedActivity.class);
-                        in.putExtra("amount",dataMap.getString("trsAmt"));
+                        in.putExtra("amount",dataMap.getDouble("trsAmt"));
                         startActivity(in);
                     }
                     for (Activity a:TianHongPayMentUtil.pwdactivities){

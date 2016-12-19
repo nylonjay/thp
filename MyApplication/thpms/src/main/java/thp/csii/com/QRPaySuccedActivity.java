@@ -1,9 +1,11 @@
 package thp.csii.com;
 
+import android.app.Activity;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ public class QRPaySuccedActivity extends BaseActivity {
     private LinearLayout ll_back;
     private String amount;
     private TextView tv_amount;
+    private Button btn_back2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,16 @@ public class QRPaySuccedActivity extends BaseActivity {
     }
 
     private void initViews() {
+        btn_back2= (Button) findViewById(R.id.btn_back2);
+        btn_back2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (Activity a:TianHongPayMentUtil.pwdactivities){
+                    a.finish();
+                }
+                QRPaySuccedActivity.this.finish();
+            }
+        });
         tv_amount= (TextView) findViewById(R.id.tv_amount);
         if (null!=amount){
             Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
