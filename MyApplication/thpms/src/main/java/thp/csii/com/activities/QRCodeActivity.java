@@ -378,6 +378,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                                 //  nf.format(nf.parse(rsvc.getString("balAmt")).doubleValue());
                                 pinTag = rsvc.getString("pinTag");
                                 if (null != pcodeFlag && "0".equals(pcodeFlag)) {
+                                    LogUtil.e(QRCodeActivity.this,"pintag=="+pinTag);
                                     //未开启付款码支付
                                     if (pinTag.equals("00")) {
                                         TianHongPayMentUtil.CodeSetted = false;
@@ -385,12 +386,18 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                                         return;
                                     } else if (pinTag.equals("01")) {
                                         //未开启付款码支付  去开启
+                                        TianHongPayMentUtil.CodeSetted = true;
                                         startActivity(new Intent(QRCodeActivity.this,EnterCodeActivity.class));
                                         //ToastUtil.shortToast(context,"已设置支付密码");
-                                        TianHongPayMentUtil.CodeSetted = true;
                                     }
                                 }else{
-                                   // ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,"付款码已开通");
+                                    if (pinTag.equals("00")) {
+                                        TianHongPayMentUtil.CodeSetted = false;
+                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
+                                        return;
+                                    } else if (pinTag.equals("01")) {
+                                        TianHongPayMentUtil.CodeSetted = true;
+                                    }
                                 }
                                 JSONObject acclist = rsvc.getJSONObject("accList");
                                 //    acclistJson=acclist.toJSONString();
@@ -730,6 +737,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             //未设置支付密码 跳转到设置支付密码页面和短信验证页面
                             Intent in=new Intent(QRCodeActivity.this,SetPayCode_First_Activity.class);
                             in.putExtra("action","cost");
+                            in.putExtra("from","set");
                             startActivity(in);
                             // CurrentContext.startActivity(new Intent(CurrentContext,MessageAuthActivity.class));
                         }
