@@ -222,10 +222,18 @@
             android:name=".activities.InputPwdOpenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activityTransulentTheme" />
-        <activity android:name=".activities.Pay_Set_Pre" />
-        <activity android:name=".activities.DetailUsedCardActivity" />
-        <activity android:name=".activities.SelectHwmActivity" />
-        <activity android:name=".QRPaySuccedActivity"></activity>
+        <activity android:name=".activities.Pay_Set_Pre"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".activities.DetailUsedCardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".activities.SelectHwmActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".QRPaySuccedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -185,17 +185,17 @@ public class IneffectivFragment extends Fragment implements PullToRefreshListVie
             }
         });
         mListView = mWrapView.getRefreshableView();
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CardBean cb=cardBeens.get(position);
-                Intent in=new Intent(getActivity(),DetailUsedCardActivity.class);
-//                Bundle b=new Bundle();
-//                b.putSerializable("cb",cb);
-                in.putExtra("cb",cb);
-                startActivity(in);
-            }
-        });
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                CardBean cb=cardBeens.get(position);
+//                Intent in=new Intent(getActivity(),DetailUsedCardActivity.class);
+////                Bundle b=new Bundle();
+////                b.putSerializable("cb",cb);
+//                in.putExtra("cb",cb);
+//                startActivity(in);
+//            }
+//        });
         mListView.setDividerHeight(16);
         mAdapter=new effeAdapter();
 //        mListView.setAdapter(mAdapter);

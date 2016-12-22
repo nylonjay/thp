@@ -212,14 +212,14 @@ public class EffectiveFragment extends Fragment implements PullToRefreshBase.OnR
         mWrapView.setEmptyView(mEmptyView);
         //mWrapView.setErrorListener(R.id.reload_bu, this);
         mListView = mWrapView.getRefreshableView();
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent in=new Intent(getActivity(),DetailMyCardActivity.class);
-                in.putExtra("cb",cardBeens.get(position));
-                startActivity(new Intent(getActivity(),DetailMyCardActivity.class));
-            }
-        });
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent in=new Intent(getActivity(),DetailMyCardActivity.class);
+//                in.putExtra("cb",cardBeens.get(position));
+//                startActivity(new Intent(getActivity(),DetailMyCardActivity.class));
+//            }
+//        });
         mAdapter=new effeAdapter();
 //        mListView.setAdapter(mAdapter);
         mWrapView.setOnRefreshListener(this);

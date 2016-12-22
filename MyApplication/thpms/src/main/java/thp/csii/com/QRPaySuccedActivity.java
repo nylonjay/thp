@@ -31,10 +31,10 @@ public class QRPaySuccedActivity extends BaseActivity {
         btn_back2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                QRPaySuccedActivity.this.finish();
                 for (Activity a:TianHongPayMentUtil.pwdactivities){
                     a.finish();
                 }
-                QRPaySuccedActivity.this.finish();
             }
         });
         tv_amount= (TextView) findViewById(R.id.tv_amount);
