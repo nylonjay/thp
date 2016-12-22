@@ -118,7 +118,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
 //        view_bg.startAnimation(alphaAnimation);
 //        view_bg.setVisibility(View.VISIBLE);
         startActivity(new Intent(PayConfirmActivity.this,DialogActivity.class));
-        overridePendingTransition(R.anim.activity_open,0);
+       //overridePendingTransition(R.anim.activity_open,0);
         btn_pay.setClickable(false);
     }
 

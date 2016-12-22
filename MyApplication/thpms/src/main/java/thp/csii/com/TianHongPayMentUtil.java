@@ -137,22 +137,21 @@ public class TianHongPayMentUtil {
         public void run() {
             // TODO Auto-generated method stub
             try {
-                if (action.equals("qryacount"))
+                if (action.equals("qryacount")){
                     GETQryLoginToken(hand);//查询红包余额的授权登录
-                else
+                }
+                else{
                     GETLoginToken(hand);//支付预判的授权登录
-                // hand.sendEmptyMessage(1);
+                }
             } catch (Exception e) {
+                LogUtil.e(TianHongPayMentUtil.CurrentContext,"当前的action=="+action);
                 e.printStackTrace();
                 Message msg=new Message();
                 msg.obj=e.toString();
                 msg.what=406;
-                if (action.equals("predict")){
-                    hand.sendMessage(msg);
-                    // mPayOrderListener.PayFailed(e.toString());
-                }else if (action.equals("qryacount")){
-                    hand.sendMessage(msg);
-                }
+                hand.sendMessage(msg);
+
+
             }
         }
     };
@@ -258,8 +257,11 @@ public class TianHongPayMentUtil {
             hand.sendEmptyMessage(1);
 
         } catch (Exception e) {
+            if (null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
+               mPayOrderListener.PayFailed("获取登录授权加密失败");
+            }
             System.err.println("授权登录发生错误!" + e.getMessage());
-            mPayOrderListener.OnAcessLoginFailed();
+         //   mPayOrderListener.OnAcessLoginFailed();
             hand.sendEmptyMessage(404);
         }
     }
