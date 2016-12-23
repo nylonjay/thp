@@ -53,15 +53,24 @@ public class MessageAuthActivity extends BaseTokenActivity implements View.OnCli
     String code;
     private  TextView tv_cancle;
     private boolean sended=false;
+    String from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //SetStatusColor();
         setContentView(R.layout.activity_message_auth);
-        setTitleText(R.string.forget_code);
+
         action=getIntent().getStringExtra("action");
         code=getIntent().getStringExtra("pin_data");
+        from=getIntent().getStringExtra("from");
+        if (null!=from){
+            if (from.equals("forget")){
+                setTitleText(R.string.forget_code);
+            }else{
+                setTitleText(R.string.set_code);
+            }
+        }
         initViews();
         Log.i("res","sessionid="+SharePreferencesUtils.getSession(TianHongPayMentUtil.CurrentContext));
 

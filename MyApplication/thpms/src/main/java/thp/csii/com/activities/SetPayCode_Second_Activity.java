@@ -180,6 +180,7 @@ public class SetPayCode_Second_Activity extends BaseTokenActivity {
                     Intent in=new Intent(SetPayCode_Second_Activity.this,MessageAuthActivity.class);
                     in.putExtra("pin_data",code2);
                     //in.putExtra("resToken",token.getUniqueId());
+                    in.putExtra("from",from);
                     in.putExtra("action",action);
                    startActivity(in);
                     break;
