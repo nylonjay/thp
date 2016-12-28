@@ -1,5 +1,6 @@
 package thp.csii.com;
 
+import android.animation.TimeAnimator;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class QRPaySuccedActivity extends BaseActivity {
         btn_back2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced("支付成功");
                 QRPaySuccedActivity.this.finish();
                 for (Activity a:TianHongPayMentUtil.pwdactivities){
                     a.finish();
@@ -38,10 +40,12 @@ public class QRPaySuccedActivity extends BaseActivity {
             }
         });
         tv_amount= (TextView) findViewById(R.id.tv_amount);
+        Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
+        tv_amount.setTypeface(tf);
         if (null!=amount){
-            Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
-            tv_amount.setTypeface(tf);
             tv_amount.setText("￥"+amount);
+        }else{
+            tv_amount.setText("￥"+ TianHongPayMentUtil.currentOder.getAmount());
         }
         ll_back= (LinearLayout) findViewById(R.id.ll_back);
         ll_back.setOnClickListener(new View.OnClickListener() {

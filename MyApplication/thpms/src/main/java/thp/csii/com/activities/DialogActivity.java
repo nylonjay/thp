@@ -74,6 +74,7 @@ public class DialogActivity extends Activity {
     private UserDefinedDialog dia;
     private RelativeLayout enter_re;
     private String entMode,pcode,chanl;
+    private String amount;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -99,22 +100,13 @@ public class DialogActivity extends Activity {
     private void getIntenData() {
         entMode=getIntent().getStringExtra("entMode");
         pcode=getIntent().getStringExtra("pcode");
+        amount=getIntent().getStringExtra("amount");
         chanl=getIntent().getStringExtra("chanl");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-      //  true_peed.openPEKbd();
-//        hand.postDelayed(new Runnable() {
-//            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-//            @Override
-//            public void run() {
-//                // v.setAlpha(0.5f);
-//                v.setAlpha(0.5f);
-//
-//            }
-//        },700);
     }
 
     private void initDialogpess() {
@@ -293,15 +285,16 @@ public class DialogActivity extends Activity {
                 //ToastUtil.shortToast(DialogActivity.this,res.getString("msg"));
                    // showMyToastAutoDismiss(res.getString("msg"));
                     JSONObject dataMap=res.getJSONObject("dataMap");
-                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
                     true_peed.clear();
                     if (TianHongPayMentUtil.from.equals("qr")){
                         Intent in=new Intent(DialogActivity.this, QRPaySuccedActivity.class);
-                        in.putExtra("amount",dataMap.getDouble("trsAmt"));
+                        in.putExtra("amount",amount);
                         startActivity(in);
-                    }
-                    for (Activity a:TianHongPayMentUtil.pwdactivities){
-                        a.finish();
+                    }else {
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
+                        for (Activity a:TianHongPayMentUtil.pwdactivities){
+                            a.finish();
+                        }
                     }
                 }else if ("4444".equals(res.getString("status"))){
                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));

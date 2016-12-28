@@ -69,7 +69,7 @@ dependencies {
     //    }
 //    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'junit:junit:4.12'
-    compile files('libs/httpclient-cache-4.2.5.jar')
+    //compile files('libs/httpclient-cache-4.2.5.jar')
     provided 'com.google.zxing:core:3.3.0'
 
 }

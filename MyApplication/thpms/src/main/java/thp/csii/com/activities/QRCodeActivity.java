@@ -37,6 +37,7 @@ import cn.com.csii.mobile.http.util.LogUtil;
 import cn.rainbow.thbase.ui.THProgressDialog;
 import thp.csii.com.BaseActivity;
 import thp.csii.com.BaseRedActivity;
+import thp.csii.com.QRPaySuccedActivity;
 import thp.csii.com.R;
 import thp.csii.com.TianHongPayMentUtil;
 import thp.csii.com.callback.PayOrderListener;
@@ -66,7 +67,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     private String acno,chanl;
     private String otid;
     private String oid;
-    private double amount;
+    private String amount;
     private TianHongPayMentUtil tianHongPayMentUtil;
     private final PayConfig payConfig=PayConfig.newInstance();
     /**
@@ -283,6 +284,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     };
 
     private void PayOrders(String mUrl) {
+        TianHongPayMentUtil.from="qr";
         HttpControl httpControl = new HttpControl(QRCodeActivity.this);
         httpControl.TimeOut = 20 * 1000;
         Map<String, String> headers = new HashMap<String, String>();
@@ -303,9 +305,10 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res = json.getJSONObject("res");
                 if ("0000".equals(res.getString("status"))) {
-                    ToastUtil.shortToast(QRCodeActivity.this, res.getString("msg"));
-                    mPayOrderListener.PaySucced(json.toJSONString());
-                    // PayConfirmActivity.this.onPaySuccess(res.getString("msg"));
+                    Intent in=new Intent(QRCodeActivity.this, QRPaySuccedActivity.class);
+                    in.putExtra("amount",amount);
+                    startActivity(in);
+                    QRCodeActivity.this.finish();
                 } else if ("4444".equals(res.getString("status"))) {
                     LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     mPayOrderListener.PayFailed(json.toJSONString());
@@ -625,7 +628,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             ent_mode=dataMap.getString("ent_mode");
                             pcode=dataMap.getString("pcode");
                             oid=dataMap.getString("oid");
-                            amount=dataMap.getDouble("amount");
+                            amount=dataMap.getString("amount");
                             if (null!=ent_mode){
                                 //开始走支付预判
                                 LogUtil.e(QRCodeActivity.this,"开始走支付预判");
@@ -720,7 +723,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             //跳转到输入支付密码页面
                             TianHongPayMentUtil.currentOder=null;
                             LogUtil.e(TianHongPayMentUtil.CurrentContext,"需要输入密码，跳转到支付订单页面");
-                            Intent in=new Intent(QRCodeActivity.this,PayConfirmActivity.class);
+                            Intent in=new Intent(QRCodeActivity.this,DialogActivity.class);
                             in.putExtra("action","cost");
                             in.putExtra("entMode",ent_mode);
                             in.putExtra("pcode",pcode);
@@ -729,10 +732,12 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             in.putExtra("amount",amount);
                             Order order=new Order();
                             order.setOid(oid);
-                            order.setAmount(amount);
+                            order.setAmount(Double.valueOf(amount));
                             tianHongPayMentUtil= TianHongPayMentUtil.getInstance(TianHongPayMentUtil.CurrentContext);
                             tianHongPayMentUtil.setUO(TianHongPayMentUtil.currentUser,order,QRCodeActivity.this);
+                            TianHongPayMentUtil.from="qr";
                             startActivity(in);
+                            TianHongPayMentUtil.pwdactivities.add(QRCodeActivity.this);
                         } else {
                             //未设置支付密码 跳转到设置支付密码页面和短信验证页面
                             Intent in=new Intent(QRCodeActivity.this,SetPayCode_First_Activity.class);

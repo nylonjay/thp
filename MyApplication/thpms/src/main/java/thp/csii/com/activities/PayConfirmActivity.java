@@ -43,6 +43,7 @@ import cn.com.csii.mobile.http.ResultInterface;
 import cn.com.csii.mobile.http.util.LogUtil;
 import thp.csii.com.BaseTokenActivity;
 import thp.csii.com.MyApp;
+import thp.csii.com.QRPaySuccedActivity;
 import thp.csii.com.R;
 import thp.csii.com.TianHongPayMentUtil;
 import thp.csii.com.callback.PayOrderListener;
@@ -75,15 +76,16 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
     //public View view_bg;
     private String entMode,pcode,chanl,oid;
     private double amount;
+    private boolean needpwd;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //SetStatusColor();
         setContentView(R.layout.activity_pay_confirm);
         setTitleText(R.string.pay_by_card);
+        needpwd=getIntent().getBooleanExtra("needpwd",true);
         entMode=getIntent().getStringExtra("entMode");
         pcode=getIntent().getStringExtra("pcode");
         chanl=getIntent().getStringExtra("chanl");
@@ -91,34 +93,15 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
         amount=getIntent().getDoubleExtra("amount",0);
         initViews();
         TianHongPayMentUtil.pwdactivities.add(this);
-        // registerReceiver(myreciever,new IntentFilter("com.csii.powerenter.action.Send_msg"));
-        //btn_pay.performClick();
-        //showPayEnterDialog();
-//        hand.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                startVGAlphaAnimation();
-//            }
-//        },100);
-        Intent in=new Intent(PayConfirmActivity.this,DialogActivity.class);
-        if (null!=entMode&&null!=pcode&&null!=chanl){
-            in.putExtra("entMode",entMode);
-            in.putExtra("pcode",pcode);
-            in.putExtra("chanl",chanl);
-        }
-        startActivity(in);
-
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void startVGAlphaAnimation(){
-//        Animation alphaAnimation = new AlphaAnimation(0.0f, 0.5f);
-//        //设置动画时间 alphaAnimation.setDuration(3000);
-//        alphaAnimation.setDuration(1500);
-//        view_bg.startAnimation(alphaAnimation);
-//        view_bg.setVisibility(View.VISIBLE);
-        startActivity(new Intent(PayConfirmActivity.this,DialogActivity.class));
-       //overridePendingTransition(R.anim.activity_open,0);
+        if (needpwd){
+            startActivity(new Intent(PayConfirmActivity.this,DialogActivity.class));
+        }else{
+            new Thread(sendable).start();
+        }
         btn_pay.setClickable(false);
     }
 
@@ -153,7 +136,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
             // showMakeGradeMarkedWindow();
             // showNewSixPeed ();
 //             showPayEnterDialog();
-           btn_pay.setClickable(false);
+            btn_pay.setClickable(false);
             // startActivityForResult(new Intent(PayConfirmActivity.this,DialogActivity.class),0);
 //            startActivity(new Intent(PayConfirmActivity.this,DialogActivity.class));
 //            overridePendingTransition(R.anim.activity_open,0);
@@ -180,7 +163,11 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
                     break;
                 case 5:
                     LogUtil.e(context,"开始订单消费");
-                    PayOrders(HttpUrls.oderCounsume);
+                    if (!needpwd){
+                        PayOrdersNoNeedPwd(HttpUrls.oderCounsume);
+                        return;
+                    }
+                  //  PayOrders(HttpUrls.oderCounsume);
                     break;
                 case 101:
                     for (TextView ed:peds){
@@ -214,6 +201,84 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
 
         }
     };
+
+    private void PayOrdersNoNeedPwd(String mUrl) {
+        showDialog(true);
+        HttpControl httpControl = new HttpControl(TianHongPayMentUtil.CurrentContext);
+        httpControl.TimeOut = 20 * 1000;
+        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> param = new HashMap<String, String>();
+        if (TianHongPayMentUtil.from.equals("qr")){
+            param.put("entMode",entMode);
+            param.put("chanl",chanl);
+            param.put("pcode",pcode);
+        }else {
+            param.put("entMode", "00");
+            param.put("chanl","01");//主扫传03  线上支付传01
+        }
+        // param.put("pcode","1008645423131");
+        param.put("resToken", token.getUniqueId());
+
+        String url =  Constant.SERVERHOST + Constant.AppName + mUrl;
+        headers.put("Accept-Language", "zh-CN,zh;q=0.8");
+        headers.put("Accept", "application/json");
+        headers.put("Connection", "Keep-Alive");
+        headers.put("Cookie",SharePreferencesUtils.getStringValue(TianHongPayMentUtil.CurrentContext,"Cookie"));
+        httpControl.setHeaders(headers);
+        httpControl.HttpExcute(url, HttpControl.RequestPost, param, new ResultInterface() {
+            @Override
+            public void onSuccess(Object o) {
+                showDialog(false);
+                JSONObject json = JSON.parseObject((String) o);
+                JSONObject res = json.getJSONObject("res");
+                if ("0000".equals(res.getString("status"))) {
+                    JSONObject dataMap=res.getJSONObject("dataMap");
+                   // TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
+                    if ("qr".equals(TianHongPayMentUtil.from)){
+                        Intent in = new Intent(TianHongPayMentUtil.CurrentContext,QRPaySuccedActivity.class);
+                        in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        in.putExtra("amount",dataMap.getString("trsAmt"));
+                        TianHongPayMentUtil.CurrentContext.startActivity(in);
+                    }else{
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
+                    }
+                    // PayConfirmActivity.this.onPaySuccess(res.getString("msg"));
+                } else if ("4444".equals(res.getString("status"))) {
+                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                    if (res.getString("errcode").equals("00005")){//令牌校验失败
+                        ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    }else if (res.getString("errcode").equals("00013")){//用户会话失效
+                        // initSessionOutTime("操作失败"+("00013"));
+                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    }else if (res.getString("errcode").equals("4444")){
+                        ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    }else if (res.getString("errcode").equals("A5")){
+                        ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    }else if (res.getString("errcode").equals("61")){//一次性交易金额过大
+                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    }else if (res.getString("errcode").equals("51")){//余额不足
+                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    }else if (res.getString("errcode").equals("00047")){//验签失败
+                        ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,res.getString("操作失败"+"("+"errmsg"+")"));
+                    }
+
+                    else{//交给APP处理
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PushItoApp(json.toJSONString());
+
+                    }
+                }else{
+                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(json.toJSONString());
+                }
+            }
+            @Override
+            public void onError(Object o) {
+                showDialog(false);
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(o.toString());
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.OnNetWorkError();
+                Log.i("res err", "" + o.toString());
+            }
+        });
+    }
 
     private void PayOrders(String mUrl) {
         HttpControl httpControl = new HttpControl(context);
@@ -351,7 +416,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
                     dialog.dismiss();
                     startVGAlphaAnimation();
                     //  showNewSixPeed();
-                  //  showPayEnterDialog();
+                    //  showPayEnterDialog();
                     //PayConfirmActivity.this.HandleItMySelf("");
 
                 }

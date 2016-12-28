@@ -61,5 +61,5 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/gray_bg"
         android:padding="2dp"
-        android:text="返回首页"/>
+        android:text="去购物"/>
 </RelativeLayout>

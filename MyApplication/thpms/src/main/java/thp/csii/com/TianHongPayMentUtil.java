@@ -204,9 +204,7 @@ public class TianHongPayMentUtil {
                                         //  cardamt += Double.parseDouble(account.getJSONObject(i).getString("balAmt"));
                                         cardamt += nf.parse(account.getJSONObject(i).getString("balAmt")).doubleValue();
                                     }//将所有卡的余额相加
-
                                 }
-
                             }
                         }else{
                             mQryAmountListner.OnQryAmountHBYEFailed(json.toJSONString());
@@ -224,10 +222,7 @@ public class TianHongPayMentUtil {
                 }catch (Exception e){
                     mQryAmountListner.OnQryAmountHBYEFailed(json.toString());
                 }
-
-
             }
-
             @Override
             public void onError(Object o) {
                 ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
@@ -266,14 +261,6 @@ public class TianHongPayMentUtil {
         }
     }
     protected void GETQryLoginToken(Handler hand){
-//        if (null==currentUser){
-//            LogUtil.e(CurrentContext,"还未设置用户");
-//            return;
-//        }
-//        if (consumeSign.isEmpty()||userSign.isEmpty()){
-//            mPayOrderListener.PushItoApp("缺少参数userSign,consumeSign,无法授权登录");
-//            return;
-//        }
         PainObj painObj = new PainObj(currentUser,null);
         painObj.setUserSign(userSign);
         LogUtil.e(CurrentContext,"userSign="+userSign);
@@ -282,7 +269,6 @@ public class TianHongPayMentUtil {
             String url = paySDK.getAccessLoginURI(painObj);
             System.out.println("redirectUrl = [" + url + "]");
             hand.sendEmptyMessage(20);
-
         } catch (Exception e) {
             System.err.println("授权登录发生错误!" + e.getMessage());
           //  hand.sendEmptyMessage(404);
@@ -292,8 +278,6 @@ public class TianHongPayMentUtil {
 
         }
     }
-
-
     Handler hand = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -301,7 +285,6 @@ public class TianHongPayMentUtil {
                 case 5:
                     if (action.equals("qryacount")) {
                         // ValidatePayCode(HttpUrls.trsPwdValidate);
-
                     } else if (action.equals("beg")) {
                         // BegforpayCode(HttpUrls.getUnlineQrCode);
                     } else if (action.equals("revoke")) {
@@ -349,7 +332,6 @@ public class TianHongPayMentUtil {
                 case 404:
                    // ToastUtil.shortToast(CurrentContext,"服务器无响应");
                    // mPayOrderListener.OnNetWorkError();
-
                     break;
                 case 20:
                     if (action.equals("qr")){
@@ -398,6 +380,12 @@ public class TianHongPayMentUtil {
                         chanl=dataMap.getString("chanl");
                         pcode=dataMap.getString("pcode");
                         ent_mode=dataMap.getString("ent_mode");
+                        String oid=dataMap.getString("oid");
+                        String amount=dataMap.getString("trsAmt");
+                        Order order=new Order();
+                        order.setOid(oid);
+                        order.setAmount(Double.parseDouble(amount));
+                        TianHongPayMentUtil.currentOder=order;
                         hand.sendEmptyMessage(1);//开始查询账户信息
                         // b.putString("chanl");
                     }else {
@@ -489,33 +477,6 @@ public class TianHongPayMentUtil {
             }
         });
     }
-    public void initSessionOutTime(String sum){
-        final AlertDialog dialog=new AlertDialog.Builder(CurrentContext).create();
-
-        dialog.show();
-        dialog.getWindow().setContentView(R.layout.wait_dialog);
-        TextView tv= (TextView) dialog.getWindow().findViewById(R.id.text_dialog);
-        tv.setText(sum);
-        dialog.getWindow().findViewById(R.id.cancle).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //取消按钮
-                dialog.dismiss();
-            }
-        });
-        dialog.getWindow().findViewById(R.id.positive).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // startActivity(new Intent(context,AuthenticationActivity.class));
-                for (Activity a:TianHongPayMentUtil.spcactivities){
-                    a.finish();
-                }
-                TianHongPayMentUtil.activities.get(0).finish();
-                TianHongPayMentUtil.tianHongPayMentUtil.onMainActivityFinished.onFinished("账户已锁定");
-                dialog.dismiss();
-            }
-        });
-    }
     private void PayPredict(String mUrl) {//支付预判
         HttpControl httpControl = new HttpControl(CurrentContext);
         httpControl.TimeOut = 20 * 1000;
@@ -556,6 +517,7 @@ public class TianHongPayMentUtil {
                                 in.putExtra("chanl", chanl);
                                 in.putExtra("entMode", ent_mode);
                                 in.putExtra("pcode", pcode);
+                                in.putExtra("needpwd",true);
                                 CurrentContext.startActivity(in);
                             } else {
                                 //未设置支付密码 跳转到设置支付密码页面和短信验证页面
@@ -568,16 +530,22 @@ public class TianHongPayMentUtil {
                         } else {
                             //不需要支付密码 直接开始订单消费
                             ToastUtil.shortToast(CurrentContext, "符合免密条件,开始订单消费");
-                            action = "cost";
-                            new Thread(sendable).start();
-
+//                            action = "cost";
+//                            new Thread(sendable).start();
+                            Intent in = new Intent(CurrentContext, PayConfirmActivity.class);
+                            in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            in.putExtra("action", "cost");
+                            in.putExtra("chanl", chanl);
+                            in.putExtra("entMode", ent_mode);
+                            in.putExtra("pcode", pcode);
+                            in.putExtra("needpwd",false);
+                            CurrentContext.startActivity(in);
                         }
                     }
                 }else {
                     mPayOrderListener.PayFailed(res.getString("errmsg"));
                 }
             }
-
             @Override
             public void onError(Object o) {
                 mPayOrderListener.OnNetWorkError();
@@ -585,9 +553,6 @@ public class TianHongPayMentUtil {
             }
         });
     }
-
-
-
     public void GETQR(String msg,PayOrderListener mPayOrderListener){
         final String ms=msg;
         TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener=mPayOrderListener;

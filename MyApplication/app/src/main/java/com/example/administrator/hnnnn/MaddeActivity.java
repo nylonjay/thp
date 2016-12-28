@@ -40,28 +40,28 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
 
     private TianHongPayMentUtil tianHongPayMentUtil;
     private Button btn_pay,btn_main;
-    private String Accno="7800100000002290";//7800100000002282林再雄的账号 //7000290210000032307李锐的账号
+    private String Accno="7000290210000032307";//7800100000002282林再雄的账号 //7000290210000032307李锐的账号
     //余丹丹的账号 7000290210000054012
     //7000290210040097930
     //7800100000009402  无交易记录的账号
     //private String Oid=String.valueOf(new Random().nextInt(201547994)+222255);
     private String noticeUrl="http://hlj.dev.rainbowcn.net/hongpay/notify";
-    private String Oid="m151482387071899426";
-    private Double Amount=0.40;
+    private String Oid="m1514823ttt71899426";
+    private Double Amount=500.00;
     private String Mid="00195";
-    private String consumeSign="d55b0aeb19dc84faed15fbc20d2e50dea25db9e7";// 订单消费这两个都传
-    private String userSign="d07a349ba0777b474a69c720b36136b77c0730b0";//进入首页传
+    private String consumeSign="4731c9bd7a4b36d923e252fe08f4dddb0fa8d032";// 订单消费这两个都传
+    private String userSign="4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a";//进入首页传
     //32307的userSign  4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a
     //无交易记录的userSign:dd7ffbcc76ce695c3b7acff6ed3210c2905d4410
     //余丹丹的usersign a811c7ed7e37d367b1946b859e7a17b20b8b6543
     private Button btn_qry;
-    private String userAccno="7800100000002290";
+    private String userAccno="7000290210000032307";
     private BindCardCallBack mBbindCardCallBack;
     private OnMainActivityFinished mOnMainfinished;
     private Button btn_qr,btn_getqr,btn_test;
     private String secrectCode="72c7753fe7005cffa137f44a6581a42385fc5b1c874fa2ee7d1f3b50bc550b390296214738452155b6891ea1522c918b26caa0af37a62be59ab0285e94307cb911324e3967e56ac71d11538a7b6183b83a581a95f521423c376a538d757f8e56ca405bdba489bba5bea6b5bb29e36187f71803c518c0323eb950dbb1b8fe8b77315b4cfa780bbb1fad93626697639976abe8b40dae5abbf20e4438779a77755524d1b13158b949e7b0281525271dc1246685574a87a36749e878a3d1b237b18d5398049b497c6550d91705de624e00001eecdb4aafafca8454ad4fc59f723fad5b8a38d46380f4050474701511d1bd30da67d3583fd83cd18edfee506277b963e84605d3d16b2df101b309532a0201e5";
     static final String CIPHER_ALGORITHM_ECB = "AES/ECB/PKCS5Padding";
-    private String QRcode="type=TH_PAY&otid=7676";
+    private String QRcode="type=TH_PAY&otid=8111";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madde);
