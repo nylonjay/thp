@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,12 +55,14 @@ public class BuyCardRecordActivity extends BaseTokenActivity implements PullToRe
     private List<CardRecord> crs=new ArrayList<CardRecord>();
     private TextView tv_empty_info;
     private int pageCount;
+    private LinearLayout ll_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_card_record);
         setTitleText(R.id.buy_card_record);
+        setBackView(R.drawable.u194);
         initviews();
         //  new Thread(sendable).start();
         hand.sendEmptyMessage(5);
@@ -68,6 +71,13 @@ public class BuyCardRecordActivity extends BaseTokenActivity implements PullToRe
     }
 
     private void initviews() {
+        ll_back= (LinearLayout) findViewById(R.id.ll_back);
+        ll_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BuyCardRecordActivity.this.finish();
+            }
+        });
         mWrapView= (PullToRefreshListView) findViewById(R.id.mListView);
         mWrapView.setPullRefreshEnabled(true);
         mWrapView.setAutoPullUp(true);
@@ -84,6 +94,16 @@ public class BuyCardRecordActivity extends BaseTokenActivity implements PullToRe
         //mWrapView.setErrorListener(R.id.reload_bu, this);
         mListView = mWrapView.getRefreshableView();
         mListView.setDividerHeight(16);
+        mListView.setClipToPadding(false);
+        mListView.setPadding(0,15,0,0);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent in=new Intent(BuyCardRecordActivity.this,OrderDetailActivity.class);
+                    in.putExtra("voucher",crs.get((int)id).getVoucher());
+                    startActivity(in);
+            }
+        });
 //        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

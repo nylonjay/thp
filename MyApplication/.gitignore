@@ -1,5 +1,8 @@
 *.iml
 .gradle
+/.gitignore.bak
+/projectFilesBackup
+/.idea
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries

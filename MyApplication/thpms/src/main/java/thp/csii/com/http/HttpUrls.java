@@ -114,5 +114,7 @@ public class HttpUrls {
 
  public static String GetBuyCardRecords="/virtualSellCardsList";//get
 
+ public static String GetCardDetails="/virtualSellCardsDetail";//get
+
 
 }
