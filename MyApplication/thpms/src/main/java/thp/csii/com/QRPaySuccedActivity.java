@@ -52,6 +52,9 @@ public class QRPaySuccedActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 QRPaySuccedActivity.this.finish();
+                for (Activity a:TianHongPayMentUtil.pwdactivities){
+                    a.finish();
+                }
             }
         });
     }

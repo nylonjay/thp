@@ -1,5 +1,7 @@
 package thp.csii.com.bean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/12/29.
  */
@@ -8,6 +10,15 @@ public class RecordDetail{
     String tradeNo;
     String ctime;
     String trs_amt;
+    List<RecordBean> cardList;
+
+    public List<RecordBean> getCardList() {
+        return cardList;
+    }
+
+    public void setCardList(List<RecordBean> cardList) {
+        this.cardList = cardList;
+    }
 
     public String getTradeNo() {
         return tradeNo;

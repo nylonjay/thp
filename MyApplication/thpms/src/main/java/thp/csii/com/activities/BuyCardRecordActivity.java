@@ -87,6 +87,8 @@ public class BuyCardRecordActivity extends BaseTokenActivity implements PullToRe
         mWrapView.setErrorListener(R.id.reload_bu, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CurrentPage=1;
+                hand.sendEmptyMessage(5);
             }
         });
         mWrapView.setErrorView(mErrorView);
@@ -99,9 +101,11 @@ public class BuyCardRecordActivity extends BaseTokenActivity implements PullToRe
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent in=new Intent(BuyCardRecordActivity.this,OrderDetailActivity.class);
-                    in.putExtra("voucher",crs.get((int)id).getVoucher());
-                    startActivity(in);
+                Intent in=new Intent(BuyCardRecordActivity.this,OrderDetailActivity.class);
+                Bundle b=new Bundle();
+                b.putSerializable("cr",crs.get((int)id).getVoucher());
+                in.putExtras(b);
+                startActivity(in);
             }
         });
 //        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -168,15 +172,15 @@ public class BuyCardRecordActivity extends BaseTokenActivity implements PullToRe
                         hand.sendMessage(msg);
                     }
 
+                }
             }
-        }
-        @Override
-        public void onError(Object o) {
-            showDialog(false);
-            Log.i("res err", "" + o.toString());
-        }
-    });
-}
+            @Override
+            public void onError(Object o) {
+                showDialog(false);
+                Log.i("res err", "" + o.toString());
+            }
+        });
+    }
     Handler hand=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -263,45 +267,45 @@ public class BuyCardRecordActivity extends BaseTokenActivity implements PullToRe
 
     }
 
-class BuyCardRecordAdaper extends BaseAdapter{
+    class BuyCardRecordAdaper extends BaseAdapter{
 
-    @Override
-    public int getCount() {
-        return crs.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return crs.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHoldler vh=null;
-        if (convertView==null){
-            vh=new ViewHoldler();
-            convertView= LayoutInflater.from(context).inflate(R.layout.item_buycard_record,null);
-            vh.time= (TextView) convertView.findViewById(R.id.date_time);
-            vh.price= (TextView) convertView.findViewById(R.id.tv_price);
-            convertView.setTag(vh);
-        }else{
-            vh= (ViewHoldler) convertView.getTag();
+        @Override
+        public int getCount() {
+            return crs.size();
         }
-        vh.time.setText(crs.get(position).getTime());
-        Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
-        vh.price.setTypeface(tf);
-        vh.price.setText("￥"+crs.get(position).getTr_amt());
-        return convertView;
-    }
-}
 
-class ViewHoldler{
-    TextView time,price;
-}
+        @Override
+        public Object getItem(int position) {
+            return crs.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHoldler vh=null;
+            if (convertView==null){
+                vh=new ViewHoldler();
+                convertView= LayoutInflater.from(context).inflate(R.layout.item_buycard_record,null);
+                vh.time= (TextView) convertView.findViewById(R.id.date_time);
+                vh.price= (TextView) convertView.findViewById(R.id.tv_price);
+                convertView.setTag(vh);
+            }else{
+                vh= (ViewHoldler) convertView.getTag();
+            }
+            vh.time.setText(crs.get(position).getTime());
+            Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
+            vh.price.setTypeface(tf);
+            vh.price.setText("￥"+crs.get(position).getTr_amt());
+            return convertView;
+        }
+    }
+
+    class ViewHoldler{
+        TextView time,price;
+    }
 
 }

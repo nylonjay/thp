@@ -64,6 +64,7 @@ public class MainGridAdapter extends BaseAdapter {
                 break;
             case 3:
                 img.setImageResource(R.drawable.icon_buy_card_record);
+             //   convertView.setVisibility(View.GONE);
                 break;
 //            case 5:
 //                img.setImageResource(R.drawable.icon_help_center);

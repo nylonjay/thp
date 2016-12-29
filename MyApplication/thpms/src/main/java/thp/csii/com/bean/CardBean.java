@@ -10,9 +10,9 @@ public class CardBean implements Serializable{
     public CardBean() {
     }
 
-    String balAmt;
-    String accno;
-    String bindDate;
+    String balAmt="";
+    String accno="";
+    String bindDate="";
 
 
     public String getBalAmt() {

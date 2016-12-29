@@ -103,7 +103,12 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
         btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initQryData();
+              //  initQryData();
+                User user = new User();
+                user.setAcno(Accno);
+                tianHongPayMentUtil=TianHongPayMentUtil.getInstance(MaddeActivity.this);
+                TianHongPayMentUtil.userSign=userSign;
+                TianHongPayMentUtil.currentUser=user;
                 startActivity(new Intent(MaddeActivity.this, QRCodeActivity.class));
             }
         });

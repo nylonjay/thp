@@ -126,6 +126,7 @@ public class TianHongPayMentUtil {
     }
     public void toPayPredict(){//开始订单消费
         action = "predict";
+        from="online";
         new Thread(sendablea).start();
     }
     public void toQryAcount(){//获取红包余额

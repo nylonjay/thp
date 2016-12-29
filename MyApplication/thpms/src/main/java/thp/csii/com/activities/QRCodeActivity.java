@@ -96,6 +96,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_qrcode);
         initViews();
         util=TianHongPayMentUtil.getInstance(QRCodeActivity.this);
+        TianHongPayMentUtil.pwdactivities.add(this);
 //        user.setAcno(TianHongPayMentUtil.currentUser.getAcno());
 //        //TianHongPayMentUtil.userSign=TianHongPayMentUtil.userSign;
 //        util.setQA(user,qm);
