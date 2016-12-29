@@ -59,12 +59,12 @@ public class MainGridAdapter extends BaseAdapter {
             case 2:
                 img.setImageResource(R.drawable.icon_trade_detail);
                 break;
-            case 3:
+            case 4:
                 img.setImageResource(R.drawable.icon_help_center);
                 break;
-//            case 4:
-//                img.setImageResource(R.drawable.icon_buy_card_record);
-//                break;
+            case 3:
+                img.setImageResource(R.drawable.icon_buy_card_record);
+                break;
 //            case 5:
 //                img.setImageResource(R.drawable.icon_help_center);
 //                break;

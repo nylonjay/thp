@@ -74,7 +74,6 @@ public class MyShoppingCardActivity extends BaseActivity implements View.OnClick
                     showDialog(false);
                     // ecf.RefreshData();
                     if (null==ecf||null==inf){
-
                         initViewPage();
                     }
                     else {

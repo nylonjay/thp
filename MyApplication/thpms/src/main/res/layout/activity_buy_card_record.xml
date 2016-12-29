@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/swipe_container"
     android:layout_height="match_parent"
-    tools:context="thp.csii.com.activities.BuyCardRecordActivity">
-    <ListView
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <cn.rainbow.thbase.ui.pulltorefresh.PullToRefreshListView
+        android:id="@+id/mListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:dividerHeight="10dp"
-        android:divider="@color/gray"
-        android:id="@+id/mListView"/>
+        android:layout_height="match_parent"
+        app:isAutoPullUp="true"
+        android:scrollbars="none"
+        android:visibility="invisible"
+        android:fadingEdge="none" />
+    <ViewStub
+        android:id="@+id/common_list_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/csii_sp_error"/>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+    <ViewStub
+        android:id="@+id/common_list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/sp_empty"/>
+
+
+</LinearLayout>

@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.graphics.drawable.TintAwareDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -273,7 +274,9 @@ public class TianHongPayMentUtil {
             System.err.println("授权登录发生错误!" + e.getMessage());
           //  hand.sendEmptyMessage(404);
             //mPayOrderListener.OnAcessLoginFailed();
-            mQryAmountListner.OnQryAmountHBYEFailed("授权错误");
+            if (null!=mQryAmountListner){
+                mQryAmountListner.OnQryAmountHBYEFailed("授权错误");
+            }
             // hand.sendEmptyMessage(406);
 
         }
@@ -389,7 +392,7 @@ public class TianHongPayMentUtil {
                         hand.sendEmptyMessage(1);//开始查询账户信息
                         // b.putString("chanl");
                     }else {
-                        mPayOrderListener.PayFailed(res.getString("errmsg"));
+                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     }
                 }else {
                     mPayOrderListener.PayFailed("获取订单信息失败");

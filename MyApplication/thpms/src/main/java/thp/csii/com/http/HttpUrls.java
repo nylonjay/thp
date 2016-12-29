@@ -112,5 +112,7 @@ public class HttpUrls {
 
  public static String getOrderInfoAPP="/getOrderInfoAPP";//get
 
+ public static String GetBuyCardRecords="/virtualSellCardsList";//get
+
 
 }

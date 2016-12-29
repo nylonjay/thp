@@ -17,7 +17,7 @@
                 android:id="@+id/date_time"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:text="2016-08-2 15:15:06"
+                android:text="- -"
                 android:textColor="@color/text_dark_gray"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -31,11 +31,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥ 5000"
+                android:text="￥ - -"
                 android:textColor="@color/text_red"
                 android:layout_below="@+id/date_time"
                 android:layout_toRightOf="@+id/tv_sum"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_price" />
         </RelativeLayout>
         <View
             android:layout_width="match_parent"

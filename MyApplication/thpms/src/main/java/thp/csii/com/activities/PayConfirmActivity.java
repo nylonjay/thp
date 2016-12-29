@@ -245,6 +245,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
                     // PayConfirmActivity.this.onPaySuccess(res.getString("msg"));
                 } else if ("4444".equals(res.getString("status"))) {
                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                    LogUtil.e(TianHongPayMentUtil.CurrentContext,"payfailed");
                     if (res.getString("errcode").equals("00005")){//令牌校验失败
                         ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("00013")){//用户会话失效
@@ -253,7 +254,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
                     }else if (res.getString("errcode").equals("4444")){
                         ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("A5")){
-                        ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("61")){//一次性交易金额过大
                         ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("51")){//余额不足
