@@ -22,7 +22,7 @@ public class QRPaySuccedActivity extends BaseActivity {
         setContentView(R.layout.activity_qrpay_succed);
         setTitleText(R.string.pay_success);
         setBackView(R.drawable.u194);
-        amount=getIntent().getStringExtra("amount");
+        // amount=getIntent().getStringExtra("amount");
         initViews();
         //nylon 2016.12.13
     }
@@ -42,9 +42,7 @@ public class QRPaySuccedActivity extends BaseActivity {
         tv_amount= (TextView) findViewById(R.id.tv_amount);
         Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
         tv_amount.setTypeface(tf);
-        if (null!=amount){
-            tv_amount.setText("￥"+amount);
-        }else{
+        if (null!=TianHongPayMentUtil.currentOder){
             tv_amount.setText("￥"+ TianHongPayMentUtil.currentOder.getAmount());
         }
         ll_back= (LinearLayout) findViewById(R.id.ll_back);

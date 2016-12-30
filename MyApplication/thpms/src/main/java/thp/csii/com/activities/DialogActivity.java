@@ -74,7 +74,6 @@ public class DialogActivity extends Activity {
     private UserDefinedDialog dia;
     private RelativeLayout enter_re;
     private String entMode,pcode,chanl;
-    private String amount;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -100,7 +99,6 @@ public class DialogActivity extends Activity {
     private void getIntenData() {
         entMode=getIntent().getStringExtra("entMode");
         pcode=getIntent().getStringExtra("pcode");
-        amount=getIntent().getStringExtra("amount");
         chanl=getIntent().getStringExtra("chanl");
     }
 
@@ -288,7 +286,7 @@ public class DialogActivity extends Activity {
                     true_peed.clear();
                     if (TianHongPayMentUtil.from.equals("qr")){
                         Intent in=new Intent(DialogActivity.this, QRPaySuccedActivity.class);
-                        in.putExtra("amount",amount);
+//                        in.putExtra("amount",amount);
                         startActivity(in);
                     }else {
                         TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
