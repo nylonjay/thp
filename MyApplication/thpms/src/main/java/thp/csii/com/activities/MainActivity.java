@@ -213,10 +213,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         MainBean b4 = new MainBean("交易明细", "充值");
         beans.add(b4);
-        MainBean b5 = new MainBean("买卡记录", "收银台");
-        beans.add(b5);
         MainBean b6 = new MainBean("帮助中心", "交易明细");
         beans.add(b6);
+        MainBean b5 = new MainBean("买卡记录", "收银台");
+        beans.add(b5);
 //        MainBean b7=new MainBean("交易预判","交易预判");
 //        beans.add(b7);
 
@@ -257,7 +257,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         ToastUtil.shortToast(MainActivity.this,"账户已被锁定,请先进行解锁操作");
                     }
 
-                }else if (position==4){
+                }else if (position==3){
                     if (!locked){
 
                         in = new Intent(MainActivity.this, BaseWebActivity.class);
@@ -283,7 +283,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }else{
                         ToastUtil.shortNToast(context,"账户已锁定");
                     }
-                }else if (position==3){
+                }else if (position==4){
                     if (!locked){
                         in = new Intent(MainActivity.this, BuyCardRecordActivity.class);
                         //    in.putExtra("accList",acclistJson);

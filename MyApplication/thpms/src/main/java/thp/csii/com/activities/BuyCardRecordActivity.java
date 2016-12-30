@@ -103,7 +103,7 @@ public class BuyCardRecordActivity extends BaseTokenActivity implements PullToRe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent in=new Intent(BuyCardRecordActivity.this,OrderDetailActivity.class);
                 Bundle b=new Bundle();
-                b.putSerializable("cr",crs.get((int)id).getVoucher());
+                b.putSerializable("cr",crs.get((int) id));
                 in.putExtras(b);
                 startActivity(in);
             }
