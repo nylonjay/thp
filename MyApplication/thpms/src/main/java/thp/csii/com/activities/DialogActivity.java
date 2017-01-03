@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -74,6 +75,9 @@ public class DialogActivity extends Activity {
     private UserDefinedDialog dia;
     private RelativeLayout enter_re;
     private String entMode,pcode,chanl;
+    protected int activityCloseEnterAnimation;
+
+    protected int activityCloseExitAnimation;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -94,6 +98,24 @@ public class DialogActivity extends Activity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
+        intAnim();
+
+    }
+
+    private void intAnim() {
+        TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowAnimationStyle});
+
+        int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
+
+        activityStyle.recycle();
+
+        activityStyle = getTheme().obtainStyledAttributes(windowAnimationStyleResId, new int[] {android.R.attr.activityCloseEnterAnimation, android.R.attr.activityCloseExitAnimation});
+
+        activityCloseEnterAnimation = activityStyle.getResourceId(0, 0);
+
+        activityCloseExitAnimation = activityStyle.getResourceId(1, 0);
+
+        activityStyle.recycle();
     }
 
     private void getIntenData() {
@@ -201,6 +223,7 @@ public class DialogActivity extends Activity {
                     LogUtil.e(DialogActivity.this,"000000000");
                     true_peed.onDestroy();
                     DialogActivity.this.finish();
+                    overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
                    // overridePendingTransition(R.anim.activity_close,0);
                     break;
                 case 5:
