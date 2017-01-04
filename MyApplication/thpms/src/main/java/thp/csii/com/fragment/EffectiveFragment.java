@@ -74,6 +74,7 @@ public class EffectiveFragment extends Fragment implements PullToRefreshBase.OnR
     private effeAdapter mAdapter;
     private Button tv_getdata;
     private View RootView;
+    Typeface tf;
 
     public EffectiveFragment() {
         // Required empty public constructor
@@ -154,6 +155,7 @@ public class EffectiveFragment extends Fragment implements PullToRefreshBase.OnR
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        tf=Typeface.createFromAsset(getActivity().getAssets(),"fonts/FZXH1JW.TTF");
         mLayoutInflater=inflater;
         LogUtil.e(TianHongPayMentUtil.CurrentContext,"oncreateview");
         mContext=getActivity();
@@ -338,7 +340,6 @@ public class EffectiveFragment extends Fragment implements PullToRefreshBase.OnR
             }else{
                 vh= (ViewHolder) convertView.getTag();
             }
-            Typeface tf=Typeface.createFromAsset(getActivity().getAssets(),"fonts/FZXH1JW.TTF");
             vh.tv.setTypeface(tf);
             vh.tv.setText(String.valueOf(symbol)+cardBeens.get(position).getBalAmt());
             return convertView;

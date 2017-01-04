@@ -72,6 +72,7 @@ public class IneffectivFragment extends Fragment implements PullToRefreshListVie
     private THProgressDialog mTHProgressDialog;
     char symbol=165;
     private View RootView;
+    Typeface tf;
     public IneffectivFragment() {
         // Required empty public constructor
     }
@@ -121,6 +122,7 @@ public class IneffectivFragment extends Fragment implements PullToRefreshListVie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        tf=Typeface.createFromAsset(getActivity().getAssets(),"fonts/FZXH1JW.TTF");
         mLayoutInflater=inflater;
         mContext=getActivity();
         RootView=inflater.inflate(R.layout.fragment_effective, container, false);
@@ -293,25 +295,35 @@ public class IneffectivFragment extends Fragment implements PullToRefreshListVie
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            convertView=mLayoutInflater.inflate(R.layout.item_effect_layout,null);
-            TextView amount= (TextView) convertView.findViewById(R.id.tv_amount);
-            TextView explain= (TextView) convertView.findViewById(R.id.tv_explain);
-            TextView tv_ye= (TextView) convertView.findViewById(R.id.tv_ye);
-            tv_ye.setTextColor(Color.parseColor("#dadada"));
-            ImageView img= (ImageView) convertView.findViewById(R.id.sp_bg);
-            Bitmap bm =((BitmapDrawable) img.getDrawable()).getBitmap();
-            Bitmap gbm=grey(bm);
-            img.setImageBitmap(gbm);
-          //  img.setDrawingCacheEnabled(false);
-            explain.setVisibility(View.GONE);
-            Typeface tf=Typeface.createFromAsset(getActivity().getAssets(),"fonts/FZXH1JW.TTF");
-            amount.setTextColor(Color.parseColor("#dadada"));
-            amount.setTypeface(tf);
-            amount.setText(String.valueOf(symbol)+cardBeens.get(position).getBalAmt());
+            ViewHolder vh;
+            if (null==convertView){
+                vh=new ViewHolder();
+                convertView=mLayoutInflater.inflate(R.layout.item_effect_layout,null);
+                vh.tv_amount= (TextView) convertView.findViewById(R.id.tv_amount);
+                vh.tv_explain= (TextView) convertView.findViewById(R.id.tv_explain);
+                vh.tv_ye= (TextView) convertView.findViewById(R.id.tv_ye);
+                ImageView img= (ImageView) convertView.findViewById(R.id.sp_bg);
+                Bitmap bm =((BitmapDrawable) img.getDrawable()).getBitmap();
+                Bitmap gbm=grey(bm);
+                img.setImageBitmap(gbm);
+                convertView.setTag(vh);
+            }else{
+                vh= (ViewHolder) convertView.getTag();
+            }
+            vh.tv_ye.setTextColor(Color.parseColor("#dadada"));
+            vh.tv_explain.setVisibility(View.GONE);
+            vh.tv_amount.setTextColor(Color.parseColor("#dadada"));
+            vh.tv_amount.setTypeface(tf);
+            vh.tv_amount.setText(String.valueOf(symbol)+cardBeens.get(position).getBalAmt());
             return convertView;
         }
     }
+    class ViewHolder{
+        TextView tv_amount;
+        TextView tv_explain;
+        TextView tv_ye;
+    }
+
 
     public static final Bitmap grey(Bitmap bitmap) {
         int width = bitmap.getWidth();
