@@ -74,7 +74,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    boolean continues=false;
+//    boolean continues=false;
     private THProgressDialog mTHProgressDialog;
     private String pinNeed;
     private String action;
@@ -225,7 +225,10 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     }
                     break;
                 case 2:
-                    GetUnderLineCode();
+                    LogUtil.e(QRCodeActivity.this,"正在生成二维码");
+                    if (!paused){
+                        GetUnderLineCode();
+                    }
                     break;
                 case 3:
                     showDialog(false);
@@ -267,7 +270,11 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     if (hand.hasMessages(1)){
                         hand.removeMessages(1);
                     }
+                    if (hand.hasMessages(2)){
+                        hand.removeMessages(2);
+                    }
                     hand.sendEmptyMessage(1);//开始查询是否生成订单，每六秒钟查询一次
+                    hand.sendEmptyMessageDelayed(2,60000);
                     break;
                 case 5:
                     //获取交易授权成功
@@ -467,7 +474,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.ll_basetitle_back) {
-            continues=false;
+//            continues=false;
             hand.removeMessages(1);
             QRCodeActivity.this.finish();
         } else if (i == R.id.tv_basetitle_ok) {
@@ -544,13 +551,13 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         super.onStop();
         hand.removeMessages(1);
         paused=true;
-        continues=false;
+//        continues=false;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        continues=false;
+//        continues=false;
     }
 
     private void getData() {
@@ -592,10 +599,13 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         if (hand.hasMessages(1)){
             hand.removeMessages(1);
         }
-        new Thread(thread).start();
-        if (!continues){
-            continues=true;
+        if (hand.hasMessages(2)){
+            hand.removeMessages(2);
         }
+        new Thread(thread).start();
+//        if (!continues){
+//            continues=true;
+//        }
         paused=false;
     }
     private void QryOrderState() {
@@ -625,7 +635,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     if ("0000".equals(res.getString("status"))){
                         JSONObject dataMap=res.getJSONObject("dataMap");
                         if ("2".equals(dataMap.getString("orderStatus"))){
-                            continues=false;
+//                            continues=false;
                             ent_mode=dataMap.getString("ent_mode");
                             pcode=dataMap.getString("pcode");
                             oid=dataMap.getString("oid");
@@ -636,7 +646,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                                 PayPredict(HttpUrls.payPredict);
                             }
                         }else{
-                            continues=true;
+//                            continues=true;
                             hand.sendEmptyMessageDelayed(1,6000);
                         }
 
@@ -680,7 +690,9 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     jsonMap=res.getJSONObject("dataMap");
                   //  acno=jsonMap.getString("acno");
                     otid=jsonMap.getString("otid");
-                    hand.sendEmptyMessage(100);
+                    if (!hand.hasMessages(100)){
+                        hand.sendEmptyMessage(100);
+                    }
                 }else{
                     ToastUtil.shortNToast(QRCodeActivity.this,"请求付款码失败");
                 }
@@ -778,11 +790,8 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     };
-
-
     protected Token getAccessGenToken() throws Exception {//获取交易Token
         Token token;
         try {
@@ -817,9 +826,10 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onPause() {
         super.onPause();
+        hand.removeMessages(2);
         hand.removeMessages(1);
         paused=true;
-        continues=false;
+//        continues=false;
     }
 
     protected void showDialog(boolean isShow) {
