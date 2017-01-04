@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -98,11 +100,19 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         initViews();
         util=TianHongPayMentUtil.getInstance(QRCodeActivity.this);
         TianHongPayMentUtil.pwdactivities.add(this);
+        SetBrightNess(1.0f);
 //        user.setAcno(TianHongPayMentUtil.currentUser.getAcno());
 //        //TianHongPayMentUtil.userSign=TianHongPayMentUtil.userSign;
 //        util.setQA(user,qm);
         //s startActivity(new Intent(QRCodeActivity.this,EnterCodeActivity.class));
 
+    }
+
+    public void SetBrightNess(float brightness){
+        Window window = this.getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.screenBrightness = brightness;
+        window.setAttributes(lp);
     }
 
     private void createTXImage(String nylonlee) {
@@ -494,6 +504,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 //取消按钮
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("已取消");
                 for (Activity a:TianHongPayMentUtil.pwdactivities){
                     a.finish();
                 }
