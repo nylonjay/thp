@@ -1,5 +1,6 @@
 package thp.csii.com.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -493,6 +494,9 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 //取消按钮
+                for (Activity a:TianHongPayMentUtil.pwdactivities){
+                    a.finish();
+                }
                 dialog.dismiss();
             }
         });
@@ -750,7 +754,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             tianHongPayMentUtil.setUO(TianHongPayMentUtil.currentUser,order,QRCodeActivity.this);
                             TianHongPayMentUtil.from="qr";
                             startActivity(in);
-                            TianHongPayMentUtil.pwdactivities.add(QRCodeActivity.this);
+                           // TianHongPayMentUtil.pwdactivities.add(QRCodeActivity.this);
                         } else {
                             //未设置支付密码 跳转到设置支付密码页面和短信验证页面
                             Intent in=new Intent(QRCodeActivity.this,SetPayCode_First_Activity.class);

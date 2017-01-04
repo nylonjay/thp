@@ -33,10 +33,10 @@ public class QRPaySuccedActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced("支付成功");
-                QRPaySuccedActivity.this.finish();
                 for (Activity a:TianHongPayMentUtil.pwdactivities){
                     a.finish();
                 }
+                QRPaySuccedActivity.this.finish();
             }
         });
         tv_amount= (TextView) findViewById(R.id.tv_amount);
@@ -49,10 +49,10 @@ public class QRPaySuccedActivity extends BaseActivity {
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QRPaySuccedActivity.this.finish();
                 for (Activity a:TianHongPayMentUtil.pwdactivities){
                     a.finish();
                 }
+                QRPaySuccedActivity.this.finish();
             }
         });
     }
