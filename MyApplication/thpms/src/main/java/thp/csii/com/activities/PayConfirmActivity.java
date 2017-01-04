@@ -235,18 +235,17 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
                 if ("0000".equals(res.getString("status"))) {
                     JSONObject dataMap=res.getJSONObject("dataMap");
                    // TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
-                    if (null!=dataMap){
+//                    if (null!=dataMap){
+                        LogUtil.e(PayConfirmActivity.this,"from==="+TianHongPayMentUtil.from);
                         if ("qr".equals(TianHongPayMentUtil.from)){
-                            Intent in = new Intent(TianHongPayMentUtil.CurrentContext,QRPaySuccedActivity.class);
-                            in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                           // in.putExtra("amount",dataMap.getString("trsAmt"));
-                            TianHongPayMentUtil.CurrentContext.startActivity(in);
+                            Intent in = new Intent(PayConfirmActivity.this,QRPaySuccedActivity.class);
+                            startActivity(in);
                         }else{
                             TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
                         }
-                    }else{
-                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("msg"));
-                    }
+//                    }else{
+//                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("msg"));
+//                    }
                     // PayConfirmActivity.this.onPaySuccess(res.getString("msg"));
                 } else if ("4444".equals(res.getString("status"))) {
                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));

@@ -61,7 +61,7 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
     private Button btn_qr,btn_getqr,btn_test;
     private String secrectCode="72c7753fe7005cffa137f44a6581a42385fc5b1c874fa2ee7d1f3b50bc550b390296214738452155b6891ea1522c918b26caa0af37a62be59ab0285e94307cb911324e3967e56ac71d11538a7b6183b83a581a95f521423c376a538d757f8e56ca405bdba489bba5bea6b5bb29e36187f71803c518c0323eb950dbb1b8fe8b77315b4cfa780bbb1fad93626697639976abe8b40dae5abbf20e4438779a77755524d1b13158b949e7b0281525271dc1246685574a87a36749e878a3d1b237b18d5398049b497c6550d91705de624e00001eecdb4aafafca8454ad4fc59f723fad5b8a38d46380f4050474701511d1bd30da67d3583fd83cd18edfee506277b963e84605d3d16b2df101b309532a0201e5";
     static final String CIPHER_ALGORITHM_ECB = "AES/ECB/PKCS5Padding";
-    private String QRcode="type=TH_PAY&otid=8045";
+    private String QRcode="type=TH_PAY&otid=9029";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madde);
