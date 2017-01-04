@@ -165,7 +165,7 @@
                 android:layout_marginTop="95dp"
                 android:background="@drawable/stone"
                 android:layout_centerHorizontal="true"
-                android:text="金卡"
+                android:text="--"
                 android:textSize="12sp"
 
                 android:gravity="center"/>
