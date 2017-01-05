@@ -387,14 +387,17 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         if (i == R.id.re_pf) {
             in=new Intent(Pay_SettingActivity.this,SelectHwmActivity.class);
             in.putExtra("postion",0);
+            in.putExtra("hwm",pf_hwm);
             startActivityForResult(in,101);
         }else if (i==R.id.re_pay){
             in=new Intent(Pay_SettingActivity.this,SelectHwmActivity.class);
             in.putExtra("postion",1);
+            in.putExtra("hwm",pay_hwm);
             startActivityForResult(in,102);
         }else if (i==R.id.re_day){
             in=new Intent(Pay_SettingActivity.this,SelectHwmActivity.class);
             in.putExtra("postion",2);
+            in.putExtra("hwm",day_hwm);
             startActivityForResult(in,103);
         }
 

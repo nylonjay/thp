@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.com.csii.mobile.http.util.LogUtil;
 import thp.csii.com.BaseActivity;
 import thp.csii.com.R;
 
@@ -30,6 +31,7 @@ public class SelectHwmActivity extends BaseActivity {
     private int selection=0;
     private LinearLayout ll_back;
     private int  mpostion;
+    private String hwm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,8 @@ public class SelectHwmActivity extends BaseActivity {
         setBackView(R.drawable.u194);
         slist.add(hwm1);slist.add(hwm2);slist.add(hwm3);
         mpostion=getIntent().getIntExtra("postion",0);
-
+        hwm=getIntent().getStringExtra("hwm");
+        LogUtil.e(SelectHwmActivity.this,"hwm=="+hwm);
         cuarr=slist.get(mpostion);
         initViews();
     }
@@ -66,6 +69,13 @@ public class SelectHwmActivity extends BaseActivity {
                 SelectHwmActivity.this.finish();
             }
         });
+        for (int i=0;i<cuarr.length;i++){
+            if ((cuarr[i]+".00").equals(hwm)){
+                LogUtil.e(SelectHwmActivity.this,"选中的是第"+i+"个");
+                mAdapter.selectHwm(i);
+                break;
+            }
+        }
     }
 
     class HwmAdaper extends BaseAdapter{
