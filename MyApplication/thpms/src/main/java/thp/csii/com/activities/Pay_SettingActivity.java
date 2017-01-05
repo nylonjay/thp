@@ -410,7 +410,6 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         LogUtil.e(Pay_SettingActivity.this,"onactivityresult"+"resultcode=="+resultCode+"requestcode=="+requestCode);
         if (resultCode==RESULT_OK){
             action="result";
-            ToastUtil.shortNToast(Pay_SettingActivity.this,"requesCode=="+requestCode);
             switch (requestCode){
                 case 101:
                     pf_hwm=data.getStringExtra("hwm");

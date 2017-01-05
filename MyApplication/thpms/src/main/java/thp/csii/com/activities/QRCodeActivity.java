@@ -296,7 +296,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                 JSONObject res = json.getJSONObject("res");
                 if ("0000".equals(res.getString("status"))) {
                     Intent in=new Intent(QRCodeActivity.this, QRPaySuccedActivity.class);
-                    in.putExtra("amount",amount);
+                  //  in.putExtra("amount",amount);
                     startActivity(in);
                     QRCodeActivity.this.finish();
                 } else if ("4444".equals(res.getString("status"))) {
@@ -707,49 +707,55 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             public void onSuccess(Object o) {
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res = json.getJSONObject("res");
-                JSONObject datamap = res.getJSONObject("dataMap");
-                if (null!=datamap) {
-                    JSONObject rsvc = datamap.getJSONObject("rsvc");
-                    if (null != datamap.getString("pinTag")) ;
-                    LogUtil.i(TianHongPayMentUtil.CurrentContext, "pinTag==" + rsvc.getString("pinTag"));
-                    pinNeed = rsvc.getString("pinTag");
-                    if ("01".equals(pinNeed)) {
-                        //需要交易密码
-                        if (TianHongPayMentUtil.CodeSetted) {
-                            //跳转到输入支付密码页面
-                            TianHongPayMentUtil.currentOder=null;
-                            LogUtil.e(TianHongPayMentUtil.CurrentContext,"需要输入密码，跳转到支付订单页面");
-                            Intent in=new Intent(QRCodeActivity.this,DialogActivity.class);
-                            in.putExtra("action","cost");
-                            in.putExtra("entMode",ent_mode);
-                            in.putExtra("pcode",pcode);
-                            in.putExtra("chanl",chanl);
-                            in.putExtra("oid",oid);
-                            in.putExtra("amount",amount);
-                            Order order=new Order();
-                            order.setOid(oid);
-                            order.setAmount(Double.valueOf(amount));
-                            tianHongPayMentUtil= TianHongPayMentUtil.getInstance(TianHongPayMentUtil.CurrentContext);
+                if (res.getString("status").equals("0000")){
+                    JSONObject datamap = res.getJSONObject("dataMap");
+                    if (null!=datamap) {
+                        JSONObject rsvc = datamap.getJSONObject("rsvc");
+                        if (null != datamap.getString("pinTag")) ;
+                        LogUtil.i(TianHongPayMentUtil.CurrentContext, "pinTag==" + rsvc.getString("pinTag"));
+                        pinNeed = rsvc.getString("pinTag");
+                        Order order=new Order();
+                        LogUtil.e(QRCodeActivity.this,"Amount=="+amount);
+                        order.setOid(oid);
+                        order.setAmount(Double.valueOf(amount));
+                        tianHongPayMentUtil= TianHongPayMentUtil.getInstance(TianHongPayMentUtil.CurrentContext);
                         //    tianHongPayMentUtil.setUO(TianHongPayMentUtil.currentUser,order,QRCodeActivity.this);
-                            TianHongPayMentUtil.currentOder=order;
-                            TianHongPayMentUtil.from="qr";
-                            startActivity(in);
-                            // TianHongPayMentUtil.pwdactivities.add(QRCodeActivity.this);
-                        } else {
-                            //未设置支付密码 跳转到设置支付密码页面和短信验证页面
-                            Intent in=new Intent(QRCodeActivity.this,SetPayCode_First_Activity.class);
-                            in.putExtra("action","cost");
-                            in.putExtra("from","set");
-                            startActivity(in);
-                            // CurrentContext.startActivity(new Intent(CurrentContext,MessageAuthActivity.class));
-                        }
-                    } else {
-                        //不需要支付密码 直接开始订单消费
-                        ToastUtil.shortToast(QRCodeActivity.this, "符合免密条件,开始订单消费");
-                        action = "cost";
-                        new Thread(sendable).start();
+                        TianHongPayMentUtil.currentOder=order;
+                        TianHongPayMentUtil.from="qr";
+                        if ("01".equals(pinNeed)) {
+                            //需要交易密码
+                            if (TianHongPayMentUtil.CodeSetted) {
+                                //跳转到输入支付密码页面
+                                TianHongPayMentUtil.currentOder=null;
+                                LogUtil.e(TianHongPayMentUtil.CurrentContext,"需要输入密码，跳转到支付订单页面");
+                                Intent in=new Intent(QRCodeActivity.this,DialogActivity.class);
+                                in.putExtra("action","cost");
+                                in.putExtra("entMode",ent_mode);
+                                in.putExtra("pcode",pcode);
+                                in.putExtra("chanl",chanl);
+                                in.putExtra("oid",oid);
+                                in.putExtra("amount",amount);
 
+                                startActivity(in);
+                                // TianHongPayMentUtil.pwdactivities.add(QRCodeActivity.this);
+                            } else {
+                                //未设置支付密码 跳转到设置支付密码页面和短信验证页面
+                                Intent in=new Intent(QRCodeActivity.this,SetPayCode_First_Activity.class);
+                                in.putExtra("action","cost");
+                                in.putExtra("from","set");
+                                startActivity(in);
+                                // CurrentContext.startActivity(new Intent(CurrentContext,MessageAuthActivity.class));
+                            }
+                        } else {
+                            //不需要支付密码 直接开始订单消费
+                            ToastUtil.shortToast(QRCodeActivity.this, "符合免密条件,开始订单消费");
+                            action = "cost";
+                            new Thread(sendable).start();
+                        }
                     }
+                }else{
+                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                    QRCodeActivity.this.finish();
                 }
             }
 
