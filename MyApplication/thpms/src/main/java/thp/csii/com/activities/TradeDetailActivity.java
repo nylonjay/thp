@@ -53,6 +53,7 @@ public class TradeDetailActivity extends BaseActivity implements PullToRefreshLi
     private THProgressDialog mTHProgressDialog;
     private LinearLayout ll_back;
     private TextView tv_empty_info;
+    protected Typeface tf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class TradeDetailActivity extends BaseActivity implements PullToRefreshLi
         setTitleText(R.string.trade_detail);
         getData();
         initViews();
+        tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
     }
 
     private void getData() {
@@ -315,12 +317,10 @@ public class TradeDetailActivity extends BaseActivity implements PullToRefreshLi
             if (convertView==null){
                 viewHolder=new ViewHolder();
                 convertView= LayoutInflater.from(context).inflate(R.layout.trade_detail_item,null);
-                Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
                 viewHolder.tv_action = (TextView) convertView.findViewById(R.id.action);
                 viewHolder.tv_date = (TextView) convertView.findViewById(R.id.date_time);
                 viewHolder.tv_sum = (TextView) convertView.findViewById(R.id.sum);
                 viewHolder.tv_sum.setTypeface(tf);
-
                 convertView.setTag(viewHolder);
             }else {
                 viewHolder= (ViewHolder) convertView.getTag();

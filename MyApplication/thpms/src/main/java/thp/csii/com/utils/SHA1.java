@@ -277,7 +277,7 @@ public class SHA1 {
         String sign = "6281d1a1ea5d04145c94fa7a12871ac248b6459d";
         Map map = new HashMap();
       //  map.put("amount",500.00);
-        map.put("acno","7800100000002985");
+        map.put("acno","7800100000010483");
       //  map.put("user","7800100000002985");
 //        map.put("mid","00195");
 //        map.put("oid","m1514823ttt71899426");

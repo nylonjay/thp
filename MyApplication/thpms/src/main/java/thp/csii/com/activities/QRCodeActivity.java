@@ -81,7 +81,6 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     private THProgressDialog mTHProgressDialog;
     private String pinNeed;
     private String action;
-    private PayOrderListener mPayOrderListener;
     private boolean locked;
     private String pinTag;
     private NumberFormat nf;
@@ -92,7 +91,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     JSONObject jsonMap;
     private LinearLayout ll_ok;
     private boolean paused=false;
-    private TextView tv_code;
+    private TextView tv_code,tv_toBindCard,tv_toBuyCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,6 +163,21 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initViews() {
+        tv_toBuyCard= (TextView) findViewById(R.id.tv_toBuyCard);
+        tv_toBuyCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,"该功能紧急筹备中");
+            }
+        });
+        tv_toBindCard= (TextView) findViewById(R.id.tv_toBindCard);
+        tv_toBindCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  in = new Intent(QRCodeActivity.this, BindShoppingCardActivity.class);
+                startActivity(in);
+            }
+        });
         tv_code= (TextView) findViewById(R.id.tv_code);
         ll_ok= (LinearLayout) findViewById(R.id.ll_ok);
         ll_ok.setOnClickListener(new View.OnClickListener() {
@@ -182,47 +196,6 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         img_back = (ImageView) findViewById(R.id.tv_basetitle_back);
         img_setting = (ImageView) findViewById(R.id.tv_basetitle_ok);
         img_ywm= (ImageView) findViewById(R.id.img_yiweima);
-        mPayOrderListener=new PayOrderListener() {
-            @Override
-            public void HandleItMySelf(String msg) {
-
-            }
-
-            @Override
-            public void PushItoApp(String msg) {
-
-            }
-
-            @Override
-            public void PaySucced(String msg) {
-
-            }
-
-            @Override
-            public void PayFailed(String msg) {
-
-            }
-
-            @Override
-            public void PayCancled() {
-
-            }
-
-            @Override
-            public void OnNetWorkError() {
-
-            }
-
-            @Override
-            public void OnAcessLoginFailed() {
-
-            }
-
-            @Override
-            public void OnAcessLoginSucced() {
-
-            }
-        };
     }
     Handler hand=new Handler(){
         @Override
@@ -249,8 +222,6 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     tv_rmb.setTypeface(tf);
                     tv_rmb.setText(String.valueOf(symbol));
                     tv_amount.setText(""+String.format("%.2f",b.getDouble("totalamt")));
-                    hand.sendEmptyMessage(2);
-
                     if (null!=b.getString("vipCls")){
                         switch (b.getString("vipCls")){
                             case "1"://微卡
@@ -267,7 +238,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                                 break;
                         }
                     }
-
+                    hand.sendEmptyMessage(2);
                     break;
                 case 4:
                     //开始查询账户详情 获取余额信息
@@ -330,7 +301,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     QRCodeActivity.this.finish();
                 } else if ("4444".equals(res.getString("status"))) {
                     LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
-                    mPayOrderListener.PayFailed(json.toJSONString());
+                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(json.toJSONString());
                     if (res.getString("errcode").equals("00005")){//令牌校验失败
                         ToastUtil.shortToast(QRCodeActivity.this,res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("00013")){//用户会话失效
@@ -349,16 +320,16 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     }
 
                     else{//交给APP处理
-                        mPayOrderListener.PushItoApp(json.toJSONString());
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PushItoApp(json.toJSONString());
                     }
                 }else{
-                    mPayOrderListener.PayFailed(json.toJSONString());
+                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(json.toJSONString());
                 }
             }
             @Override
             public void onError(Object o) {
-                mPayOrderListener.PayFailed(o.toString());
-                mPayOrderListener.OnNetWorkError();
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(o.toString());
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.OnNetWorkError();
                 Log.i("res err", "" + o.toString());
             }
         });
@@ -503,12 +474,9 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         dialog.getWindow().findViewById(R.id.cancle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //取消按钮
                 TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("已取消");
-                for (Activity a:TianHongPayMentUtil.pwdactivities){
-                    a.finish();
-                }
                 dialog.dismiss();
+                QRCodeActivity.this.finish();
             }
         });
         dialog.getWindow().findViewById(R.id.positive).setOnClickListener(new View.OnClickListener() {
@@ -703,7 +671,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                 if (null!=res&&"0000".equals(res.getString("status"))){
                     LogUtil.e(QRCodeActivity.this,res.toJSONString());
                     jsonMap=res.getJSONObject("dataMap");
-                  //  acno=jsonMap.getString("acno");
+                    //  acno=jsonMap.getString("acno");
                     otid=jsonMap.getString("otid");
                     if (!hand.hasMessages(100)){
                         hand.sendEmptyMessage(100);
@@ -762,10 +730,11 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             order.setOid(oid);
                             order.setAmount(Double.valueOf(amount));
                             tianHongPayMentUtil= TianHongPayMentUtil.getInstance(TianHongPayMentUtil.CurrentContext);
-                            tianHongPayMentUtil.setUO(TianHongPayMentUtil.currentUser,order,QRCodeActivity.this);
+                        //    tianHongPayMentUtil.setUO(TianHongPayMentUtil.currentUser,order,QRCodeActivity.this);
+                            TianHongPayMentUtil.currentOder=order;
                             TianHongPayMentUtil.from="qr";
                             startActivity(in);
-                           // TianHongPayMentUtil.pwdactivities.add(QRCodeActivity.this);
+                            // TianHongPayMentUtil.pwdactivities.add(QRCodeActivity.this);
                         } else {
                             //未设置支付密码 跳转到设置支付密码页面和短信验证页面
                             Intent in=new Intent(QRCodeActivity.this,SetPayCode_First_Activity.class);
@@ -786,7 +755,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onError(Object o) {
-                mPayOrderListener.OnNetWorkError();
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.OnNetWorkError();
                 Log.i("res err", "" + o.toString());
             }
         });

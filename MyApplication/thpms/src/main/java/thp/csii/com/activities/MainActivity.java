@@ -119,7 +119,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        showProDialog();
+      //  showProDialog();
+        showDialog(true);
         new Thread(thread).start();
     }
 
@@ -370,7 +371,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         httpControl.HttpExcute(url, HttpControl.RequestGet, param, new ResultInterface() {
             @Override
             public void onSuccess(Object o) {
-                dismissDialog();
+            //    dismissDialog();
+                showDialog(false);
                 Double balamt;
                 Double cardamt = 0.0;
                 Double acye=0.0;
@@ -447,9 +449,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onError(Object o) {
-                dismissDialog();
-                ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
-                Log.i("res err", "" + o.toString());
+              //  dismissDialog();
+                showDialog(false);
+                ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,"网络异常");
             }
         });
     }

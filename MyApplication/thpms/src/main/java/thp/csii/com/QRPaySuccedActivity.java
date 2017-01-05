@@ -49,6 +49,7 @@ public class QRPaySuccedActivity extends BaseActivity {
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced("支付成功");
                 for (Activity a:TianHongPayMentUtil.pwdactivities){
                     a.finish();
                 }
