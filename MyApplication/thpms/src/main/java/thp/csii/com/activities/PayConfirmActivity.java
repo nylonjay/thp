@@ -241,6 +241,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
                             Intent in = new Intent(PayConfirmActivity.this,QRPaySuccedActivity.class);
                             startActivity(in);
                         }else{
+                            PayConfirmActivity.this.finish();
                             TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PaySucced(res.getString("msg"));
                         }
 //                    }else{

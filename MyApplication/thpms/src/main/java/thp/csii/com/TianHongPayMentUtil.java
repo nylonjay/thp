@@ -547,12 +547,12 @@ public class TianHongPayMentUtil {
                         }
                     }
                 }else {
-                    mPayOrderListener.PayFailed(res.getString("errmsg"));
+                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                 }
             }
             @Override
             public void onError(Object o) {
-                mPayOrderListener.OnNetWorkError();
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.OnNetWorkError();
                 Log.i("res err", "" + o.toString());
             }
         });
