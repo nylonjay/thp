@@ -188,23 +188,23 @@
             <ImageView
                 android:id="@+id/img_yiweima"
                 android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitXY"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/tv_code"
                 android:layout_centerHorizontal="true" />
             <ImageView
                 android:id="@+id/img_ewm"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/cancle_bg"
                 android:layout_below="@+id/img_yiweima"
                 android:layout_centerHorizontal="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
                 android:text="每分钟自动更新"
                 android:layout_centerHorizontal="true"
                 android:textSize="12dp"

@@ -115,7 +115,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                         tv_pf_hwm.setText(pf_hwm+"/笔");
                     }
                     tv_pay_hwm.setText(pay_hwm+"/笔");
-                    tv_day_hwm.setText(day_hwm+"/笔");
+                    tv_day_hwm.setText(day_hwm);
                     //new Thread(thread).start();
                     break;
                 case 5:
