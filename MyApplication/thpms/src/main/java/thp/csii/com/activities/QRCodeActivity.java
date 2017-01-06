@@ -421,10 +421,11 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             locked=false;
                         } else if ("05".equals(res.getString("errcode"))){
                             tv_rmb.setVisibility(View.GONE);
-                            ToastUtil.shortToast(QRCodeActivity.this,res.getString("errmsg"));
                             locked=true;
+                            TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("账户已锁定");
+                            QRCodeActivity.this.finish();
                             //closeALLActvivities();
-                            TianHongPayMentUtil.tianHongPayMentUtil.onMainActivityFinished.onFinished("支付功能已锁定");
+                            //TianHongPayMentUtil.tianHongPayMentUtil.onMainActivityFinished.onFinished("支付功能已锁定");
                         }else{
                             tv_rmb.setVisibility(View.GONE);
                             locked=false;
