@@ -1,5 +1,6 @@
 package thp.csii.com.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -74,6 +75,7 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
         setTitleText(R.string.inputcode);
         //  setBackView(R.drawable.u194);
         message=getIntent().getStringExtra("message");
+        TianHongPayMentUtil.pwdactivities.add(this);
         initViews();
 
     }
@@ -294,7 +296,10 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EnterCodeActivity.this.finish();
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("已取消");
+                for (Activity a:TianHongPayMentUtil.pwdactivities){
+                    a.finish();
+                }
             }
         });
         initpess();
@@ -338,7 +343,11 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_basetitle_back) {
-            EnterCodeActivity.this.finish();
+            TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("已取消");
+            for (Activity a:TianHongPayMentUtil.pwdactivities){
+                a.finish();
+            }
+           // EnterCodeActivity.this.finish();
 
         }
     }

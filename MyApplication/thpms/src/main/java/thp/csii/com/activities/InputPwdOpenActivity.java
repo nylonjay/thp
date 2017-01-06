@@ -61,12 +61,15 @@ public class InputPwdOpenActivity extends Activity {
     private MyReciever myreciever=new MyReciever();
     String requestcode;
     String pwd;
+    String from;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_pwd_open);
         initDialogpess();
         requestcode=getIntent().getStringExtra("requestcode");
+        from=getIntent().getStringExtra("from");
+        TianHongPayMentUtil.pwdactivities.add(this);
 
     }
 
@@ -83,8 +86,11 @@ public class InputPwdOpenActivity extends Activity {
                     break;
                 case 1:
                     //验证密码通过  开关设置为开启状态
+                    if (from.equals("stop")){
+                        new Thread(sendable1).start();
+                        return;
+                    }
                     StopPregressImage();
-                  //  setResult(RESULT_OK);
                     Intent in=new Intent(InputPwdOpenActivity.this,Pay_SettingActivity.class);
                     in.putExtra("pwd",pwd);
                     startActivity(in);
@@ -92,6 +98,10 @@ public class InputPwdOpenActivity extends Activity {
                     break;
                 case 5:
                     ValidatePayCode(HttpUrls.trsPwdValidate);
+                    break;
+                case 6:
+                    ShowPregressImage();
+                    ModifyPaySetting(HttpUrls.modifyPayFunConfirm);
                     break;
                 case 9:
                     ShowPregressImage();
@@ -113,6 +123,52 @@ public class InputPwdOpenActivity extends Activity {
             }
         }
     };
+    private void ModifyPaySetting(String mUrl) {
+        HttpControl httpControl = new HttpControl(this);
+        httpControl.TimeOut = 20 * 1000;
+        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> param = new HashMap<String, String>();
+        param.put("pin_data",pwd);
+        param.put("pf_flag","0");
+        param.put("day_hwm","1000");
+        param.put("pay_hwm","500");
+        param.put("pf_hwm","300");
+        param.put("resToken",token.getUniqueId());
+        param.put("pf_day_hwm","500.00");
+        param.put("pcode_flag","0");
+        String url =  Constant.SERVERHOST + Constant.AppName + mUrl;
+        headers.put("Accept-Language", "zh-CN,zh;q=0.8");
+        headers.put("Accept", "text/xml,application/json");
+        headers.put("Connection", "Keep-Alive");
+        headers.put("Cookie", SharePreferencesUtils.getSession(TianHongPayMentUtil.CurrentContext));
+        httpControl.setHeaders(headers);
+        httpControl.HttpExcute(url, HttpControl.RequestPost, param, new ResultInterface() {
+            @Override
+            public void onSuccess(Object o) {
+                StopPregressImage();
+                JSONObject json = JSON.parseObject((String) o);
+                JSONObject res=json.getJSONObject("res");
+                if (null!=res){
+                    if ("0000".equals(res.getString("status"))){
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("付款码支付已关闭");
+                        for (Activity a:TianHongPayMentUtil.pwdactivities){
+                            a.finish();
+                        }
+                    }else{
+                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    }
+                }
+            }
+            @Override
+            public void onError(Object o) {
+                StopPregressImage();
+                Log.i("res err", "" + o.toString());
+            }
+
+
+        });
+    }
+
     private void ValidatePayCode(String mUrl) {
         HttpControl httpControl = new HttpControl(this);
         httpControl.TimeOut = 20 * 1000;
@@ -134,7 +190,7 @@ public class InputPwdOpenActivity extends Activity {
             @Override
             public void onSuccess(Object o) {
                 StopPregressImage();
-              //  showDialog(false);
+                //  showDialog(false);
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res=json.getJSONObject("res");
                 if (null!=res){
@@ -212,6 +268,20 @@ public class InputPwdOpenActivity extends Activity {
 
         }
     };
+    Runnable sendable1 = new Runnable() {
+        @Override
+        public void run() {
+            // TODO Auto-generated method stub
+            try {
+                token=null;
+                token=getAccessGenToken1(hand);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
+
 
     private final PayConfig payConfig=PayConfig.newInstance();
     protected Token getAccessGenToken(Handler hand) throws Exception {
@@ -233,7 +303,6 @@ public class InputPwdOpenActivity extends Activity {
                 JSONObject accessToken = res.getJSONObject("dataMap").getJSONObject("resubmitToken");
                 token = new TokenImpl(accessToken.getString("uniqueId"), accessToken.getLong("accessDate"), accessToken.getIntValue("delayTime"));
                 hand.sendEmptyMessage(5);
-                //   logger.debug("商城获取到支付系统的Token {}", PayConfig.token);
             }
 
         } catch (Exception e) {
@@ -244,6 +313,36 @@ public class InputPwdOpenActivity extends Activity {
 
         return token;
     }
+    protected Token getAccessGenToken1(Handler hand) throws Exception {
+        Token token;
+        try {
+            String requestUrl = payConfig.getAccessGenTokenUrl().replace("APPID", payConfig.getAppId()).replace("SECRET", payConfig.getAppSecret());
+            JSONObject json = ConnectUtil.doGet(requestUrl, "utf-8");
+            if (null == json) {
+                throw new Exception("获取授权登录Token凭证失败!");
+            }
+            JSONObject res = json.getJSONObject("res");
+            if (null == res) {
+                throw new Exception("获取授权登录Token凭证失败!");
+            }
+            String status = res.getString("status");
+            if (status.equals("4444")) {
+                throw new Exception("获取授权登录Token凭证失败!" + res.getString("errcode") + res.getString("errmsg"));
+            } else {
+                JSONObject accessToken = res.getJSONObject("dataMap").getJSONObject("resubmitToken");
+                token = new TokenImpl(accessToken.getString("uniqueId"), accessToken.getLong("accessDate"), accessToken.getIntValue("delayTime"));
+                hand.sendEmptyMessage(6);
+            }
+
+        } catch (Exception e) {
+            //  logger.error("error generateAccessURI!", e);
+            e.printStackTrace();
+            throw new Exception("获取授权登录Token凭证失败!");
+        }
+
+        return token;
+    }
+
     public void ShowPregressImage(){
         myprogress.setVisibility(View.VISIBLE);
         mAnimationRate = AnimationUtils.loadAnimation(InputPwdOpenActivity.this, R.anim.progess);
@@ -262,7 +361,7 @@ public class InputPwdOpenActivity extends Activity {
         ll_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // hand.sendEmptyMessage(0);
+                // hand.sendEmptyMessage(0);
                 InputPwdOpenActivity.this.finish();
             }
         });

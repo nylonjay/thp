@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/reClick"
+        android:id="@+id/re_stop"
         android:layout_width="match_parent"
         android:layout_height="@dimen/unit_height"
         android:layout_marginTop="14dp"

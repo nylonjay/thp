@@ -116,7 +116,11 @@ public class SelectHwmActivity extends BaseActivity {
             }else{
                 vh.img_selected.setVisibility(View.INVISIBLE);
             }
-            vh.tv_hwm.setText(cuarr[position]+"/笔");
+            if (position==2){
+                vh.tv_hwm.setText(cuarr[position]);
+            }else{
+                vh.tv_hwm.setText(cuarr[position]+"/笔");
+            }
 
             return convertView;
         }
