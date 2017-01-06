@@ -102,7 +102,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                     LogUtil.e(Pay_SettingActivity.this,"第一次获取到的hf_str=="+hf_str);
                     shsready=true;
                     tv_pay_hwm.setText(pay_hwm+"/笔");
-                    tv_day_hwm.setText(day_hwm+"/笔");
+                    tv_day_hwm.setText(day_hwm);
 
                     break;
                 case 3:
