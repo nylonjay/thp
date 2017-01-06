@@ -33,6 +33,7 @@ public class Pay_Set_Pre extends BaseActivity {
         re_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                re_stop.setClickable(false);
                 Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
                 in.putExtra("from","stop");
                 startActivity(in);
@@ -42,6 +43,7 @@ public class Pay_Set_Pre extends BaseActivity {
         re_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                re_3.setClickable(false);
                 Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
                 in.putExtra("from","set");
                 startActivity(in);
@@ -54,5 +56,12 @@ public class Pay_Set_Pre extends BaseActivity {
                 Pay_Set_Pre.this.finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        re_stop.setClickable(true);
+        re_3.setClickable(true);
+        super.onResume();
     }
 }
