@@ -73,6 +73,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     private String amount;
     private TianHongPayMentUtil tianHongPayMentUtil;
     private final PayConfig payConfig=PayConfig.newInstance();
+    private String pf_hwm,pay_hwm,day_hwm;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -183,7 +184,11 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         ll_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(QRCodeActivity.this,Pay_Set_Pre.class));
+                Intent in =new Intent(QRCodeActivity.this,Pay_Set_Pre.class);
+                in.putExtra("pf_hwm",pf_hwm);
+                in.putExtra("pay_hwm",pay_hwm);
+                in.putExtra("day_hwm",day_hwm);
+                startActivity(in);
             }
         });
         card_level= (TextView) findViewById(R.id.tv_goldcard);
@@ -362,14 +367,18 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             JSONObject datamap = res.getJSONObject("dataMap");
                             if (null != datamap) {
                                 JSONObject rsvc = datamap.getJSONObject("rsvc");
+                                pay_hwm=rsvc.getString("payHwm");
+                                day_hwm=rsvc.getString("dayHwm");
+                                pf_hwm=rsvc.getString("pfHwm");
+                                LogUtil.e(QRCodeActivity.this,"pf pay day=="+pf_hwm+"/"+pay_hwm+"/"+day_hwm);
                                 vipCls = rsvc.getString("vipCls");
                                 pcodeFlag = rsvc.getString("pcodeFlag");
-                                LogUtil.e(QRCodeActivity.this,"pcodeflag=="+pcodeFlag);
                                 TianHongPayMentUtil.currentTel = rsvc.getString("mobile");
                                 // balamt = Double.parseDouble(rsvc.getString("balAmt"));//账户总余额
                                 balamt = nf.parse(rsvc.getString("balAmt")).doubleValue();
                                 //  nf.format(nf.parse(rsvc.getString("balAmt")).doubleValue());
                                 pinTag = rsvc.getString("pinTag");
+
                                 if (null != pcodeFlag && "0".equals(pcodeFlag)) {
                                     LogUtil.e(QRCodeActivity.this,"pintag=="+pinTag);
                                     //未开启付款码支付

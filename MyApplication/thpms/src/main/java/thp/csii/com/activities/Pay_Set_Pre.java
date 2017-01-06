@@ -14,12 +14,16 @@ import thp.csii.com.TianHongPayMentUtil;
 public class Pay_Set_Pre extends BaseActivity {
     private LinearLayout ll_back;
     private RelativeLayout re_3,re_stop,re_2;
+    private String pf_hwm,pay_hwm,day_hwm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay__set__pre);
         setTitleText(R.string.pay_set);
         setBackView(R.drawable.u194);
+        pf_hwm=getIntent().getStringExtra("pf_hwm");
+        pay_hwm=getIntent().getStringExtra("pay_hwm");
+        day_hwm=getIntent().getStringExtra("day_hwm");
         initViews();
         TianHongPayMentUtil.pwdactivities.add(this);
     }
@@ -31,6 +35,9 @@ public class Pay_Set_Pre extends BaseActivity {
             public void onClick(View v) {
                 Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
                 in.putExtra("from","stop");
+                in.putExtra("pf_hwm",pf_hwm);
+                in.putExtra("pay_hwm",pay_hwm);
+                in.putExtra("day_hwm",day_hwm);
                 startActivity(in);
             }
         });

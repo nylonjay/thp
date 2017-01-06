@@ -62,6 +62,7 @@ public class InputPwdOpenActivity extends Activity {
     String requestcode;
     String pwd;
     String from;
+    private String pf_hwm,pay_hwm,day_hwm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,10 @@ public class InputPwdOpenActivity extends Activity {
         initDialogpess();
         requestcode=getIntent().getStringExtra("requestcode");
         from=getIntent().getStringExtra("from");
+        pf_hwm=getIntent().getStringExtra("pf_hwm");
+        pay_hwm=getIntent().getStringExtra("pay_hwm");
+        day_hwm=getIntent().getStringExtra("day_hwm");
+        LogUtil.e(InputPwdOpenActivity.this,"pf pay day=="+pf_hwm+"/"+pay_hwm+"/"+day_hwm);
         TianHongPayMentUtil.pwdactivities.add(this);
 
     }
@@ -130,9 +135,9 @@ public class InputPwdOpenActivity extends Activity {
         Map<String, String> param = new HashMap<String, String>();
         param.put("pin_data",pwd);
         param.put("pf_flag","0");
-        param.put("day_hwm","1000");
-        param.put("pay_hwm","500");
-        param.put("pf_hwm","300");
+        param.put("day_hwm",day_hwm);
+        param.put("pay_hwm",pay_hwm);
+        param.put("pf_hwm",pf_hwm);
         param.put("resToken",token.getUniqueId());
         param.put("pf_day_hwm","500.00");
         param.put("pcode_flag","0");
