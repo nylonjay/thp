@@ -70,9 +70,6 @@ public class InputPwdOpenActivity extends Activity {
         initDialogpess();
         requestcode=getIntent().getStringExtra("requestcode");
         from=getIntent().getStringExtra("from");
-        pf_hwm=getIntent().getStringExtra("pf_hwm");
-        pay_hwm=getIntent().getStringExtra("pay_hwm");
-        day_hwm=getIntent().getStringExtra("day_hwm");
         LogUtil.e(InputPwdOpenActivity.this,"pf pay day=="+pf_hwm+"/"+pay_hwm+"/"+day_hwm);
         TianHongPayMentUtil.pwdactivities.add(this);
 
@@ -134,10 +131,10 @@ public class InputPwdOpenActivity extends Activity {
         Map<String, String> headers = new HashMap<String, String>();
         Map<String, String> param = new HashMap<String, String>();
         param.put("pin_data",pwd);
-        param.put("pf_flag","0");
-        param.put("day_hwm",day_hwm);
-        param.put("pay_hwm",pay_hwm);
-        param.put("pf_hwm",pf_hwm);
+        param.put("pf_flag",TianHongPayMentUtil.CurrentPf_flag);
+        param.put("day_hwm",TianHongPayMentUtil.CurrentDay_Hwm);
+        param.put("pay_hwm",TianHongPayMentUtil.CurrentPay_Hwm);
+        param.put("pf_hwm",TianHongPayMentUtil.CurrentPf_Hwm);
         param.put("resToken",token.getUniqueId());
         param.put("pf_day_hwm","500.00");
         param.put("pcode_flag","0");
@@ -155,6 +152,7 @@ public class InputPwdOpenActivity extends Activity {
                 JSONObject res=json.getJSONObject("res");
                 if (null!=res){
                     if ("0000".equals(res.getString("status"))){
+                        LogUtil.e("pfhwm","关闭的时候pfhwm=="+TianHongPayMentUtil.CurrentPf_Hwm);
                         TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("付款码支付已关闭");
                         for (Activity a:TianHongPayMentUtil.pwdactivities){
                             a.finish();
@@ -212,6 +210,12 @@ public class InputPwdOpenActivity extends Activity {
                         }
                         if ("05".equals(res.getString("errcode"))){
                             ToastUtil.shortNToast(InputPwdOpenActivity.this,res.getString("errmsg"));
+                        }
+                        if ("00013".equals(res.getString("errcode"))){
+                            TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("用户会话失效");
+                            for (Activity a:TianHongPayMentUtil.pwdactivities){
+                                a.finish();
+                            }
                         }
                     }
                 }

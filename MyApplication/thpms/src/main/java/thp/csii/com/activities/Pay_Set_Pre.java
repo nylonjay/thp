@@ -35,9 +35,6 @@ public class Pay_Set_Pre extends BaseActivity {
             public void onClick(View v) {
                 Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
                 in.putExtra("from","stop");
-                in.putExtra("pf_hwm",pf_hwm);
-                in.putExtra("pay_hwm",pay_hwm);
-                in.putExtra("day_hwm",day_hwm);
                 startActivity(in);
             }
         });

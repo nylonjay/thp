@@ -97,14 +97,17 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                         shswitchview1.setOn(true);
                         re_pf.setVisibility(View.VISIBLE);
                         tv_pf_hwm.setText(pf_hwm+"/笔");
+                        TianHongPayMentUtil.CurrentPf_Hwm=pf_hwm;
                         tv_hide_string1.setText("单笔交易使用手机付款,金额小于"+pf_hwm+"元/笔,无需输入支付密码");
                     }
                     hf_str=pf_flag;
                     LogUtil.e(Pay_SettingActivity.this,"第一次获取到的hf_str=="+hf_str);
                     shsready=true;
                     tv_pay_hwm.setText(pay_hwm+"/笔");
+                    TianHongPayMentUtil.CurrentPay_Hwm=pay_hwm;
                     tv_hide_string2.setText("单笔交易使用手机付款,金额大于"+pay_hwm+"元/笔,将不能支付");
                     tv_day_hwm.setText(day_hwm);
+                    TianHongPayMentUtil.CurrentDay_Hwm=day_hwm;
                     tv_hide_string3.setText("单日交易使用手机付款,累计金额大于"+day_hwm+"元,将不能支付");
 
                     break;
@@ -116,11 +119,14 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                         shswitchview1.setOn(true);
                         re_pf.setVisibility(View.VISIBLE);
                         tv_pf_hwm.setText(pf_hwm+"/笔");
+                        TianHongPayMentUtil.CurrentPf_Hwm=pf_hwm;
                         tv_hide_string1.setText("单笔交易使用手机付款,金额小于"+pf_hwm+"元/笔,无需输入支付密码");
                     }
                     tv_pay_hwm.setText(pay_hwm+"/笔");
+                    TianHongPayMentUtil.CurrentPay_Hwm=pay_hwm;
                     tv_hide_string2.setText("单笔交易使用手机付款,金额大于"+pay_hwm+"元/笔,将不能支付");
                     tv_day_hwm.setText(day_hwm);
+                    TianHongPayMentUtil.CurrentDay_Hwm=day_hwm;
                     tv_hide_string3.setText("单日交易使用手机付款,累计金额大于"+day_hwm+"元,将不能支付");
                     //new Thread(thread).start();
                     break;
@@ -244,12 +250,12 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                 String aa=hf_str;
 
                 if (isOn) {
-                    tv_hide_string1.setVisibility(View.VISIBLE);
-                    re_pf.setVisibility(View.VISIBLE);
                     if (null==pf_hwm){
                         pf_hwm="300.00";
                     }
-                    tv_pf_hwm.setText(pf_hwm);
+                    tv_hide_string1.setVisibility(View.VISIBLE);
+                    re_pf.setVisibility(View.VISIBLE);
+                    //  tv_pf_hwm.setText(pf_hwm);
                 } else {
                     tv_hide_string1.setVisibility(View.GONE);
                     re_pf.setVisibility(View.GONE);
@@ -354,7 +360,11 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                             pay_hwm=rsvc.getString("payHwm");
                             day_hwm=rsvc.getString("dayHwm");
                             pf_hwm=rsvc.getString("pfHwm");
+//                            TianHongPayMentUtil.CurrentPf_Hwm=pf_hwm;
+//                            TianHongPayMentUtil.CurrentPay_Hwm=pay_hwm;
+//                            TianHongPayMentUtil.CurrentDay_Hwm=day_hwm;
                             pf_flag=rsvc.getString("pfFlag");
+                            TianHongPayMentUtil.CurrentPf_flag=pf_flag;
                             pcode_flag=rsvc.getString("pcodeFlag");
                             pf_day_hwm=rsvc.getString("pfdayHwm");
                             hf_str=pf_flag;

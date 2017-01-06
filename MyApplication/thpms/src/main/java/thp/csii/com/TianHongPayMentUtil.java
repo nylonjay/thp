@@ -77,6 +77,8 @@ public class TianHongPayMentUtil {
     public static Order currentOder;
     public static User currentUser;
     public static String currentTel;
+    public static String CurrentPf_Hwm,CurrentPay_Hwm,CurrentDay_Hwm;
+    public static String CurrentPf_flag;
     public static boolean CodeSetted=false;
     public static String userSign="";
     public static String consumeSign="";

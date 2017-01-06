@@ -185,9 +185,6 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 Intent in =new Intent(QRCodeActivity.this,Pay_Set_Pre.class);
-                in.putExtra("pf_hwm",pf_hwm);
-                in.putExtra("pay_hwm",pay_hwm);
-                in.putExtra("day_hwm",day_hwm);
                 startActivity(in);
             }
         });
@@ -367,10 +364,11 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             JSONObject datamap = res.getJSONObject("dataMap");
                             if (null != datamap) {
                                 JSONObject rsvc = datamap.getJSONObject("rsvc");
-                                pay_hwm=rsvc.getString("payHwm");
-                                day_hwm=rsvc.getString("dayHwm");
-                                pf_hwm=rsvc.getString("pfHwm");
-                                LogUtil.e(QRCodeActivity.this,"pf pay day=="+pf_hwm+"/"+pay_hwm+"/"+day_hwm);
+                                TianHongPayMentUtil.CurrentPay_Hwm=rsvc.getString("payHwm");
+                                TianHongPayMentUtil.CurrentDay_Hwm=rsvc.getString("dayHwm");
+                                TianHongPayMentUtil.CurrentPf_Hwm=rsvc.getString("pfHwm");
+                                TianHongPayMentUtil.CurrentPf_flag=rsvc.getString("pfFlag");
+                                LogUtil.e(QRCodeActivity.this,"pf pay day=="+TianHongPayMentUtil.CurrentPf_Hwm+"/"+TianHongPayMentUtil.CurrentPay_Hwm+"/"+TianHongPayMentUtil.CurrentDay_Hwm);
                                 vipCls = rsvc.getString("vipCls");
                                 pcodeFlag = rsvc.getString("pcodeFlag");
                                 TianHongPayMentUtil.currentTel = rsvc.getString("mobile");
@@ -470,7 +468,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             hand.removeMessages(1);
             QRCodeActivity.this.finish();
         } else if (i == R.id.tv_basetitle_ok) {
-            startActivity(new Intent(QRCodeActivity.this, Pay_SettingActivity.class));
+         //   startActivity(new Intent(QRCodeActivity.this, Pay_SettingActivity.class));
         }
     }
 
