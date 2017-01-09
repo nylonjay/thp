@@ -526,6 +526,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT, Bitmap.Config.ARGB_8888);
             bitmap.setPixels(pixels, 0, QR_WIDTH, 0, 0, QR_WIDTH, QR_HEIGHT);
             //显示到一个ImageView上面
+            img_ewm.setScaleType(ImageView.ScaleType.FIT_XY);
             img_ewm.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
