@@ -66,7 +66,7 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madde);
         // initData();
-        Constant.setSERVERHOST("http://192.168.208.150:8080");
+        Constant.setSERVERHOST("http://192.168.163.20:8080");
         btn_test= (Button) findViewById(R.id.btn_test);
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +110,11 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
                 TianHongPayMentUtil.userSign=userSign;
                 TianHongPayMentUtil.currentUser=user;
                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener=MaddeActivity.this;
-                startActivity(new Intent(MaddeActivity.this, QRCodeActivity.class));
+               // startActivity(new Intent(MaddeActivity.this, QRCodeActivity.class));
+//                TianHongPayMentUtil.tianHongPayMentUtil.onMainActivityFinished=mOnMainfinished;
+                tianHongPayMentUtil.toQRActivity();
+
+
             }
         });
         btn_pay= (Button) findViewById(R.id.btn_pay);

@@ -36,9 +36,11 @@ import cn.com.csii.mobile.http.HttpControl;
 import cn.com.csii.mobile.http.ResultInterface;
 import cn.com.csii.mobile.http.util.LogUtil;
 import cn.rainbow.thbase.ui.pulltorefresh.PullToRefreshBase;
+import thp.csii.com.activities.EnterCodeActivity;
 import thp.csii.com.activities.MainActivity;
 import thp.csii.com.activities.MessageAuthActivity;
 import thp.csii.com.activities.PayConfirmActivity;
+import thp.csii.com.activities.QRCodeActivity;
 import thp.csii.com.activities.SetPayCode_First_Activity;
 import thp.csii.com.callback.BindCardCallBack;
 import thp.csii.com.callback.EditChangedListener;
@@ -92,6 +94,7 @@ public class TianHongPayMentUtil {
     public  BindCardCallBack bindCardCallBack;
     public  OnMainActivityFinished onMainActivityFinished;
     private String otid;
+    private boolean locked;
 
     public void JumpTOMainActivity(){
         Intent in=new Intent(CurrentContext,MainActivity.class);
@@ -135,13 +138,17 @@ public class TianHongPayMentUtil {
         action = "qryacount";
         new Thread(sendablea).start();
     }
+    public void toQRActivity(){//跳转到付款码页面之前的账户查询
+        action="toqr";
+        new Thread(sendablea).start();
+    }
 
     Runnable sendablea = new Runnable() {//支付
         @Override
         public void run() {
             // TODO Auto-generated method stub
             try {
-                if (action.equals("qryacount")){
+                if (action.equals("qryacount")||action.equals("toqr")){
                     GETQryLoginToken(hand);//查询红包余额的授权登录
                 }
                 else{
@@ -196,7 +203,7 @@ public class TianHongPayMentUtil {
                                 JSONObject rsvc = datamap.getJSONObject("rsvc");
                                 // balamt = Double.parseDouble(rsvc.getString("balAmt"));//账户总余额
                                 balamt = nf.parse(rsvc.getString("balAmt")).doubleValue();
-                                if (null!=balamt&&balamt!=-1.0){
+                                if (null!=balamt&&balamt!=-1.0&&null!=mQryAmountListner){
                                     //查询余额的接口
                                     mQryAmountListner.OnQryAmountHBYESUceed(balamt);
                                 }
@@ -257,13 +264,16 @@ public class TianHongPayMentUtil {
 
         } catch (Exception e) {
             if (null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
-               mPayOrderListener.PayFailed("获取登录授权加密失败");
+                mPayOrderListener.PayFailed("获取登录授权加密失败");
             }
             System.err.println("授权登录发生错误!" + e.getMessage());
-         //   mPayOrderListener.OnAcessLoginFailed();
+            //   mPayOrderListener.OnAcessLoginFailed();
             hand.sendEmptyMessage(404);
         }
     }
+
+
+
     protected void GETQryLoginToken(Handler hand){
         PainObj painObj = new PainObj(currentUser,null);
         painObj.setUserSign(userSign);
@@ -272,10 +282,14 @@ public class TianHongPayMentUtil {
             PaySDK paySDK = new PaySDK();
             String url = paySDK.getAccessLoginURI(painObj);
             System.out.println("redirectUrl = [" + url + "]");
-            hand.sendEmptyMessage(20);
+            if (action.equals("toqr")){
+                hand.sendEmptyMessage(19);
+            }else{
+                hand.sendEmptyMessage(20);
+            }
         } catch (Exception e) {
             System.err.println("授权登录发生错误!" + e.getMessage());
-          //  hand.sendEmptyMessage(404);
+            //  hand.sendEmptyMessage(404);
             //mPayOrderListener.OnAcessLoginFailed();
             if (null!=mQryAmountListner){
                 mQryAmountListner.OnQryAmountHBYEFailed("授权错误");
@@ -336,8 +350,11 @@ public class TianHongPayMentUtil {
                     //开始验证支付密码
                     break;
                 case 404:
-                   // ToastUtil.shortToast(CurrentContext,"服务器无响应");
-                   // mPayOrderListener.OnNetWorkError();
+                    // ToastUtil.shortToast(CurrentContext,"服务器无响应");
+                    // mPayOrderListener.OnNetWorkError();
+                    break;
+                case 19:
+                    QRFunDera();
                     break;
                 case 20:
                     if (action.equals("qr")){
@@ -360,6 +377,173 @@ public class TianHongPayMentUtil {
             }
         }
     };
+
+
+    private void QRFunDera() {
+        HttpControl httpControl = new HttpControl(TianHongPayMentUtil.CurrentContext);
+        httpControl.TimeOut = 20 * 1000;
+        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> param = new HashMap<String, String>();
+        String url =Constant.SERVERHOST + Constant.AppName + HttpUrls.payFunDetaQry;
+        headers.put("Accept-Language", "zh-CN,zh;q=0.8");
+        headers.put("Accept", "application/json");
+        headers.put("Connection", "Keep-Alive");
+        headers.put("Cookie", SharePreferencesUtils.getSession(TianHongPayMentUtil.CurrentContext));
+        httpControl.setHeaders(headers);
+        httpControl.HttpExcute(url, HttpControl.RequestGet, param, new ResultInterface() {
+            @Override
+            public void onSuccess(Object o) {
+                Double balamt;
+                Double cardamt = 0.0;
+                Double acye=0.0;
+                JSONObject json = JSON.parseObject((String) o);
+                JSONObject res = json.getJSONObject("res");
+                NumberFormat nf=NumberFormat.getInstance();
+                try {
+                    if (null != res) {
+                        if (res.getString("status").equals("0000")) {
+
+                            JSONObject datamap = res.getJSONObject("dataMap");
+                            if (null != datamap) {
+                                JSONObject rsvc = datamap.getJSONObject("rsvc");
+//                                TianHongPayMentUtil.CurrentPay_Hwm=rsvc.getString("payHwm");
+//                                TianHongPayMentUtil.CurrentDay_Hwm=rsvc.getString("dayHwm");
+//                                TianHongPayMentUtil.CurrentPf_Hwm=rsvc.getString("pfHwm");
+//                                TianHongPayMentUtil.CurrentPf_flag=rsvc.getString("pfFlag");
+                                //    LogUtil.e(QRCodeActivity.this,"pf pay day=="+TianHongPayMentUtil.CurrentPf_Hwm+"/"+TianHongPayMentUtil.CurrentPay_Hwm+"/"+TianHongPayMentUtil.CurrentDay_Hwm);
+                               // String  vipCls = rsvc.getString("vipCls");
+                                String  pcodeFlag = rsvc.getString("pcodeFlag");
+                              //  TianHongPayMentUtil.currentTel = rsvc.getString("mobile");
+                                // balamt = Double.parseDouble(rsvc.getString("balAmt"));//账户总余额
+                                balamt = nf.parse(rsvc.getString("balAmt")).doubleValue();
+                                //  nf.format(nf.parse(rsvc.getString("balAmt")).doubleValue());
+                                String pinTag = rsvc.getString("pinTag");
+
+                                if (null != pcodeFlag && "0".equals(pcodeFlag)) {
+                                    LogUtil.e(TianHongPayMentUtil.CurrentContext,"pintag=="+pinTag);
+                                    //未开启付款码支付
+                                    if (pinTag.equals("00")) {
+                                        TianHongPayMentUtil.CodeSetted = false;
+                                        Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
+                                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        TianHongPayMentUtil.CurrentContext.startActivity(in);
+                                       // initPayNotSettedDialog("该账户还未设置支付密码，请先设置支付密码。", "pset");
+                                        return;
+                                    } else if (pinTag.equals("01")) {
+                                        //未开启付款码支付  去开启
+                                        TianHongPayMentUtil.CodeSetted = true;
+                                        Intent in=new Intent(TianHongPayMentUtil.CurrentContext,EnterCodeActivity.class);
+                                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        TianHongPayMentUtil.CurrentContext.startActivity(in);
+                                        // startActivity(new Intent(TianHongPayMentUtil.CurrentContext,EnterCodeActivity.class));
+                                        //ToastUtil.shortToast(context,"已设置支付密码");
+                                    }
+                                }else{
+                                    if (pinTag.equals("00")) {
+                                        TianHongPayMentUtil.CodeSetted = false;
+                                        Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
+                                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        TianHongPayMentUtil.CurrentContext.startActivity(in);
+                                       // initPayNotSettedDialog("该账户还未设置支付密码，请先设置支付密码。", "pset");
+                                        return;
+                                    } else if (pinTag.equals("01")) {
+                                        TianHongPayMentUtil.CodeSetted = true;
+                                        Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
+                                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        TianHongPayMentUtil.CurrentContext.startActivity(in);
+                                    }
+                                }
+                             //   JSONObject acclist = rsvc.getJSONObject("accList");
+                                //    acclistJson=acclist.toJSONString();
+                             //   LogUtil.e(QRCodeActivity.this,acclist.toJSONString());
+
+//                                if (null != acclist) {
+//                                    JSONArray account = acclist.getJSONArray("account");
+//                                    for (int i = 0; i < account.size(); i++) {
+//                                        //  cardamt += Double.parseDouble(account.getJSONObject(i).getString("balAmt"));
+//                                        if (!account.getJSONObject(i).getString("accno").equals(TianHongPayMentUtil.currentUser.getAcno())){
+//
+//                                            cardamt += nf.parse(account.getJSONObject(i).getString("balAmt")).doubleValue();
+//                                        }else{
+//                                            acye+=nf.parse(account.getJSONObject(i).getString("balAmt")).doubleValue();
+//                                        }
+//                                    }//将所有卡的余额相加
+//                                    Message msg = new Message();
+//                                    Bundle b = new Bundle();
+//                                    b.putDouble("balamt", (acye));
+//                                    b.putDouble("cardamt", cardamt);
+//                                    b.putDouble("totalamt", balamt);
+//                                    b.putString("vipCls",vipCls);
+//                                    msg.setData(b);
+//                                    msg.what = 3;
+//                                    hand.sendMessage(msg);
+//                                }
+                            }
+                            locked=false;
+                        } else if ("05".equals(res.getString("errcode"))){
+                          //  tv_rmb.setVisibility(View.GONE);
+                            locked=true;
+                            TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("账户已锁定");
+                            return;
+                           //QRCodeActivity.this.finish();
+                            //closeALLActvivities();
+                            //TianHongPayMentUtil.tianHongPayMentUtil.onMainActivityFinished.onFinished("支付功能已锁定");
+                        }else{
+                            //  tv_rmb.setVisibility(View.GONE);
+                            locked=false;
+                            mPayOrderListener.PayFailed(res.getString("errmsg"));
+                           // ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+//                            if ("00013".equals(res.getString("errcode"))){
+//                                //session过期弹出操作失败弹框
+//                                //  initSessionOutTime("操作失败"+("00013"));
+//                                ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+//                                //  TianHongPayMentUtil.tianHongPayMentUtil.onMainActivityFinished.onFinished();
+//                            }
+
+                        }
+                    }
+                }catch (Exception e){
+                    ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                }
+
+            }
+
+            @Override
+            public void onError(Object o) {
+                ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
+                Log.i("res err", "" + o.toString());
+            }
+        });
+
+    }
+    public void initPayNotSettedDialog(String sum, final String action){
+        final AlertDialog dialog=new AlertDialog.Builder(TianHongPayMentUtil.CurrentContext).create();
+
+        dialog.show();
+        dialog.getWindow().setContentView(R.layout.wait_dialog);
+        TextView tv= (TextView) dialog.getWindow().findViewById(R.id.text_dialog);
+        tv.setText(sum);
+        dialog.getWindow().findViewById(R.id.cancle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("已取消");
+                dialog.dismiss();
+                // QRCodeActivity.this.finish();
+            }
+        });
+        dialog.getWindow().findViewById(R.id.positive).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // startActivity(new Intent(context,AuthenticationActivity.class));
+                Intent in=new Intent(TianHongPayMentUtil.CurrentContext, SetPayCode_First_Activity.class);
+                in.putExtra("from","set");
+                in.putExtra("action",action);
+                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                TianHongPayMentUtil.CurrentContext.startActivity(in);
+                dialog.dismiss();
+            }
+        });
+    }
     private String chanl,ent_mode,pcode;
 
     private void GetOrderInfoApp(String otid){
@@ -395,7 +579,7 @@ public class TianHongPayMentUtil {
                         hand.sendEmptyMessage(1);//开始查询账户信息
                         // b.putString("chanl");
                     }else {
-                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     }
                 }else {
                     mPayOrderListener.PayFailed("获取订单信息失败");

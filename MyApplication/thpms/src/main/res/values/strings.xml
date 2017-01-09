@@ -53,4 +53,5 @@
     <string name="pay_set">支付设置</string>
     <string name="select_hwm">选择金额</string>
     <string name="pay_success">付款成功</string>
+    <string name="text_wexin">成为\"天虹\"微信会员，可通过微信将账户里的有效购物卡转赠给好友</string>
 </resources>

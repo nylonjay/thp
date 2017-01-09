@@ -180,29 +180,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/my_vertical_margin"
             android:text="3.停车缴费购物卡支付"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12dp"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/my_vertical_margin"
             android:text="停车缴费付款页面，选择购物卡付款"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/my_vertical_margin"
             android:text="4.线下换取实体卡"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12dp"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/my_vertical_margin"
             android:text="您在线上购买的购物卡，可至实体店换取等额实体卡"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textSize="14dp"
             android:layout_marginTop="@dimen/my_vertical_margin"
             android:text="5.微信转赠"/>
