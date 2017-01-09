@@ -102,6 +102,8 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
                 case 2://开启付款码支付成功
                     LogUtil.e(EnterCodeActivity.this,"开启付款码支付成功");
                     LogUtil.e("pfhwm","开启的时候pfhwm=="+TianHongPayMentUtil.CurrentPf_Hwm);
+                    Intent in=new Intent(EnterCodeActivity.this,QRCodeActivity.class);
+                    startActivity(in);
                     EnterCodeActivity.this.finish();
                     break;
                 case 101:
