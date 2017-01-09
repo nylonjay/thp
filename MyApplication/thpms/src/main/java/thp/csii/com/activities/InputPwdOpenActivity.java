@@ -200,7 +200,7 @@ public class InputPwdOpenActivity extends Activity {
                     JSONObject dataMap=res.getJSONObject("dataMap");
                     if ("0000".equals(res.getString("status"))){
                         hand.sendEmptyMessage(1);
-                        ToastUtil.shortNToast(InputPwdOpenActivity.this,"验证通过");
+//                        ToastUtil.shortNToast(InputPwdOpenActivity.this,"验证通过");
                     }else{
                         if ("55".equals(res.getString("errcode"))){
                             initChanceDialog(dataMap.getString("pinRetry"));

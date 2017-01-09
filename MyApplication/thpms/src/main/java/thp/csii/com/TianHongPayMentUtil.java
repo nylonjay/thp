@@ -733,7 +733,9 @@ public class TianHongPayMentUtil {
                         }
                     }
                 }else {
+                    String msh=res.getString("errmsg");
                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                    LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                 }
             }
             @Override

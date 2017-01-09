@@ -87,6 +87,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
+                    showDialog(true);
                     QryCountDetail(HttpUrls.payFunDetaQry);
                     break;
                 case 2://查询到了支付设置信息
@@ -120,11 +121,11 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                         re_pf.setVisibility(View.VISIBLE);
                         tv_pf_hwm.setText(pf_hwm+"/笔");
                         TianHongPayMentUtil.CurrentPf_Hwm=pf_hwm;
-                        tv_hide_string1.setText("单笔交易使用手机付款,金额≤"+pf_hwm+"元/笔,无需输入支付密码");
+                        tv_hide_string1.setText("单笔交易使用手机付款,金额≤"+pf_hwm.substring(0,pf_hwm.indexOf("."))+"元/笔,无需输入支付密码");
                     }
                     tv_pay_hwm.setText(pay_hwm+"/笔");
                     TianHongPayMentUtil.CurrentPay_Hwm=pay_hwm;
-                    tv_hide_string2.setText("单笔交易使用手机付款,金额≥"+pay_hwm+"元/笔,将不能支付");
+                    tv_hide_string2.setText("单笔交易使用手机付款,金额≥"+pay_hwm.substring(0,pay_hwm.indexOf("."))+"元/笔,将不能支付");
                     tv_day_hwm.setText(day_hwm);
                     TianHongPayMentUtil.CurrentDay_Hwm=day_hwm;
                     tv_hide_string3.setText("单日交易使用手机付款,累计金额≥"+day_hwm+"元,将不能支付");
@@ -152,7 +153,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         httpControl.HttpExcute(url, HttpControl.RequestGet, param, new ResultInterface() {
             @Override
             public void onSuccess(Object o) {
-                dismissDialog();
+                showDialog(false);
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res = json.getJSONObject("res");
                 try {
@@ -190,7 +191,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onError(Object o) {
-                dismissDialog();
+                showDialog(false);
                 ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
                 Log.i("res err", "" + o.toString());
             }

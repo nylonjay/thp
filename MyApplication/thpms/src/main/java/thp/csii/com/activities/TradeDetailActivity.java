@@ -1,6 +1,7 @@
 package thp.csii.com.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -327,12 +328,15 @@ public class TradeDetailActivity extends BaseActivity implements PullToRefreshLi
             }
             if (td.getTxnId().equals("2")){
                 viewHolder.tv_action.setText("消费");
+                viewHolder.tv_sum.setTextColor(Color.parseColor("#63D770"));
                 viewHolder.tv_sum.setText("-"+"￥"+String.format("%.2f", Double.valueOf(td.getTxnAmt())));
             }else if (td.getTxnId().equals("3")){
                 viewHolder.tv_action.setText("退款");
+                viewHolder.tv_sum.setTextColor(Color.parseColor("#fe473c"));
                 viewHolder.tv_sum.setText("+"+"￥"+String.format("%.2f", Double.valueOf(td.getTxnAmt())));
             }else if (td.getTxnId().equals("4")){
                 viewHolder.tv_action.setText("退款");
+                viewHolder.tv_sum.setTextColor(Color.parseColor("#fe473c"));
                 viewHolder.tv_sum.setText("+"+"￥"+String.format("%.2f", Double.valueOf(td.getTxnAmt())));
             }
             viewHolder.tv_date.setText(td.getTxnDate());
