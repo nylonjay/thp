@@ -79,7 +79,7 @@ public class TianHongPayMentUtil {
     public static Order currentOder;
     public static User currentUser;
     public static String currentTel;
-    public static String CurrentPf_Hwm,CurrentPay_Hwm,CurrentDay_Hwm;
+    public static String CurrentPf_Hwm="300.00",CurrentPay_Hwm="5000.00",CurrentDay_Hwm="10000.00";
     public static String CurrentPf_flag;
     public static boolean CodeSetted=false;
     public static String userSign="";
@@ -406,10 +406,10 @@ public class TianHongPayMentUtil {
                             JSONObject datamap = res.getJSONObject("dataMap");
                             if (null != datamap) {
                                 JSONObject rsvc = datamap.getJSONObject("rsvc");
-//                                TianHongPayMentUtil.CurrentPay_Hwm=rsvc.getString("payHwm");
-//                                TianHongPayMentUtil.CurrentDay_Hwm=rsvc.getString("dayHwm");
-//                                TianHongPayMentUtil.CurrentPf_Hwm=rsvc.getString("pfHwm");
-//                                TianHongPayMentUtil.CurrentPf_flag=rsvc.getString("pfFlag");
+                                TianHongPayMentUtil.CurrentPay_Hwm=rsvc.getString("payHwm");
+                                TianHongPayMentUtil.CurrentDay_Hwm=rsvc.getString("dayHwm");
+                                TianHongPayMentUtil.CurrentPf_Hwm=rsvc.getString("pfHwm");
+                                TianHongPayMentUtil.CurrentPf_flag=rsvc.getString("pfFlag");
                                 //    LogUtil.e(QRCodeActivity.this,"pf pay day=="+TianHongPayMentUtil.CurrentPf_Hwm+"/"+TianHongPayMentUtil.CurrentPay_Hwm+"/"+TianHongPayMentUtil.CurrentDay_Hwm);
                                // String  vipCls = rsvc.getString("vipCls");
                                 String  pcodeFlag = rsvc.getString("pcodeFlag");
