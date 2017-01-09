@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.deserializer.MapDeserializer;
 import com.csii.powerenter.PEEditText;
 import com.csii.powerenter.PEEditTextAttrSet;
 
@@ -79,7 +80,7 @@ public class TianHongPayMentUtil {
     public static Order currentOder;
     public static User currentUser;
     public static String currentTel;
-    public static String CurrentPf_Hwm="300.00",CurrentPay_Hwm="5000.00",CurrentDay_Hwm="10000.00";
+    public static String CurrentPf_Hwm="300.00",CurrentPay_Hwm="5000.00",CurrentDay_Hwm="10000.00",CurrentPf_day_hwm="500";
     public static String CurrentPf_flag;
     public static boolean CodeSetted=false;
     public static String userSign="";
@@ -410,8 +411,10 @@ public class TianHongPayMentUtil {
                                 TianHongPayMentUtil.CurrentDay_Hwm=rsvc.getString("dayHwm");
                                 TianHongPayMentUtil.CurrentPf_Hwm=rsvc.getString("pfHwm");
                                 TianHongPayMentUtil.CurrentPf_flag=rsvc.getString("pfFlag");
+                                TianHongPayMentUtil.CurrentPf_day_hwm=rsvc.getString("pfDayHwm");
+                               // LogUtil.e(TianHongPayMentUtil.CurrentContext,"pfdayhwm=="+TianHongPayMentUtil.CurrentPf_day_hwm);
                                 //    LogUtil.e(QRCodeActivity.this,"pf pay day=="+TianHongPayMentUtil.CurrentPf_Hwm+"/"+TianHongPayMentUtil.CurrentPay_Hwm+"/"+TianHongPayMentUtil.CurrentDay_Hwm);
-                               // String  vipCls = rsvc.getString("vipCls");
+                                // String  vipCls = rsvc.getString("vipCls");
                                 String  pcodeFlag = rsvc.getString("pcodeFlag");
                               //  TianHongPayMentUtil.currentTel = rsvc.getString("mobile");
                                 // balamt = Double.parseDouble(rsvc.getString("balAmt"));//账户总余额

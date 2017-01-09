@@ -233,7 +233,7 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
         param.put("resToken",token.getUniqueId());
         param.put("pcode_flag","1");
         param.put("pay_hwm",TianHongPayMentUtil.CurrentPay_Hwm);
-        param.put("pf_day_hwm","500.00");
+        param.put("pf_day_hwm",TianHongPayMentUtil.CurrentPf_day_hwm);
         param.put("day_hwm",TianHongPayMentUtil.CurrentDay_Hwm);
         param.put("pf_hwm",TianHongPayMentUtil.CurrentPf_Hwm);
         param.put("pf_flag",TianHongPayMentUtil.CurrentPf_flag);

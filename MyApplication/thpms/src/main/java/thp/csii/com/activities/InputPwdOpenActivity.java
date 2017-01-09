@@ -136,7 +136,7 @@ public class InputPwdOpenActivity extends Activity {
         param.put("pay_hwm",TianHongPayMentUtil.CurrentPay_Hwm);
         param.put("pf_hwm",TianHongPayMentUtil.CurrentPf_Hwm);
         param.put("resToken",token.getUniqueId());
-        param.put("pf_day_hwm","500.00");
+        param.put("pf_day_hwm",TianHongPayMentUtil.CurrentPf_day_hwm);
         param.put("pcode_flag","0");
         String url =  Constant.SERVERHOST + Constant.AppName + mUrl;
         headers.put("Accept-Language", "zh-CN,zh;q=0.8");
