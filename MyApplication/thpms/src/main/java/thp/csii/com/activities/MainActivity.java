@@ -161,7 +161,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     break;
                 case 404:
                     dismissDialog();
+                    showDialog(false);
                     ToastUtil.shortNToast(MainActivity.this,"查询账户信息失败");
+
                     break;
 
             }
