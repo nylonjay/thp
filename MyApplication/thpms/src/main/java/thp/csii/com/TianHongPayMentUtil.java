@@ -423,7 +423,7 @@ public class TianHongPayMentUtil {
                                 String pinTag = rsvc.getString("pinTag");
 
                                 LogUtil.e(TianHongPayMentUtil.CurrentContext,"pintag=="+pinTag);
-                                if (null != pcodeFlag && "0".equals(pcodeFlag)) {
+                                if ("0".equals(pcodeFlag)) {
                                     //未开启付款码支付
                                     if (pinTag.equals("00")) {
                                         TianHongPayMentUtil.CodeSetted = false;
@@ -438,23 +438,16 @@ public class TianHongPayMentUtil {
                                         Intent in=new Intent(TianHongPayMentUtil.CurrentContext,EnterCodeActivity.class);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         TianHongPayMentUtil.CurrentContext.startActivity(in);
-                                        // startActivity(new Intent(TianHongPayMentUtil.CurrentContext,EnterCodeActivity.class));
-                                        //ToastUtil.shortToast(context,"已设置支付密码");
                                     }
                                 }else{
                                     if (pinTag.equals("00")) {
                                         TianHongPayMentUtil.CodeSetted = false;
-                                        Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
-                                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        TianHongPayMentUtil.CurrentContext.startActivity(in);
-                                       // initPayNotSettedDialog("该账户还未设置支付密码，请先设置支付密码。", "pset");
-                                        return;
                                     } else if (pinTag.equals("01")) {
                                         TianHongPayMentUtil.CodeSetted = true;
-                                        Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
-                                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        TianHongPayMentUtil.CurrentContext.startActivity(in);
                                     }
+                                    Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
+                                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    TianHongPayMentUtil.CurrentContext.startActivity(in);
                                 }
                              //   JSONObject acclist = rsvc.getJSONObject("accList");
                                 //    acclistJson=acclist.toJSONString();
