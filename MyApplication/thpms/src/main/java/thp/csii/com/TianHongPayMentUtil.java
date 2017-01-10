@@ -494,7 +494,7 @@ public class TianHongPayMentUtil {
                         }else{
                             //  tv_rmb.setVisibility(View.GONE);
                             locked=false;
-                            mPayOrderListener.PayFailed(res.getString("errmsg"));
+                            TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                            // ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
 //                            if ("00013".equals(res.getString("errcode"))){
 //                                //session过期弹出操作失败弹框
@@ -513,8 +513,9 @@ public class TianHongPayMentUtil {
 
             @Override
             public void onError(Object o) {
-                ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
-                Log.i("res err", "" + o.toString());
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("服务器无响应");
+               // ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
+               // Log.i("res err", "" + o.toString());
             }
         });
 
