@@ -97,14 +97,14 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                     }else if (pf_flag.equals("1")){
                         shswitchview1.setOn(true);
                         re_pf.setVisibility(View.VISIBLE);
-                        tv_pf_hwm.setText(pf_hwm+"/笔");
+                        tv_pf_hwm.setText(pf_hwm.substring(0,pf_hwm.indexOf("."))+"/笔");
                         TianHongPayMentUtil.CurrentPf_Hwm=pf_hwm;
                         tv_hide_string1.setText("单笔交易使用手机付款,金额<"+pf_hwm.substring(0,pf_hwm.indexOf("."))+"元/笔,无需输入支付密码");
                     }
                     hf_str=pf_flag;
                     LogUtil.e(Pay_SettingActivity.this,"第一次获取到的hf_str=="+hf_str);
                     shsready=true;
-                    tv_pay_hwm.setText(pay_hwm+"/笔");
+                    tv_pay_hwm.setText(pay_hwm.substring(0,pay_hwm.indexOf("."))+"/笔");
                     TianHongPayMentUtil.CurrentPay_Hwm=pay_hwm;
                     tv_hide_string2.setText("单笔交易使用手机付款,金额>"+pay_hwm.substring(0,pay_hwm.indexOf("."))+"元/笔,将不能支付");
                     tv_day_hwm.setText(day_hwm);

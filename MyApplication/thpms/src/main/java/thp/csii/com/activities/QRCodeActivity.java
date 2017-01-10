@@ -60,8 +60,8 @@ import thp.csii.com.utils.ToastUtil;
 
 public class QRCodeActivity extends AppCompatActivity implements View.OnClickListener,PayOrderListener{
     private ImageView img_back, img_setting, img_ewm,img_ywm;
-    private int QR_WIDTH = 100;
-    private int QR_HEIGHT = 100;
+    private int QR_WIDTH = 480;
+    private int QR_HEIGHT = 480;
     private LinearLayout ll_back;
     private TianHongPayMentUtil util;
     private TextView tv_amount,tv_rmb;
@@ -526,7 +526,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT, Bitmap.Config.ARGB_8888);
             bitmap.setPixels(pixels, 0, QR_WIDTH, 0, 0, QR_WIDTH, QR_HEIGHT);
             //显示到一个ImageView上面
-            img_ewm.setScaleType(ImageView.ScaleType.FIT_XY);
+           // img_ewm.setScaleType(ImageView.ScaleType.FIT_XY);
             img_ewm.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
@@ -735,7 +735,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             //需要交易密码
                             if (TianHongPayMentUtil.CodeSetted) {
                                 //跳转到输入支付密码页面
-                                TianHongPayMentUtil.currentOder=null;
+                                //TianHongPayMentUtil.currentOder=null;
                                 LogUtil.e(TianHongPayMentUtil.CurrentContext,"需要输入密码，跳转到支付订单页面");
                                 Intent in=new Intent(QRCodeActivity.this,DialogActivity.class);
                                 in.putExtra("action","cost");
