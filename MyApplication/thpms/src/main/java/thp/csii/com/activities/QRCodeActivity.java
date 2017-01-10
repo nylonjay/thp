@@ -555,7 +555,12 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     private void getData() {
         Map<String, Object> ajaxData = new HashMap();
         User user = new User();
-        user.setAcno(TianHongPayMentUtil.currentUser.getAcno());
+        if (null!=TianHongPayMentUtil.currentUser){
+            user.setAcno(TianHongPayMentUtil.currentUser.getAcno());
+        }else{
+            QRCodeActivity.this.finish();
+            return;
+        }
         PainObj painObj = new PainObj(user, null);
         painObj.setUserSign(TianHongPayMentUtil.userSign);
         LogUtil.e(QRCodeActivity.this,"Accno=="+TianHongPayMentUtil.currentUser.getAcno()+

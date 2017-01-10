@@ -8,6 +8,7 @@
         android:id="@+id/re_day"
         android:layout_width="match_parent"
         android:background="@color/white"
+        android:paddingRight="10dp"
         android:layout_height="@dimen/unit_height"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         >
@@ -21,18 +22,20 @@
             android:id="@+id/tv_day_hwm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/img_arrow"
             android:layout_centerVertical="true"
             android:text="20000/笔"
             android:textColor="@color/text_gray"
             android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
 
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0.5dp"-->
-            <!--android:background="@color/line_gray"-->
-            <!--android:layout_alignParentBottom="true"/>-->
+        <ImageView
+            android:id="@+id/img_arrow"
+            android:layout_width="15dp"
+            android:layout_centerVertical="true"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/u40" />
 
     </RelativeLayout>
     <TextView

@@ -1,6 +1,8 @@
 package thp.csii.com.activities;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -57,11 +59,26 @@ public class Pay_Set_Pre extends BaseActivity {
             }
         });
     }
+    Handler han=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    if (!re_stop.isClickable()){
+                        re_stop.setClickable(true);
+                    }
+                    if (!re_3.isClickable()){
+                        re_3.setClickable(true);
+                    }
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onResume() {
-        re_stop.setClickable(true);
-        re_3.setClickable(true);
+
+      han.sendEmptyMessageDelayed(1,3000);
         super.onResume();
     }
 }
