@@ -763,8 +763,9 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 }else{
-                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
-                    QRCodeActivity.this.finish();
+                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                  //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                  //  QRCodeActivity.this.finish();
                 }
             }
 
