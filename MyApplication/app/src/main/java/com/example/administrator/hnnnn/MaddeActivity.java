@@ -40,22 +40,22 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
 
     private TianHongPayMentUtil tianHongPayMentUtil;
     private Button btn_pay,btn_main;
-    private String Accno="7800100000002985";//7800100000002282林再雄的账号 //7000290210000032307李锐的账号
+    private String Accno="7800100000010889";//7800100000002282林再雄的账号 //7000290210000032307李锐的账号
     //余丹丹的账号 7000290210000054012
     //7000290210040097930
     //7800100000009402  无交易记录的账号
     //private String Oid=String.valueOf(new Random().nextInt(201547994)+222255);
     private String noticeUrl=null;//http://hlj.dev.rainbowcn.net/hongpay/notify
-    private String Oid="6986366";
-    private Double Amount=1100.00;
+    private String Oid="o1523625";
+    private Double Amount=1.00;
     private String Mid="00195";
-    private String consumeSign="5ae5b485e9105028efd18fe08089732c0aa96543";// 订单消费这两个都传
-    private String userSign="e23635e6b997857f03adbd12db35adb00309af9b";//进入首页传
+    private String consumeSign="8d9988de4fec2d13be4bbb5580c7db91a2f5a704";// 订单消费这两个都传
+    private String userSign="7f2383f9fc1279fade5160b4ceb48dc60f603f67";//进入首页传
     //32307的userSign  4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a
     //无交易记录的userSign:dd7ffbcc76ce695c3b7acff6ed3210c2905d4410
     //余丹丹的usersign a811c7ed7e37d367b1946b859e7a17b20b8b6543
     private Button btn_qry;
-    private String userAccno="7800100000002985";
+    private String userAccno="7800100000010889";
     private BindCardCallBack mBbindCardCallBack;
     private OnMainActivityFinished mOnMainfinished;
     private Button btn_qr,btn_getqr,btn_test;
@@ -66,7 +66,7 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madde);
         // initData();
-        Constant.setSERVERHOST("http://192.168.208.159:8080");
+        Constant.setSERVERHOST("http://192.168.163.38:8080");
         btn_test= (Button) findViewById(R.id.btn_test);
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override

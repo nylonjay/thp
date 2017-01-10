@@ -422,8 +422,8 @@ public class TianHongPayMentUtil {
                                 //  nf.format(nf.parse(rsvc.getString("balAmt")).doubleValue());
                                 String pinTag = rsvc.getString("pinTag");
 
+                                LogUtil.e(TianHongPayMentUtil.CurrentContext,"pintag=="+pinTag);
                                 if (null != pcodeFlag && "0".equals(pcodeFlag)) {
-                                    LogUtil.e(TianHongPayMentUtil.CurrentContext,"pintag=="+pinTag);
                                     //未开启付款码支付
                                     if (pinTag.equals("00")) {
                                         TianHongPayMentUtil.CodeSetted = false;

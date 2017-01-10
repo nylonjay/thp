@@ -60,8 +60,8 @@ import thp.csii.com.utils.ToastUtil;
 
 public class QRCodeActivity extends AppCompatActivity implements View.OnClickListener,PayOrderListener{
     private ImageView img_back, img_setting, img_ewm,img_ywm;
-    private int QR_WIDTH = 580;
-    private int QR_HEIGHT = 580;
+    private int QR_WIDTH = 450;
+    private int QR_HEIGHT = 480;
     private LinearLayout ll_back;
     private TianHongPayMentUtil util;
     private TextView tv_amount,tv_rmb;
@@ -382,8 +382,8 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                                     //未开启付款码支付
                                     if (pinTag.equals("00")) {
                                         TianHongPayMentUtil.CodeSetted = false;
-                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
-                                        return;
+//                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
+//                                        return;
                                     } else if (pinTag.equals("01")) {
                                         //未开启付款码支付  去开启
                                         TianHongPayMentUtil.CodeSetted = true;
@@ -393,8 +393,8 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                                 }else{
                                     if (pinTag.equals("00")) {
                                         TianHongPayMentUtil.CodeSetted = false;
-                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
-                                        return;
+//                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
+//                                        return;
                                     } else if (pinTag.equals("01")) {
                                         TianHongPayMentUtil.CodeSetted = true;
                                     }
