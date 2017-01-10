@@ -60,8 +60,8 @@ import thp.csii.com.utils.ToastUtil;
 
 public class QRCodeActivity extends AppCompatActivity implements View.OnClickListener,PayOrderListener{
     private ImageView img_back, img_setting, img_ewm,img_ywm;
-    private int QR_WIDTH = 480;
-    private int QR_HEIGHT = 480;
+    private int QR_WIDTH = 580;
+    private int QR_HEIGHT = 580;
     private LinearLayout ll_back;
     private TianHongPayMentUtil util;
     private TextView tv_amount,tv_rmb;
