@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="单日累计密码支付限额"/>
+            android:text="单日累计支付限额"/>
         <TextView
             android:id="@+id/tv_day_hwm"
             android:layout_width="wrap_content"
