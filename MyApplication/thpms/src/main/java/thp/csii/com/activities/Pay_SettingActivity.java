@@ -66,7 +66,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         pwd=getIntent().getStringExtra("pwd");
         setBackView(R.drawable.u194);
         setTitleText(R.string.pay_set);
-        showProDialog();
+       // showProDialog();
         new Thread(thread).start();
     }
 
@@ -140,6 +140,11 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        showDialog(false);
+        super.onDestroy();
+    }
 
     private void QryCountDetail(String mUrl) {
         HttpControl httpControl = new HttpControl(this);
@@ -169,7 +174,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                             pf_hwm=rsvc.getString("pfHwm");
                             pf_flag=rsvc.getString("pfFlag");
                             pcode_flag=rsvc.getString("pcodeFlag");
-                            pf_day_hwm=rsvc.getString("pfdayHwm");
+                            pf_day_hwm=rsvc.getString("pfDayHwm");
                             LogUtil.e(Pay_SettingActivity.this,"pay_hwm="+pay_hwm+"day_hwm="+day_hwm+"pf_hwm="+pf_hwm
                                     +"pf_flag=="+pf_flag+"pcodeflag=="+pcode_flag+"pf_dayhwm==="+pf_day_hwm);
                             hand.sendEmptyMessage(2);
@@ -239,6 +244,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showDialog(false);
                 Pay_SettingActivity.this.finish();
             }
         });
@@ -337,7 +343,7 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
         param.put("pay_hwm",pay_hwm);
         param.put("pf_hwm",pf_hwm);
         param.put("resToken",token.getUniqueId());
-        param.put("pf_day_hwm",TianHongPayMentUtil.CurrentPf_day_hwm);
+        param.put("pf_day_hwm",day_hwm);
         param.put("pcode_flag",pcode_flag);
         String url =  Constant.SERVERHOST + Constant.AppName + mUrl;
         headers.put("Accept-Language", "zh-CN,zh;q=0.8");
@@ -365,7 +371,8 @@ public class Pay_SettingActivity extends BaseActivity implements View.OnClickLis
                             pf_flag=rsvc.getString("pfFlag");
                             TianHongPayMentUtil.CurrentPf_flag=pf_flag;
                             pcode_flag=rsvc.getString("pcodeFlag");
-                            pf_day_hwm=rsvc.getString("pfdayHwm");
+                            pf_day_hwm=rsvc.getString("pfDayHwm");
+                            LogUtil.e(Pay_SettingActivity.this,"pf_day_hwm======"+pf_day_hwm);
                             hf_str=pf_flag;
                             LogUtil.e(Pay_SettingActivity.this,"modify:"+"pay_hwm="+pay_hwm+"day_hwm="+day_hwm+"pf_hwm="+pf_hwm
                                     +"pf_flag=="+pf_flag+"pcodeflag=="+pcode_flag+"pf_dayhwm==="+pf_day_hwm);

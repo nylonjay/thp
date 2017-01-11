@@ -45,11 +45,12 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
     //7000290210040097930
     //7800100000009402  无交易记录的账号
     //private String Oid=String.valueOf(new Random().nextInt(201547994)+222255);
-    private String noticeUrl=null;//http://hlj.dev.rainbowcn.net/hongpay/notify
-    private String Oid="o1523625";
-    private Double Amount=1.00;
+    private String noticeUrl="http://hlj.dev.rainbowcn.net/hongpay/notify";
+    // http://hlj.dev.rainbowcn.net/hongpay/notify
+    private String Oid="o15sffefdsffd23625";
+    private Double Amount=40.00;
     private String Mid="00195";
-    private String consumeSign="8d9988de4fec2d13be4bbb5580c7db91a2f5a704";// 订单消费这两个都传
+    private String consumeSign="bc01df4799d9887058d2afce81847abe58cbfb23";// 订单消费这两个都传
     private String userSign="4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a";//进入首页传
     //32307的userSign  4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a
     //无交易记录的userSign:dd7ffbcc76ce695c3b7acff6ed3210c2905d4410
@@ -61,7 +62,7 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
     private Button btn_qr,btn_getqr,btn_test;
     private String secrectCode="72c7753fe7005cffa137f44a6581a42385fc5b1c874fa2ee7d1f3b50bc550b390296214738452155b6891ea1522c918b26caa0af37a62be59ab0285e94307cb911324e3967e56ac71d11538a7b6183b83a581a95f521423c376a538d757f8e56ca405bdba489bba5bea6b5bb29e36187f71803c518c0323eb950dbb1b8fe8b77315b4cfa780bbb1fad93626697639976abe8b40dae5abbf20e4438779a77755524d1b13158b949e7b0281525271dc1246685574a87a36749e878a3d1b237b18d5398049b497c6550d91705de624e00001eecdb4aafafca8454ad4fc59f723fad5b8a38d46380f4050474701511d1bd30da67d3583fd83cd18edfee506277b963e84605d3d16b2df101b309532a0201e5";
     static final String CIPHER_ALGORITHM_ECB = "AES/ECB/PKCS5Padding";
-    private String QRcode="type=TH_PAY&otid=13620";
+    private String QRcode="type=TH_PAY&otid=14124";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madde);

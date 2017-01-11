@@ -38,6 +38,7 @@ public class BaseWebActivity extends BaseActivity {
 		setContentView(R.layout.activity_baseweb);
 
 		mWebView = (ProgressWebView) findViewById(R.id.baseweb_webview);
+		mWebView.hideprogressbar();
 		mWebView.getSettings().setJavaScriptEnabled(true);
 
 		imageViewBack.setBackgroundResource(R.drawable.u194);
@@ -56,9 +57,11 @@ public class BaseWebActivity extends BaseActivity {
 
 	protected void initData() {
 		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
-		String url = bundle.getString("url");
-		setTitleString(intent.getStringExtra("name"));
+		//Bundle bundle = intent.getExtras();
+		String url = intent.getStringExtra("url");
+		String title=intent.getStringExtra("name");
+		setTitleString(title);
+		//setTitleString(intent.getStringExtra("name"));
 
 		// if(!TextUtils.isEmpty(url)&&TextUtils.isEmpty(title)){
 		mWebView.getSettings().setJavaScriptEnabled(true);

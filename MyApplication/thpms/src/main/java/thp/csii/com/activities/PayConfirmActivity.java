@@ -207,6 +207,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
         }
     };
 
+
     private void PayOrdersNoNeedPwd(String mUrl) {
         showDialog(true);
         HttpControl httpControl = new HttpControl(TianHongPayMentUtil.CurrentContext);
@@ -583,10 +584,12 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        errmsg=null;
 //        if (null!=mPopupWindow)
 //            mPopupWindow=null;
         if (null!=myprogress)
             myprogress=null;
+
 //        if (null!=true_peed)
 //            true_peed.onDestroy();
 

@@ -45,7 +45,7 @@ public class BaseActivity extends AppCompatActivity {
     public TextView tv_cancle;
     public Context context;
     public Map<String,String> staticTradeMap=null;
-    private cn.rainbow.thbase.ui.THProgressDialog mTHProgressDialog;
+    public static cn.rainbow.thbase.ui.THProgressDialog mTHProgressDialog;
 
 
     @Override

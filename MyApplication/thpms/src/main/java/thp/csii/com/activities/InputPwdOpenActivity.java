@@ -84,7 +84,9 @@ public class InputPwdOpenActivity extends Activity {
                     //该页面被手动关闭 开关设置为关闭状态
                     StopPregressImage();
                     setResult(RESULT_CANCELED);
-                    InputPwdOpenActivity.this.finish();
+                    if (!true_peed.isShown()){
+                        InputPwdOpenActivity.this.finish();
+                    }
                     break;
                 case 1:
                     //验证密码通过  开关设置为开启状态

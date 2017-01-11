@@ -55,6 +55,7 @@ public class Pay_Set_Pre extends BaseActivity {
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showDialog(false);
                 Pay_Set_Pre.this.finish();
             }
         });
@@ -77,8 +78,7 @@ public class Pay_Set_Pre extends BaseActivity {
 
     @Override
     protected void onResume() {
-
-      han.sendEmptyMessageDelayed(1,3000);
         super.onResume();
+        han.sendEmptyMessageDelayed(1,1000);
     }
 }

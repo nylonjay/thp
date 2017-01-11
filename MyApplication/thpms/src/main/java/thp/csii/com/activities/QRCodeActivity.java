@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Handler;
@@ -28,6 +29,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
@@ -60,7 +62,7 @@ import thp.csii.com.utils.ToastUtil;
 
 public class QRCodeActivity extends AppCompatActivity implements View.OnClickListener,PayOrderListener{
     private ImageView img_back, img_setting, img_ewm,img_ywm;
-    private int QR_WIDTH = 450;
+    private int QR_WIDTH = 400;
     private int QR_HEIGHT = 480;
     private LinearLayout ll_back;
     private TianHongPayMentUtil util;
@@ -236,7 +238,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                                 card_level.setText("金卡");
                                 break;
                             case "4"://铂金
-                                card_level.setText("铂金卡");
+                                card_level.setText("铂金");
                                 break;
                         }
                     }
@@ -244,12 +246,14 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     break;
                 case 4:
                     //开始查询账户详情 获取余额信息
+                      showDialog(true);
                     QryCountDetail(HttpUrls.payFunDetaQry);
                     break;
                 case 100:
                     String motid=otid+"03";
-                    tv_code.setText(motid.replaceAll("\\d{4}(?!$)", "$0 "));
-                    createQRImage(motid);//生成二维码
+                    tv_code.setText(motid.replaceAll("\\d{4}(?!$)", "$0  "));
+                   // createQRImage(motid);//生成二维码
+                    img_ewm.setImageBitmap(Create2DCode(motid,QR_WIDTH,QR_HEIGHT));
                     createTXImage(motid);//生成条形码
                     if (hand.hasMessages(1)){
                         hand.removeMessages(1);
@@ -298,7 +302,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                 JSONObject res = json.getJSONObject("res");
                 if ("0000".equals(res.getString("status"))) {
                     Intent in=new Intent(QRCodeActivity.this, QRPaySuccedActivity.class);
-                  //  in.putExtra("amount",amount);
+                    //  in.putExtra("amount",amount);
                     startActivity(in);
                     QRCodeActivity.this.finish();
                 } else if ("4444".equals(res.getString("status"))) {
@@ -351,6 +355,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         httpControl.HttpExcute(url, HttpControl.RequestGet, param, new ResultInterface() {
             @Override
             public void onSuccess(Object o) {
+                showDialog(false);
                 Double balamt;
                 Double cardamt = 0.0;
                 Double acye=0.0;
@@ -386,8 +391,8 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
 //                                        return;
                                     } else if (pinTag.equals("01")) {
                                         //未开启付款码支付  去开启
-                                        TianHongPayMentUtil.CodeSetted = true;
-                                        startActivity(new Intent(QRCodeActivity.this,EnterCodeActivity.class));
+//                                        TianHongPayMentUtil.CodeSetted = true;
+//                                        startActivity(new Intent(QRCodeActivity.this,EnterCodeActivity.class));
                                         //ToastUtil.shortToast(context,"已设置支付密码");
                                     }
                                 }else{
@@ -454,6 +459,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onError(Object o) {
+                showDialog(false);
                 ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
                 Log.i("res err", "" + o.toString());
             }
@@ -468,7 +474,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             hand.removeMessages(1);
             QRCodeActivity.this.finish();
         } else if (i == R.id.tv_basetitle_ok) {
-         //   startActivity(new Intent(QRCodeActivity.this, Pay_SettingActivity.class));
+            //   startActivity(new Intent(QRCodeActivity.this, Pay_SettingActivity.class));
         }
     }
 
@@ -526,7 +532,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
             Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT, Bitmap.Config.ARGB_8888);
             bitmap.setPixels(pixels, 0, QR_WIDTH, 0, 0, QR_WIDTH, QR_HEIGHT);
             //显示到一个ImageView上面
-           // img_ewm.setScaleType(ImageView.ScaleType.FIT_XY);
+            // img_ewm.setScaleType(ImageView.ScaleType.FIT_XY);
             img_ewm.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
@@ -545,10 +551,56 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         paused=true;
 //        continues=false;
     }
+    public static Bitmap Create2DCode(String str, int width, int height) {
+        try {
+            Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
+            hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+            hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+            hints.put(EncodeHintType.MARGIN, 1);
+            BitMatrix matrix = new QRCodeWriter().encode(str, BarcodeFormat.QR_CODE, width, height);
+            matrix = deleteWhite(matrix);//删除白边
+            width = matrix.getWidth();
+            height = matrix.getHeight();
+            int[] pixels = new int[width * height];
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    if (matrix.get(x, y)) {
+                        pixels[y * width + x] = Color.BLACK;
+                    } else {
+                        pixels[y * width + x] = Color.WHITE;
+                    }
+                }
+            }
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+            return bitmap;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+    private static BitMatrix deleteWhite(BitMatrix matrix) {
+        int[] rec = matrix.getEnclosingRectangle();
+        int resWidth = rec[2] + 1;
+        int resHeight = rec[3] + 1;
+
+        BitMatrix resMatrix = new BitMatrix(resWidth, resHeight);
+        resMatrix.clear();
+        for (int i = 0; i < resWidth; i++) {
+            for (int j = 0; j < resHeight; j++) {
+                if (matrix.get(i + rec[0], j + rec[1]))
+                    resMatrix.set(i, j);
+            }
+        }
+        return resMatrix;
+    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //  mTHProgressDialog.dismiss();
 //        continues=false;
     }
 
@@ -591,8 +643,6 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        //请求付款码
-        showDialog(true);
         if (hand.hasMessages(1)){
             hand.removeMessages(1);
         }
@@ -768,9 +818,9 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 }else{
-                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
-                  //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
-                  //  QRCodeActivity.this.finish();
+                    ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                    //  QRCodeActivity.this.finish();
                 }
             }
 
@@ -840,7 +890,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     protected void showDialog(boolean isShow) {
 
         if (mTHProgressDialog == null && isShow) {
-            mTHProgressDialog = cn.rainbow.thbase.ui.THProgressDialog.createDialog(this);
+            mTHProgressDialog = cn.rainbow.thbase.ui.THProgressDialog.createDialog(QRCodeActivity.this);
             mTHProgressDialog.setMessage(R.string.loading);
         }
 

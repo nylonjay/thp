@@ -318,7 +318,6 @@ public class DialogActivity extends Activity {
                         }
                     }
                 }else if ("4444".equals(res.getString("status"))){
-                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     if (res.getString("errcode").equals("55")){
                         initChanceDialog(res.getJSONObject("dataMap").getString("pinRetry"));
                     }
@@ -330,14 +329,17 @@ public class DialogActivity extends Activity {
                     }
                     if (null!=res&&"00013".equals(res.getString("errcode"))){
                         //用户会话失效
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                         initSessionOutTime("操作失败(00013)");
                     }
                     if (res.getString("errcode").equals("00046")){//密码输入超时
                         showMyToastAutoDismiss(res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("00005")){//令牌校验失败
                         showMyToastAutoDismiss(res.getString("errmsg"));
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("00013")){//用户会话失效
                         initSessionOutTime("操作失败"+("00013"));
+                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("4444")){//通信故障
                         showMyToastAutoDismiss(res.getString("errmsg"));
                     }else if (res.getString("errcode").equals("A5")){//订单号重复
@@ -354,7 +356,6 @@ public class DialogActivity extends Activity {
                     }
 
                     else{//交给APP处理
-                        TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PushItoApp(json.toJSONString());
                         true_peed.clear();
                         //dialog.dismiss();
                     }

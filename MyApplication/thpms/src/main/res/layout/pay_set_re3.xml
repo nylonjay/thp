@@ -21,7 +21,7 @@
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/u40"
+            android:src="@drawable/icon_extension"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_centerVertical="true"/>
