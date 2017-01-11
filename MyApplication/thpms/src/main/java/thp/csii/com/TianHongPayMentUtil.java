@@ -290,6 +290,9 @@ public class TianHongPayMentUtil {
             }
         } catch (Exception e) {
             System.err.println("授权登录发生错误!" + e.getMessage());
+            if (action.equals("qr")&&null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
+                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("授权登录失败");
+            }
             //  hand.sendEmptyMessage(404);
             //mPayOrderListener.OnAcessLoginFailed();
             if (null!=mQryAmountListner){
@@ -357,7 +360,7 @@ public class TianHongPayMentUtil {
                 case 19:
                     QRFunDera();
                     break;
-                case 20:
+                case 20://
                     if (action.equals("qr")){
                         GetOrderInfoApp(otid);
                         return;
@@ -586,8 +589,11 @@ public class TianHongPayMentUtil {
 
             @Override
             public void onError(Object o) {
-                mPayOrderListener.OnNetWorkError();
-                Log.i("res err", "" + o.toString());
+                if (null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
+                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("网络异常");
+                }
+              //  mPayOrderListener.OnNetWorkError();
+              //  Log.i("res err", "" + o.toString());
             }
         });
     }
@@ -731,8 +737,11 @@ public class TianHongPayMentUtil {
                     }
                 }else {
                     String msh=res.getString("errmsg");
-                    TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
-                    LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    if (null!=msh){
+                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,msh);
+                    }
+                    //TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                    //LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                 }
             }
             @Override
