@@ -51,21 +51,14 @@ public class DetailUsedCardActivity extends BaseActivity {
         });
         tv_amount= (TextView) findViewById(R.id.tv_amount);
         Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
-        tv_amount.setTextColor(Color.parseColor("#999999"));
+        tv_amount.setTextColor(Color.parseColor("#fe473c"));
         tv_amount.setTypeface(tf);
         tv_amount.setText(cb.getBalAmt());
         tv_bind_date= (TextView) findViewById(R.id.tv_bind_date);
-
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-        try {
-            Date d=sdf.parse(cb.getBindDate());
-            SimpleDateFormat sd1=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-            String s1=sd1.format(d);
-            tv_bind_date.setText(s1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-       // tv_bind_date.setText(cb.getBindDate());
+        String s=cb.getBindDate();
+        LogUtil.e(DetailUsedCardActivity.this,"绑卡日期=="+cb.getBindDate());
+        tv_bind_date.setText(cb.getBindDate());
+        // tv_bind_date.setText(cb.getBindDate());
         tv_yx_date= (TextView) findViewById(R.id.tv_yx_date);
         img_head= (ImageView) findViewById(R.id.img_head);
         Bitmap bm =((BitmapDrawable) img_head.getDrawable()).getBitmap();

@@ -314,7 +314,7 @@ public class IneffectivFragment extends Fragment implements PullToRefreshListVie
             vh.tv_explain.setVisibility(View.GONE);
             vh.tv_amount.setTextColor(Color.parseColor("#dadada"));
             vh.tv_amount.setTypeface(tf);
-            vh.tv_amount.setText(String.valueOf(symbol)+cardBeens.get(position).getBalAmt());
+            vh.tv_amount.setText("¥"+cardBeens.get(position).getBalAmt());
             return convertView;
         }
     }

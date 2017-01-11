@@ -341,7 +341,7 @@ public class EffectiveFragment extends Fragment implements PullToRefreshBase.OnR
                 vh= (ViewHolder) convertView.getTag();
             }
             vh.tv.setTypeface(tf);
-            vh.tv.setText(String.valueOf(symbol)+cardBeens.get(position).getBalAmt());
+            vh.tv.setText("¥"+cardBeens.get(position).getBalAmt());
             return convertView;
         }
     }
