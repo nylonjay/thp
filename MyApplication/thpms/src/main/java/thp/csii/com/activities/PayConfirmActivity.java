@@ -1,6 +1,7 @@
 package thp.csii.com.activities;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -77,7 +78,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
     private String entMode,pcode,chanl,oid;
     private double amount;
     private boolean needpwd;
-
+    private String errmsg;
 
 
     @Override
@@ -85,6 +86,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_confirm);
         setTitleText(R.string.pay_by_card);
+        errmsg=getIntent().getStringExtra("errmsg");
         needpwd=getIntent().getBooleanExtra("needpwd",true);
         entMode=getIntent().getStringExtra("entMode");
         pcode=getIntent().getStringExtra("pcode");
@@ -134,15 +136,17 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
         if (i == R.id.ll_back) {
             initQuitDialog("确定要放弃这次交易吗?");
         }else if (i==R.id.btn_pay){
-            // showMakeGradeMarkedWindow();
-            // showNewSixPeed ();
-//             showPayEnterDialog();
             btn_pay.setClickable(false);
-            // startActivityForResult(new Intent(PayConfirmActivity.this,DialogActivity.class),0);
-//            startActivity(new Intent(PayConfirmActivity.this,DialogActivity.class));
-//            overridePendingTransition(R.anim.activity_open,0);
-//            btn_pay.setClickable(false);
-            startVGAlphaAnimation();
+            if (null==errmsg){
+                startVGAlphaAnimation();
+            }else{
+               // ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,errmsg);
+                showToastAutoDismiss(errmsg);
+                btn_pay.setClickable(true);
+//                for (Activity a:TianHongPayMentUtil.pwdactivities){
+//                    a.finish();
+//                }
+            }
         }
 
     }
@@ -251,7 +255,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
                 } else if ("4444".equals(res.getString("status"))) {
                     TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
-                    LogUtil.e(TianHongPayMentUtil.CurrentContext,"payfailed");
+                    //LogUtil.e(TianHongPayMentUtil.CurrentContext,"payfailed");
 //                    if (res.getString("errcode").equals("00005")){//令牌校验失败
 //                        ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
 //                    }else if (res.getString("errcode").equals("00013")){//用户会话失效

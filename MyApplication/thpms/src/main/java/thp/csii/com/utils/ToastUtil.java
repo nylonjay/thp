@@ -31,7 +31,7 @@ public class ToastUtil {
     public static void shortNToast(final Context context, String message) {
         // Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
         if (mToast == null) {
-            mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(context, message, Toast.LENGTH_LONG);
         } else {
             mToast.setText(message);
         }

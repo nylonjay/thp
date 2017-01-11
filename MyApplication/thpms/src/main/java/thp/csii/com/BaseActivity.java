@@ -294,13 +294,26 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showMyToastAutoDismiss(String msg, final Handler handler){
-        final UserDefinedDialog dia=  new UserDefinedDialog(this, msg, null, null);
+        final UserDefinedDialog dia=  new UserDefinedDialog(TianHongPayMentUtil.CurrentContext, msg, null, null);
+        dia.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                dia.dismiss();
+                handler.sendEmptyMessage(500);
+            }
+        },1500);
+    }
+
+    public void showToastAutoDismiss(String msg){
+        final UserDefinedDialog dia=  new UserDefinedDialog(context, msg, null, null);
         dia.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 dia.dismiss();
-                handler.sendEmptyMessage(500);
+             //   handler.sendEmptyMessage(500);
             }
         },1500);
     }

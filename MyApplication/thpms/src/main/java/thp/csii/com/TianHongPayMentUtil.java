@@ -291,7 +291,9 @@ public class TianHongPayMentUtil {
         } catch (Exception e) {
             System.err.println("授权登录发生错误!" + e.getMessage());
             if (action.equals("qr")&&null!=TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener){
-                TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("授权登录失败");
+                //TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("授权登录失败");
+                hand.sendEmptyMessage(401);
+
             }
             //  hand.sendEmptyMessage(404);
             //mPayOrderListener.OnAcessLoginFailed();
@@ -356,6 +358,9 @@ public class TianHongPayMentUtil {
                 case 404:
                     // ToastUtil.shortToast(CurrentContext,"服务器无响应");
                     // mPayOrderListener.OnNetWorkError();
+                    break;
+                case 401:
+                    ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,"授权登录失败");
                     break;
                 case 19:
                     QRFunDera();
@@ -738,7 +743,16 @@ public class TianHongPayMentUtil {
                 }else {
                     String msh=res.getString("errmsg");
                     if (null!=msh){
-                        ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,msh);
+                     //   ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,msh);
+                        Intent in = new Intent(CurrentContext, PayConfirmActivity.class);
+                        in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        in.putExtra("action", "cost");
+                        in.putExtra("chanl", chanl);
+                        in.putExtra("entMode", ent_mode);
+                        in.putExtra("pcode", pcode);
+                        in.putExtra("needpwd",true);
+                        in.putExtra("errmsg",msh);
+                        CurrentContext.startActivity(in);
                     }
                     //TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     //LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
