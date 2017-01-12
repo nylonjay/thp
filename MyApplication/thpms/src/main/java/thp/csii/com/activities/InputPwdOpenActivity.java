@@ -411,6 +411,7 @@ public class InputPwdOpenActivity extends Activity {
                 v_top.setAlpha(0.0f);
                 setResult(RESULT_OK);
                 InputPwdOpenActivity.this.finish();
+                overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
 
             }
         });
@@ -460,7 +461,7 @@ public class InputPwdOpenActivity extends Activity {
         true_peed.addTextChangedListener(new PeedChangeListener(true_peed,hand));
         if (!InputPwdOpenActivity.this.isFinishing()){
             true_peed.openPEKbd();
-           // hand.sendEmptyMessageDelayed(31,300);
+            // hand.sendEmptyMessageDelayed(31,300);
         }
         peds=new TextView[6];
         pe1= (TextView) findViewById(R.id.password_edit1);
