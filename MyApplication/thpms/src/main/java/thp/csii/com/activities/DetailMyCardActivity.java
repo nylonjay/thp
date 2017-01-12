@@ -77,15 +77,16 @@ public class DetailMyCardActivity extends BaseActivity {
         Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
         tv_amount.setTypeface(tf);
         tv_amount.setText(cb.getBalAmt());
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-        try {
-            Date d=sdf.parse(cb.getBindDate());
-            SimpleDateFormat sd1=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-            String s1=sd1.format(d);
-            tv_date_time.setText(s1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        tv_date_time.setText(cb.getBindDate());
+        //SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+//        try {
+//            Date d=sdf.parse(cb.getBindDate());
+//            SimpleDateFormat sd1=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+//            String s1=sd1.format(d);
+//            tv_date_time.setText(s1);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         tv_accno= (TextView) findViewById(R.id.tv_accno);
 
         String a=cb.getAccno();

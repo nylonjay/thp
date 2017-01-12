@@ -430,33 +430,33 @@ public class TianHongPayMentUtil {
                                 //  nf.format(nf.parse(rsvc.getString("balAmt")).doubleValue());
                                 String pinTag = rsvc.getString("pinTag");
 
-                                LogUtil.e(TianHongPayMentUtil.CurrentContext,"pintag=="+pinTag);
-                                if ("0".equals(pcodeFlag)) {
+                                LogUtil.e(TianHongPayMentUtil.CurrentContext,"pcodeflag=="+pcodeFlag);
+                              //  if ("0".equals(pcodeFlag)) {
                                     //未开启付款码支付
-                                    if (pinTag.equals("00")) {
+                                    if (pcodeFlag.equals("1")) {
                                         TianHongPayMentUtil.CodeSetted = false;
                                         Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         TianHongPayMentUtil.CurrentContext.startActivity(in);
                                        // initPayNotSettedDialog("该账户还未设置支付密码，请先设置支付密码。", "pset");
                                         return;
-                                    } else if (pinTag.equals("01")) {
+                                    } else if (pcodeFlag.equals("0")) {
                                         //未开启付款码支付  去开启
                                         TianHongPayMentUtil.CodeSetted = true;
                                         Intent in=new Intent(TianHongPayMentUtil.CurrentContext,EnterCodeActivity.class);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         TianHongPayMentUtil.CurrentContext.startActivity(in);
                                     }
-                                }else{
-                                    if (pinTag.equals("00")) {
-                                        TianHongPayMentUtil.CodeSetted = false;
-                                    } else if (pinTag.equals("01")) {
-                                        TianHongPayMentUtil.CodeSetted = true;
-                                    }
-                                    Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
-                                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    TianHongPayMentUtil.CurrentContext.startActivity(in);
-                                }
+//                                }else{
+//                                    if (pinTag.equals("00")) {
+//                                        TianHongPayMentUtil.CodeSetted = false;
+//                                    } else if (pinTag.equals("01")) {
+//                                        TianHongPayMentUtil.CodeSetted = true;
+//                                    }
+//                                    Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
+//                                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                    TianHongPayMentUtil.CurrentContext.startActivity(in);
+//                                }
                              //   JSONObject acclist = rsvc.getJSONObject("accList");
                                 //    acclistJson=acclist.toJSONString();
                              //   LogUtil.e(QRCodeActivity.this,acclist.toJSONString());

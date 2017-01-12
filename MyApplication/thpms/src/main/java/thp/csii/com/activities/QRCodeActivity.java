@@ -2,9 +2,11 @@ package thp.csii.com.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Handler;
@@ -13,6 +15,7 @@ import android.support.v4.graphics.drawable.TintAwareDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -62,8 +65,10 @@ import thp.csii.com.utils.ToastUtil;
 
 public class QRCodeActivity extends AppCompatActivity implements View.OnClickListener,PayOrderListener{
     private ImageView img_back, img_setting, img_ewm,img_ywm;
-    private int QR_WIDTH = 400;
-    private int QR_HEIGHT = 480;
+//    private int QR_WIDTH = 400;
+//    private int QR_HEIGHT = 480;
+    private int QR_WIDTH ;
+    private int QR_HEIGHT;
     private LinearLayout ll_back;
     private TianHongPayMentUtil util;
     private TextView tv_amount,tv_rmb;
@@ -107,7 +112,18 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
 //        //TianHongPayMentUtil.userSign=TianHongPayMentUtil.userSign;
 //        util.setQA(user,qm);
         //s startActivity(new Intent(QRCodeActivity.this,EnterCodeActivity.class));
+        Point p=getSize(QRCodeActivity.this);
+        QR_WIDTH=p.x*2/3;
+        QR_HEIGHT=p.y/3;
 
+    }
+
+    public static Point getSize(Context ctx) {
+        WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
     }
 
     public void SetBrightNess(float brightness){

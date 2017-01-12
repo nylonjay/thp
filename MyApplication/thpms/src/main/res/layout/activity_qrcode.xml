@@ -23,7 +23,7 @@
                 android:id="@+id/tv_basetitle_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/u194"
+                android:src="@drawable/icon_nav_back"
                 />
         </LinearLayout>
         <LinearLayout

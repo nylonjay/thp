@@ -85,9 +85,10 @@ public class Pay_Set_Pre extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        han.sendEmptyMessageDelayed(1,100);
+        isCloseD=true;
+        han.sendEmptyMessageDelayed(1,1000);
     }
-boolean isCloseD=true;
+boolean isCloseD=false;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
