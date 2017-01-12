@@ -38,7 +38,10 @@ public class Pay_Set_Pre extends BaseActivity {
                 re_stop.setClickable(false);
                 Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
                 in.putExtra("from","stop");
-                startActivity(in);
+                if (isCloseD){
+                    isCloseD=false;
+                    startActivityForResult(in,1);
+                }
             }
         });
         re_3= (RelativeLayout) findViewById(R.id.re3);
@@ -48,7 +51,10 @@ public class Pay_Set_Pre extends BaseActivity {
                 re_3.setClickable(false);
                 Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
                 in.putExtra("from","set");
-                startActivity(in);
+                if (isCloseD){
+                    isCloseD=false;
+                    startActivityForResult(in,2);
+                }
             }
         });
         ll_back= (LinearLayout) findViewById(R.id.ll_back);
@@ -79,6 +85,21 @@ public class Pay_Set_Pre extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        han.sendEmptyMessageDelayed(1,1000);
+        han.sendEmptyMessageDelayed(1,100);
+    }
+boolean isCloseD=true;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            switch (requestCode){
+                case 1:
+                    isCloseD=true;
+                    break;
+                case 2:
+                    isCloseD=true;
+                    break;
+            }
+        }
     }
 }

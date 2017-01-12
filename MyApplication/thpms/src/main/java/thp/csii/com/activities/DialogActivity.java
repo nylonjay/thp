@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -63,7 +64,7 @@ public class DialogActivity extends Activity {
     private PEEditText true_peed;
     private TextView pe1,pe2,pe3,pe4,pe5,pe6;
     private TextView tv_forget;
-    public  View v;
+    public  View v_top;
     private MyReciever myreciever=new MyReciever();
     private RelativeLayout re_contaner;
     private boolean reclick=false;
@@ -135,6 +136,8 @@ public class DialogActivity extends Activity {
         ll_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v_top.setBackgroundColor(Color.parseColor("#ffffff"));
+                v_top.setAlpha(0.0f);
                 hand.sendEmptyMessage(0);
             }
         });
@@ -158,14 +161,14 @@ public class DialogActivity extends Activity {
             }
         });
         registerReceiver(myreciever,new IntentFilter("com.csii.powerenter.action.Send_msg"));
-        v=findViewById(R.id.view_top);
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reclick=false;
-                hand.sendEmptyMessage(0);
-            }
-        });
+        v_top=findViewById(R.id.view_top);
+//        v.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                reclick=false;
+//                hand.sendEmptyMessage(0);
+//            }
+//        });
         true_peed= (PEEditText) findViewById(R.id.true_peed);
         PEEditTextAttrSet attr=new PEEditTextAttrSet();
         attr.name="dialog1";
@@ -204,6 +207,7 @@ public class DialogActivity extends Activity {
                 startActivity(in);
             }
         });
+        hand.sendEmptyMessageDelayed(31,500);
     }
 
     Handler hand=new Handler(){
@@ -229,6 +233,10 @@ public class DialogActivity extends Activity {
                 case 5:
                     LogUtil.e(DialogActivity.this,"开始非免密订单消费");
                     PayOrders(HttpUrls.oderCounsume);
+                    break;
+                case 31:
+                    v_top.setBackgroundColor(Color.parseColor("#222222"));
+                    v_top.setAlpha(0.8f);
                     break;
                 case 101:
                     for (TextView ed:peds){

@@ -93,6 +93,9 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
         chanl=getIntent().getStringExtra("chanl");
         oid=getIntent().getStringExtra("oid");
         amount=getIntent().getDoubleExtra("amount",0);
+        if (null!=errmsg){
+            showToastAutoDismiss(errmsg);
+        }
         initViews();
         TianHongPayMentUtil.pwdactivities.add(this);
     }

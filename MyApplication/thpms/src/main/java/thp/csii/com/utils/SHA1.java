@@ -276,11 +276,11 @@ public class SHA1 {
 //
         String sign = "6281d1a1ea5d04145c94fa7a12871ac248b6459d";
         Map map = new HashMap();
-        map.put("amount",40.00);
+        map.put("amount",201.00);
         map.put("acno","7000290210000032307");
         map.put("user","7000290210000032307");
         map.put("mid","00195");
-        map.put("oid","o15sffefdsffd23625");
+        map.put("oid","o15sffebbffd23625");
         map.put("noticeUrl","http://hlj.dev.rainbowcn.net/hongpay/notify");
 //7800100000002282&amount=0.02&mid=00195&oid=m517361601000045&user=7800100000002282
 //        logger.debug(checkSha1(map,sign));

@@ -7,9 +7,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,19 +53,22 @@ public class InputPwdOpenActivity extends Activity {
     private PEEditText true_peed;
     private TextView pe1,pe2,pe3,pe4,pe5,pe6;
     private TextView tv_forget;
-    private ImageView ll_close;
+    private LinearLayout ll_close;
     private Token token;
     private ImageView myprogress;
     private Animation mAnimationRate;
     private LinearLayout ll_tvs;
     private boolean reclick=false;
     private RelativeLayout re_contaner;
-    public  View v;
+    public  View v_top;
     private MyReciever myreciever=new MyReciever();
     String requestcode;
     String pwd;
     String from;
     private String pf_hwm,pay_hwm,day_hwm;
+    protected int activityCloseEnterAnimation;
+    protected int activityCloseExitAnimation;
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +78,7 @@ public class InputPwdOpenActivity extends Activity {
         from=getIntent().getStringExtra("from");
         LogUtil.e(InputPwdOpenActivity.this,"pf pay day=="+pf_hwm+"/"+pay_hwm+"/"+day_hwm);
         TianHongPayMentUtil.pwdactivities.add(this);
-
+        intAnim();
     }
 
     Handler hand=new Handler(){
@@ -84,8 +90,11 @@ public class InputPwdOpenActivity extends Activity {
                     //该页面被手动关闭 开关设置为关闭状态
                     StopPregressImage();
                     setResult(RESULT_CANCELED);
+                    v_top.setBackgroundColor(Color.parseColor("#ffffff"));
                     if (!true_peed.isShown()){
+                        setResult(RESULT_OK);
                         InputPwdOpenActivity.this.finish();
+                        overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
                     }
                     break;
                 case 1:
@@ -111,6 +120,13 @@ public class InputPwdOpenActivity extends Activity {
                     ShowPregressImage();
                     LogUtil.e(InputPwdOpenActivity.this,"开始验证支付密码");
                     new Thread(sendable).start();
+                    break;
+                case 31:
+//                    if (!InputPwdOpenActivity.this.isFinishing()&&!InputPwdOpenActivity.this.isDestroyed())
+//                    true_peed.openPEKbd();
+                    //顶部变灰
+                    v_top.setBackgroundColor(Color.parseColor("#222222"));
+                    v_top.setAlpha(0.8f);
                     break;
                 case 101:
                     for (TextView ed:peds){
@@ -367,13 +383,35 @@ public class InputPwdOpenActivity extends Activity {
         //  mAnimationRate.cancel();
         LogUtil.e(InputPwdOpenActivity.this,"取消进度条");
     }
+
+    private void intAnim() {
+        TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowAnimationStyle});
+
+        int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
+
+        activityStyle.recycle();
+
+        activityStyle = getTheme().obtainStyledAttributes(windowAnimationStyleResId, new int[] {android.R.attr.activityCloseEnterAnimation, android.R.attr.activityCloseExitAnimation});
+
+        activityCloseEnterAnimation = activityStyle.getResourceId(0, 0);
+
+        activityCloseExitAnimation = activityStyle.getResourceId(1, 0);
+
+        activityStyle.recycle();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initDialogpess() {
-        ll_close= (ImageView) findViewById(R.id.icon_close);
+        ll_close= (LinearLayout) findViewById(R.id.ll_close);
         ll_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // hand.sendEmptyMessage(0);
+                v_top.setBackgroundColor(Color.parseColor("#ffffff"));
+                v_top.setAlpha(0.0f);
+                setResult(RESULT_OK);
                 InputPwdOpenActivity.this.finish();
+
             }
         });
         myprogress= (ImageView) findViewById(R.id.myprogress);
@@ -383,7 +421,7 @@ public class InputPwdOpenActivity extends Activity {
             @Override
             public void onClick(View v) {
                 reclick=false;
-                if (null!=true_peed&&!InputPwdOpenActivity.this.isDestroyed()){
+                if (null!=true_peed&&!InputPwdOpenActivity.this.isFinishing()){
                     true_peed.openPEKbd();
                 }
             }
@@ -396,14 +434,14 @@ public class InputPwdOpenActivity extends Activity {
             }
         });
         registerReceiver(myreciever,new IntentFilter("com.csii.powerenter.action.Send_msg"));
-        v=findViewById(R.id.view_top);
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reclick=false;
-                hand.sendEmptyMessage(0);
-            }
-        });
+        v_top=findViewById(R.id.view_top);
+//        v.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                reclick=false;
+//                hand.sendEmptyMessage(0);
+//            }
+//        });
         true_peed= (PEEditText) findViewById(R.id.true_peed);
         PEEditTextAttrSet attr=new PEEditTextAttrSet();
         attr.name="dialog1";
@@ -420,8 +458,10 @@ public class InputPwdOpenActivity extends Activity {
         attr.inScrollView=false;
         true_peed.initialize(attr,InputPwdOpenActivity.this);//新初始化方法，用户
         true_peed.addTextChangedListener(new PeedChangeListener(true_peed,hand));
-        true_peed.openPEKbd();
-
+        if (!InputPwdOpenActivity.this.isFinishing()){
+            true_peed.openPEKbd();
+           // hand.sendEmptyMessageDelayed(31,300);
+        }
         peds=new TextView[6];
         pe1= (TextView) findViewById(R.id.password_edit1);
         pe2= (TextView) findViewById(R.id.password_edit2);
@@ -444,6 +484,7 @@ public class InputPwdOpenActivity extends Activity {
                 startActivity(in);
             }
         });
+        hand.sendEmptyMessageDelayed(31,500);
     }
 
     @Override

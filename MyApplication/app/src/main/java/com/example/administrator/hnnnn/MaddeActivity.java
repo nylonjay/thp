@@ -47,10 +47,10 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
     //private String Oid=String.valueOf(new Random().nextInt(201547994)+222255);
     private String noticeUrl="http://hlj.dev.rainbowcn.net/hongpay/notify";
     // http://hlj.dev.rainbowcn.net/hongpay/notify
-    private String Oid="o15sffefdsffd23625";
-    private Double Amount=40.00;
+    private String Oid="o15sffebbffd23625";
+    private Double Amount=201.00;
     private String Mid="00195";
-    private String consumeSign="bc01df4799d9887058d2afce81847abe58cbfb23";// 订单消费这两个都传
+    private String consumeSign="a25f010c02fdcd3b9e5b48a9e5a2773ab15feb8f";// 订单消费这两个都传
     private String userSign="4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a";//进入首页传
     //32307的userSign  4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a
     //无交易记录的userSign:dd7ffbcc76ce695c3b7acff6ed3210c2905d4410
