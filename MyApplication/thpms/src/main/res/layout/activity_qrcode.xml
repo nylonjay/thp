@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_weight="3">
+            android:layout_weight="2">
 
             <ImageView
                 android:id="@+id/tv_basetitle_back"
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_weight="3">
+            android:layout_weight="2">
             <ImageView
                 android:id="@+id/tv_basetitle_ok"
                 android:layout_width="wrap_content"
