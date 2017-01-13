@@ -222,7 +222,8 @@ public class MessageAuthActivity extends BaseTokenActivity implements View.OnCli
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res=json.getJSONObject("res");
                 if (null!=res&&res.getString("status").equals("0000")){
-                    ToastUtil.shortNToast(context,"密码设置成功");
+                    ToastUtil.shortNToast(context,"支付密码设置成功");
+                    TianHongPayMentUtil.CodeSetted=true;
                     if (null!=action&&action.equals("bind")){
 
                         startActivity(new Intent(MessageAuthActivity.this,BindShoppingCardActivity.class));

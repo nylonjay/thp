@@ -40,7 +40,7 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
 
     private TianHongPayMentUtil tianHongPayMentUtil;
     private Button btn_pay,btn_main;
-    private String Accno="0109090000000449";//7800100000002282林再雄的账号 //7000290210000032307李锐的账号
+    private String Accno="7800100000010947";//7800100000002282林再雄的账号 //7000290210000032307李锐的账号
     //余丹丹的账号 7000290210000054012
     //7000290210040097930
     //7800100000009402  无交易记录的账号
@@ -51,12 +51,12 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
     private Double Amount=201.00;
     private String Mid="00195";
     private String consumeSign="a25f010c02fdcd3b9e5b48a9e5a2773ab15feb8f";// 订单消费这两个都传
-    private String userSign="31491e6319f6cbf68ebb00f7797df1dfafcd6b21";//进入首页传
+    private String userSign="289c95254ac6e57707f4ea3366a123fb27ce27af";//进入首页传
     //32307的userSign  4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a
     //无交易记录的userSign:dd7ffbcc76ce695c3b7acff6ed3210c2905d4410
     //余丹丹的usersign a811c7ed7e37d367b1946b859e7a17b20b8b6543
     private Button btn_qry;
-    private String userAccno="0109090000000449";
+    private String userAccno="7800100000010947";
     private BindCardCallBack mBbindCardCallBack;
     private OnMainActivityFinished mOnMainfinished;
     private Button btn_qr,btn_getqr,btn_test;

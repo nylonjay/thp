@@ -28,6 +28,7 @@ public class Pay_Set_Pre extends BaseActivity {
         day_hwm=getIntent().getStringExtra("day_hwm");
         initViews();
         TianHongPayMentUtil.pwdactivities.add(this);
+
     }
 
     private void initViews() {
@@ -35,12 +36,16 @@ public class Pay_Set_Pre extends BaseActivity {
         re_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                re_stop.setClickable(false);
-                Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
-                in.putExtra("from","stop");
-                if (isCloseD){
-                    isCloseD=false;
-                    startActivityForResult(in,1);
+                if (TianHongPayMentUtil.CodeSetted){
+                    initPayNotSettedDialog(getResources().getString(R.string.code_not_setted),"forgetcode");
+                }else{
+                    re_stop.setClickable(false);
+                    Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
+                    in.putExtra("from","stop");
+                    if (isCloseD){
+                        isCloseD=false;
+                        startActivityForResult(in,1);
+                    }
                 }
             }
         });
@@ -48,12 +53,16 @@ public class Pay_Set_Pre extends BaseActivity {
         re_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                re_3.setClickable(false);
-                Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
-                in.putExtra("from","set");
-                if (isCloseD){
-                    isCloseD=false;
-                    startActivityForResult(in,2);
+                if (!TianHongPayMentUtil.CodeSetted){
+                    initPayNotSettedDialog(getResources().getString(R.string.code_not_setted),"forgetcode");
+                }else{
+                    re_3.setClickable(false);
+                    Intent in=new Intent(Pay_Set_Pre.this,InputPwdOpenActivity.class);
+                    in.putExtra("from","set");
+                    if (isCloseD){
+                        isCloseD=false;
+                        startActivityForResult(in,2);
+                    }
                 }
             }
         });

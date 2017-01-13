@@ -193,8 +193,12 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
         tv_toBindCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  in = new Intent(QRCodeActivity.this, BindShoppingCardActivity.class);
-                startActivity(in);
+                if (!TianHongPayMentUtil.CodeSetted){
+                    initPayNotSettedDialog(getResources().getString(R.string.code_not_setted),"forgetcode");
+                }else{
+                    Intent  in = new Intent(QRCodeActivity.this, BindShoppingCardActivity.class);
+                    startActivity(in);
+                }
             }
         });
         tv_code= (TextView) findViewById(R.id.tv_code);
@@ -398,28 +402,28 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                                 //  nf.format(nf.parse(rsvc.getString("balAmt")).doubleValue());
                                 pinTag = rsvc.getString("pinTag");
 
-                                if (null != pcodeFlag && "0".equals(pcodeFlag)) {
-                                    LogUtil.e(QRCodeActivity.this,"pintag=="+pinTag);
-                                    //未开启付款码支付
+//                                if (null != pcodeFlag && "0".equals(pcodeFlag)) {
+//                                    LogUtil.e(QRCodeActivity.this,"pintag=="+pinTag);
+//                                    //未开启付款码支付
                                     if (pinTag.equals("00")) {
                                         TianHongPayMentUtil.CodeSetted = false;
 //                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
 //                                        return;
                                     } else if (pinTag.equals("01")) {
                                         //未开启付款码支付  去开启
-//                                        TianHongPayMentUtil.CodeSetted = true;
+                                        TianHongPayMentUtil.CodeSetted = true;
 //                                        startActivity(new Intent(QRCodeActivity.this,EnterCodeActivity.class));
                                         //ToastUtil.shortToast(context,"已设置支付密码");
                                     }
-                                }else{
-                                    if (pinTag.equals("00")) {
-                                        TianHongPayMentUtil.CodeSetted = false;
-//                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
-//                                        return;
-                                    } else if (pinTag.equals("01")) {
-                                        TianHongPayMentUtil.CodeSetted = true;
-                                    }
-                                }
+//                                }else{
+//                                    if (pinTag.equals("00")) {
+//                                        TianHongPayMentUtil.CodeSetted = false;
+////                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
+////                                        return;
+//                                    } else if (pinTag.equals("01")) {
+//                                        TianHongPayMentUtil.CodeSetted = true;
+//                                    }
+//                                }
                                 JSONObject acclist = rsvc.getJSONObject("accList");
                                 //    acclistJson=acclist.toJSONString();
                                 LogUtil.e(QRCodeActivity.this,acclist.toJSONString());
