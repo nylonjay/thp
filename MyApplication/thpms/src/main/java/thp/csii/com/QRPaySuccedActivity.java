@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class QRPaySuccedActivity extends BaseActivity {
     private LinearLayout ll_back;
     private String amount;
@@ -43,7 +45,8 @@ public class QRPaySuccedActivity extends BaseActivity {
         Typeface tf=Typeface.createFromAsset(getAssets(),"fonts/FZXH1JW.TTF");
         tv_amount.setTypeface(tf);
         if (null!=TianHongPayMentUtil.currentOder){
-            tv_amount.setText("￥"+ TianHongPayMentUtil.currentOder.getAmount());
+            DecimalFormat    df   = new DecimalFormat("######0.00");
+            tv_amount.setText("￥"+df.format(TianHongPayMentUtil.currentOder.getAmount()));
         }
         ll_back= (LinearLayout) findViewById(R.id.ll_back);
         ll_back.setOnClickListener(new View.OnClickListener() {
