@@ -268,6 +268,7 @@ public class MyShoppingCardActivity extends BaseActivity implements View.OnClick
         @Override
         public void onPageSelected(int location) {
             changeTextColor(location);
+            index=location;
         }
 
     }
