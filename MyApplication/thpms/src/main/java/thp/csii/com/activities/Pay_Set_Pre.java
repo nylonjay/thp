@@ -36,7 +36,7 @@ public class Pay_Set_Pre extends BaseActivity {
         re_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TianHongPayMentUtil.CodeSetted){
+                if (!TianHongPayMentUtil.CodeSetted){
                     initPayNotSettedDialog(getResources().getString(R.string.code_not_setted),"forgetcode");
                 }else{
                     re_stop.setClickable(false);
