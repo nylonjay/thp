@@ -226,7 +226,7 @@ public class PayConfirmActivity extends BaseTokenActivity implements View.OnClic
             param.put("chanl","01");//主扫传03  线上支付传01
         }
         // param.put("pcode","1008645423131");
-        if (null==token){
+        if (null==token||null==token.getUniqueId()){
             ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,"交易授权失败,请重试");
             return;
         }else{
