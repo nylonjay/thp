@@ -363,6 +363,7 @@ public class TianHongPayMentUtil {
                     ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,"授权登录失败");
                     break;
                 case 19:
+                    LogUtil.e(TianHongPayMentUtil.CurrentContext,"QR查询是否开启付款码");
                     QRFunDera();
                     break;
                 case 20://
@@ -424,25 +425,26 @@ public class TianHongPayMentUtil {
                                 //    LogUtil.e(QRCodeActivity.this,"pf pay day=="+TianHongPayMentUtil.CurrentPf_Hwm+"/"+TianHongPayMentUtil.CurrentPay_Hwm+"/"+TianHongPayMentUtil.CurrentDay_Hwm);
                                 // String  vipCls = rsvc.getString("vipCls");
                                 String  pcodeFlag = rsvc.getString("pcodeFlag");
+                                LogUtil.e(TianHongPayMentUtil.CurrentContext,"pcodeflag===="+pcodeFlag);
                               //  TianHongPayMentUtil.currentTel = rsvc.getString("mobile");
                                 // balamt = Double.parseDouble(rsvc.getString("balAmt"));//账户总余额
                                 balamt = nf.parse(rsvc.getString("balAmt")).doubleValue();
                                 //  nf.format(nf.parse(rsvc.getString("balAmt")).doubleValue());
                                 String pinTag = rsvc.getString("pinTag");
 
-                                LogUtil.e(TianHongPayMentUtil.CurrentContext,"pcodeflag=="+pcodeFlag);
+                                LogUtil.e(TianHongPayMentUtil.CurrentContext,"pcodeflag为"+pcodeFlag);
                               //  if ("0".equals(pcodeFlag)) {
                                     //未开启付款码支付
                                     if (pcodeFlag.equals("1")) {
-                                        TianHongPayMentUtil.CodeSetted = false;
+                                       // TianHongPayMentUtil.CodeSetted = false;
                                         Intent in=new Intent(TianHongPayMentUtil.CurrentContext,QRCodeActivity.class);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         TianHongPayMentUtil.CurrentContext.startActivity(in);
                                        // initPayNotSettedDialog("该账户还未设置支付密码，请先设置支付密码。", "pset");
-                                        return;
+                                      //  return;
                                     } else if (pcodeFlag.equals("0")) {
                                         //未开启付款码支付  去开启
-                                        TianHongPayMentUtil.CodeSetted = true;
+                                       // TianHongPayMentUtil.CodeSetted = true;
                                         Intent in=new Intent(TianHongPayMentUtil.CurrentContext,EnterCodeActivity.class);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         TianHongPayMentUtil.CurrentContext.startActivity(in);
@@ -488,7 +490,7 @@ public class TianHongPayMentUtil {
                           //  tv_rmb.setVisibility(View.GONE);
                             locked=true;
                             TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("账户已锁定");
-                            return;
+                          //  return;
                            //QRCodeActivity.this.finish();
                             //closeALLActvivities();
                             //TianHongPayMentUtil.tianHongPayMentUtil.onMainActivityFinished.onFinished("支付功能已锁定");
