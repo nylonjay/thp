@@ -62,6 +62,7 @@ import thp.csii.com.paysdk.entity.TokenImpl;
 import thp.csii.com.paysdk.util.ConnectUtil;
 import thp.csii.com.utils.SharePreferencesUtils;
 import thp.csii.com.utils.ToastUtil;
+import thp.csii.com.views.UserDefinedDialog;
 
 public class QRCodeActivity extends AppCompatActivity implements View.OnClickListener,PayOrderListener{
     private ImageView img_back, img_setting, img_ewm,img_ywm;
@@ -832,13 +833,15 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                             }
                         } else {
                             //不需要支付密码 直接开始订单消费
+
                             ToastUtil.shortToast(QRCodeActivity.this, "符合免密条件,开始订单消费");
                             action = "cost";
                             new Thread(sendable).start();
                         }
                     }
                 }else{
-                    ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    showToastAutoDismiss(res.getString("errmsg"));
+                  //  ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     //  QRCodeActivity.this.finish();
                 }
@@ -963,5 +966,17 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void OnAcessLoginSucced() {
 
+    }
+
+    public void showToastAutoDismiss(String msg){
+        final UserDefinedDialog dia=  new UserDefinedDialog(QRCodeActivity.this, msg, null, null);
+        dia.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dia.dismiss();
+                //   handler.sendEmptyMessage(500);
+            }
+        },2500);
     }
 }
