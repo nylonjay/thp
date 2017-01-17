@@ -426,7 +426,7 @@ public class TianHongPayMentUtil {
                                 // String  vipCls = rsvc.getString("vipCls");
                                 String  pcodeFlag = rsvc.getString("pcodeFlag");
                                 LogUtil.e(TianHongPayMentUtil.CurrentContext,"pcodeflag===="+pcodeFlag);
-                              //  TianHongPayMentUtil.currentTel = rsvc.getString("mobile");
+                                TianHongPayMentUtil.currentTel = rsvc.getString("mobile");
                                 // balamt = Double.parseDouble(rsvc.getString("balAmt"));//账户总余额
                                 balamt = nf.parse(rsvc.getString("balAmt")).doubleValue();
                                 //  nf.format(nf.parse(rsvc.getString("balAmt")).doubleValue());

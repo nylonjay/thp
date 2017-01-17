@@ -65,6 +65,7 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
     private TextView pe4;
     private TextView pe5;
     private TextView pe6;
+    private TextView tv_forget;
     private String action="validate";
 
 
@@ -282,6 +283,15 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
     }
 
     private void initViews() {
+        tv_forget= (TextView) findViewById(R.id.tv_forget);
+        tv_forget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in=new Intent(EnterCodeActivity.this,SetPayCode_First_Activity.class);
+                in.putExtra("from","forget");
+                startActivity(in);
+            }
+        });
         tv_cancle= (TextView) findViewById(R.id.tv_cancle);
         tv_cancle.setVisibility(View.VISIBLE);
         ll_tvs= (LinearLayout) findViewById(R.id.ll_tvs);
@@ -311,7 +321,7 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
     private void initpess() {
         true_peed= (PEEditText) findViewById(R.id.true_peed);
         PEEditTextAttrSet attr=new PEEditTextAttrSet();
-        attr.name="set";
+        attr.name="setqr";
         attr.clearWhenOpenKbd=true;
         attr.softkbdType=1;
         attr.softkbdMode=1;

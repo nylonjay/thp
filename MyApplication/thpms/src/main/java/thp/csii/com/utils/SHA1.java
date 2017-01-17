@@ -96,6 +96,8 @@ public class SHA1 {
             i++;
         }
         return signSrc.toString() + "&key=k0*Y9t%n!nM8B&r%dF#gAA";
+        //&key=k0*Y9t%n!nM8B&r%dF#gAA
+        //&key=9kNN*043h!vZ&cA8c8%rY$Wgl#&o1pS5JyKxB0tlsIpi9uNzv*n8lE7I!*bW$DMs
     }
 
     public static String orgSHA1SignSrc1(String[] signFields, Map map) {
@@ -276,11 +278,11 @@ public class SHA1 {
 //
         String sign = "6281d1a1ea5d04145c94fa7a12871ac248b6459d";
         Map map = new HashMap();
-//        map.put("amount",22.00);
-        map.put("acno","0109090000000449");
+//        map.put("amount",10.00);
+        map.put("acno","7000290210000032307");
 //        map.put("user","7000290210000032307");
 //        map.put("mid","00195");
-//        map.put("oid","65465446f54654");
+//        map.put("oid","njs55jd533dd4236");
 //        map.put("noticeUrl","http://hlj.dev.rainbowcn.net/hongpay/notify");
 //7800100000002282&amount=0.02&mid=00195&oid=m517361601000045&user=7800100000002282
 //        logger.debug(checkSha1(map,sign));
