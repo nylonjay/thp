@@ -271,7 +271,8 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     QryCountDetail(HttpUrls.payFunDetaQry);
                     break;
                 case 100:
-                    String motid=otid+"03";
+                  //  String msotid=otid+"03";
+                    String motid=otid;
                     tv_code.setText(motid.replaceAll("\\d{4}(?!$)", "$0  "));
                    // createQRImage(motid);//生成二维码
                     img_ewm.setImageBitmap(Create2DCode(motid,QR_WIDTH,QR_HEIGHT));
@@ -756,7 +757,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                 if (null!=res&&"0000".equals(res.getString("status"))){
                     LogUtil.e(QRCodeActivity.this,res.toJSONString());
                     jsonMap=res.getJSONObject("dataMap");
-                    //  acno=jsonMap.getString("acno");
+                      //  acno=jsonMap.getString("acno");
                     otid=jsonMap.getString("otid");
                     if (!hand.hasMessages(100)){
                         hand.sendEmptyMessage(100);
@@ -840,6 +841,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 }else{
+                    LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     showToastAutoDismiss(res.getString("errmsg"));
                   //  ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
