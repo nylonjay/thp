@@ -273,7 +273,13 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                 case 100:
                   //  String msotid=otid+"03";
                     String motid=otid;
-                    tv_code.setText(motid.replaceAll("\\d{4}(?!$)", "$0  "));
+                    String ss=motid.replaceAll("\\d{4}(?!$)", "$0  ");
+                   String a= ss.substring(ss.length()-4);
+                    String aa=a.substring(2);
+                    String sa=ss.substring(0,ss.length()-4);
+                    String saa=sa+aa;
+                   // tv_code.setText(motid.replaceAll("\\d{4}(?!$)", "$0  "));
+                    tv_code.setText(saa);
                    // createQRImage(motid);//生成二维码
                     img_ewm.setImageBitmap(Create2DCode(motid,QR_WIDTH,QR_HEIGHT));
                     createTXImage(motid);//生成条形码
