@@ -233,6 +233,7 @@ public class TianHongPayMentUtil {
                     }
                 }catch (Exception e){
                     mQryAmountListner.OnQryAmountHBYEFailed("查询余额失败");
+                    
                 }
             }
             @Override
