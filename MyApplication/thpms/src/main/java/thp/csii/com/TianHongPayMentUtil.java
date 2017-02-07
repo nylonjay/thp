@@ -219,7 +219,7 @@ public class TianHongPayMentUtil {
                                 }
                             }
                         }else{
-                            mQryAmountListner.OnQryAmountHBYEFailed(json.toJSONString());
+                            mQryAmountListner.OnQryAmountHBYEFailed("查询余额失败");
                             if ("00013".equals(res.getString("errcode"))){
                                 //session过期弹出操作失败弹框
                                 // initSessionOutTime("操作失败"+("00013"));
@@ -229,17 +229,17 @@ public class TianHongPayMentUtil {
 
                         }
                     }else{
-                        mQryAmountListner.OnQryAmountHBYEFailed(json.toString());
+                        mQryAmountListner.OnQryAmountHBYEFailed("查询余额失败");
                     }
                 }catch (Exception e){
-                    mQryAmountListner.OnQryAmountHBYEFailed(json.toString());
+                    mQryAmountListner.OnQryAmountHBYEFailed("查询余额失败");
                 }
             }
             @Override
             public void onError(Object o) {
-                ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
-                Log.i("res err", "" + o.toString());
-                mQryAmountListner.OnQryAmountHBYEFailed(o.toString());
+                //ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
+               // Log.i("res err", "" + o.toString());
+                mQryAmountListner.OnQryAmountHBYEFailed("查询虹包余额失败");
             }
         });
 
@@ -379,9 +379,9 @@ public class TianHongPayMentUtil {
                     if (null==exc)
                         exc="无响应信息";
                     if (action.equals("qryacount")){
-                        mQryAmountListner.OnQryAmountHBYEFailed(exc);
+                        mQryAmountListner.OnQryAmountHBYEFailed("查询余额失败");
                     }else if (action.equals("predict")){
-                        mPayOrderListener.PayFailed(exc);
+                        mPayOrderListener.PayFailed("授权登录失败");
                     }
                     break;
             }

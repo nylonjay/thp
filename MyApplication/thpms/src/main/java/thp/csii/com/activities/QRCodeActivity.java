@@ -66,7 +66,7 @@ import thp.csii.com.views.UserDefinedDialog;
 
 public class QRCodeActivity extends AppCompatActivity implements View.OnClickListener,PayOrderListener{
     private ImageView img_back, img_setting, img_ewm,img_ywm;
-//    private int QR_WIDTH = 400;
+    //    private int QR_WIDTH = 400;
 //    private int QR_HEIGHT = 480;
     private int QR_WIDTH ;
     private int QR_HEIGHT;
@@ -267,20 +267,20 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                     break;
                 case 4:
                     //开始查询账户详情 获取余额信息
-                      showDialog(true);
+                    showDialog(true);
                     QryCountDetail(HttpUrls.payFunDetaQry);
                     break;
                 case 100:
-                  //  String msotid=otid+"03";
+                    //  String msotid=otid+"03";
                     String motid=otid;
                     String ss=motid.replaceAll("\\d{4}(?!$)", "$0  ");
-                   String a= ss.substring(ss.length()-4);
+                    String a= ss.substring(ss.length()-4);
                     String aa=a.substring(2);
                     String sa=ss.substring(0,ss.length()-4);
                     String saa=sa+aa;
-                   // tv_code.setText(motid.replaceAll("\\d{4}(?!$)", "$0  "));
+                    // tv_code.setText(motid.replaceAll("\\d{4}(?!$)", "$0  "));
                     tv_code.setText(saa);
-                   // createQRImage(motid);//生成二维码
+                    // createQRImage(motid);//生成二维码
                     img_ewm.setImageBitmap(Create2DCode(motid,QR_WIDTH,QR_HEIGHT));
                     createTXImage(motid);//生成条形码
                     if (hand.hasMessages(1)){
@@ -413,16 +413,16 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
 //                                if (null != pcodeFlag && "0".equals(pcodeFlag)) {
 //                                    LogUtil.e(QRCodeActivity.this,"pintag=="+pinTag);
 //                                    //未开启付款码支付
-                                    if (pinTag.equals("00")) {
-                                        TianHongPayMentUtil.CodeSetted = false;
+                                if (pinTag.equals("00")) {
+                                    TianHongPayMentUtil.CodeSetted = false;
 //                                        initPayNotSettedDialog(getResources().getString(R.string.code_not_setted), "pset");
 //                                        return;
-                                    } else if (pinTag.equals("01")) {
-                                        //未开启付款码支付  去开启
-                                        TianHongPayMentUtil.CodeSetted = true;
+                                } else if (pinTag.equals("01")) {
+                                    //未开启付款码支付  去开启
+                                    TianHongPayMentUtil.CodeSetted = true;
 //                                        startActivity(new Intent(QRCodeActivity.this,EnterCodeActivity.class));
-                                        //ToastUtil.shortToast(context,"已设置支付密码");
-                                    }
+                                    //ToastUtil.shortToast(context,"已设置支付密码");
+                                }
 //                                }else{
 //                                    if (pinTag.equals("00")) {
 //                                        TianHongPayMentUtil.CodeSetted = false;
@@ -763,7 +763,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                 if (null!=res&&"0000".equals(res.getString("status"))){
                     LogUtil.e(QRCodeActivity.this,res.toJSONString());
                     jsonMap=res.getJSONObject("dataMap");
-                      //  acno=jsonMap.getString("acno");
+                    //  acno=jsonMap.getString("acno");
                     otid=jsonMap.getString("otid");
                     if (!hand.hasMessages(100)){
                         hand.sendEmptyMessage(100);
@@ -849,7 +849,7 @@ public class QRCodeActivity extends AppCompatActivity implements View.OnClickLis
                 }else{
                     LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     showToastAutoDismiss(res.getString("errmsg"));
-                  //  ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
+                    //  ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                     //  QRCodeActivity.this.finish();
                 }
