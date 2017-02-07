@@ -233,13 +233,12 @@ public class TianHongPayMentUtil {
                     }
                 }catch (Exception e){
                     mQryAmountListner.OnQryAmountHBYEFailed("查询余额失败");
-                    
                 }
             }
             @Override
             public void onError(Object o) {
                 //ToastUtil.shortToast(TianHongPayMentUtil.CurrentContext,"网络异常");
-               // Log.i("res err", "" + o.toString());
+               // Log.i("res err", "" +  o.toString());
                 mQryAmountListner.OnQryAmountHBYEFailed("查询虹包余额失败");
             }
         });
