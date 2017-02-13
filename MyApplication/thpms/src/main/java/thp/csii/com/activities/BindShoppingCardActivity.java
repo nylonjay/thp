@@ -161,7 +161,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
         password= (com.csii.powerenter.PEEditText) findViewById(R.id.ed_number);
         password.addTextChangedListener(new peeditTextListener(password,handler));
         PEEditTextAttrSet attr=new PEEditTextAttrSet();
-        attr.name="password3";
+        attr.name="bindcard1";
         attr.clearWhenOpenKbd=false;
         attr.softkbdType=1;
         attr.softkbdMode=1;

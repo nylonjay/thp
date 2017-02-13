@@ -261,7 +261,8 @@ public class MessageAuthActivity extends BaseTokenActivity implements View.OnCli
                        // mCountDownTimerUtils.onFinish();
                     }else if ("05".equals(res.getString("errcode"))){//密码过于简单
                         mCountDownTimerUtils.onFinish();
-                        showMyToastAutoDismiss(res.getString("errmsg"),hand);
+                        showToastAutoDismiss(res.getString("errmsg"));
+                        //showMyToastAutoDismiss(res.getString("errmsg"),hand);
                         for (Activity a:TianHongPayMentUtil.spcactivities){
                             a.finish();
                         }

@@ -251,7 +251,7 @@ public class TianHongPayMentUtil {
         }
         PainObj painObj = new PainObj(currentUser,currentOder);
         if (consumeSign.isEmpty()||userSign.isEmpty()){
-            mPayOrderListener.PushItoApp("缺少参数userSign,consumeSign,无法授权登录");
+            //mPayOrderListener.PushItoApp("缺少参数userSign,consumeSign,无法授权登录");
             return;
         }
         painObj.setConsumeSign(consumeSign);
