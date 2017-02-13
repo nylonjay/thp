@@ -141,7 +141,7 @@ public class SetPayCode_First_Activity extends BaseTokenActivity {
                         in.putExtra("from",from);
                         startActivity(in);
                     }else{
-                        showMyToastAutoDismiss("获取交易token失败",hand);
+                        showToastAutoDismiss("获取交易token失败");
                     }
                       // SetPayCode_First_Activity.this.finish();
                     break;
@@ -179,7 +179,7 @@ public class SetPayCode_First_Activity extends BaseTokenActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 showDialog(false);
-                showMyToastAutoDismiss("服务器无响应,请重试",hand);
+                showToastAutoDismiss("服务器无响应,请重试");
             }
         }
     };
