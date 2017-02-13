@@ -698,66 +698,68 @@ public class TianHongPayMentUtil {
             public void onSuccess(Object o) {
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res = json.getJSONObject("res");
-                String status=res.getString("status");
-                if ("0000".equals(status)) {
-                    JSONObject datamap = res.getJSONObject("dataMap");
-                    if (null != datamap) {
-                        JSONObject rsvc = datamap.getJSONObject("rsvc");
-                        if (null != datamap.getString("pinTag")) ;
-                        LogUtil.i(CurrentContext, "pinTag==" + rsvc.getString("pinTag"));
-                        pinNeed = rsvc.getString("pinTag");
-                        if ("01".equals(pinNeed)) {
-                            //需要交易密码
-                            if ("01".equals(pinOpen)) {
-                                //跳转到输入支付密码页面
-                                LogUtil.e(CurrentContext, "需要输入密码，跳转到支付订单页面");
+                if (null!=res) {
+                    String status = res.getString("status");
+                    if ("0000".equals(status)) {
+                        JSONObject datamap = res.getJSONObject("dataMap");
+                        if (null != datamap) {
+                            JSONObject rsvc = datamap.getJSONObject("rsvc");
+                            if (null != datamap.getString("pinTag")) ;
+                            LogUtil.i(CurrentContext, "pinTag==" + rsvc.getString("pinTag"));
+                            pinNeed = rsvc.getString("pinTag");
+                            if ("01".equals(pinNeed)) {
+                                //需要交易密码
+                                if ("01".equals(pinOpen)) {
+                                    //跳转到输入支付密码页面
+                                    LogUtil.e(CurrentContext, "需要输入密码，跳转到支付订单页面");
+                                    Intent in = new Intent(CurrentContext, PayConfirmActivity.class);
+                                    in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    in.putExtra("action", "cost");
+                                    in.putExtra("chanl", chanl);
+                                    in.putExtra("entMode", ent_mode);
+                                    in.putExtra("pcode", pcode);
+                                    in.putExtra("needpwd", true);
+                                    CurrentContext.startActivity(in);
+                                } else {
+                                    //未设置支付密码 跳转到设置支付密码页面和短信验证页面
+                                    Intent in = new Intent(CurrentContext, SetPayCode_First_Activity.class);
+                                    in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    in.putExtra("action", "cost");
+                                    CurrentContext.startActivity(in);
+                                    // CurrentContext.startActivity(new Intent(CurrentContext,MessageAuthActivity.class));
+                                }
+                            } else {
+                                //不需要支付密码 直接开始订单消费
+                                ToastUtil.shortToast(CurrentContext, "符合免密条件,开始订单消费");
+//                            action = "cost";
+//                            new Thread(sendable).start();
                                 Intent in = new Intent(CurrentContext, PayConfirmActivity.class);
                                 in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 in.putExtra("action", "cost");
                                 in.putExtra("chanl", chanl);
                                 in.putExtra("entMode", ent_mode);
                                 in.putExtra("pcode", pcode);
-                                in.putExtra("needpwd",true);
+                                in.putExtra("needpwd", false);
                                 CurrentContext.startActivity(in);
-                            } else {
-                                //未设置支付密码 跳转到设置支付密码页面和短信验证页面
-                                Intent in = new Intent(CurrentContext, SetPayCode_First_Activity.class);
-                                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                in.putExtra("action", "cost");
-                                CurrentContext.startActivity(in);
-                                // CurrentContext.startActivity(new Intent(CurrentContext,MessageAuthActivity.class));
                             }
-                        } else {
-                            //不需要支付密码 直接开始订单消费
-                            ToastUtil.shortToast(CurrentContext, "符合免密条件,开始订单消费");
-//                            action = "cost";
-//                            new Thread(sendable).start();
+                        }
+                    } else {
+                        String msh = res.getString("errmsg");
+                        if (null != msh) {
+                            //   ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,msh);
                             Intent in = new Intent(CurrentContext, PayConfirmActivity.class);
                             in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             in.putExtra("action", "cost");
                             in.putExtra("chanl", chanl);
                             in.putExtra("entMode", ent_mode);
                             in.putExtra("pcode", pcode);
-                            in.putExtra("needpwd",false);
+                            in.putExtra("needpwd", true);
+                            in.putExtra("errmsg", msh);
                             CurrentContext.startActivity(in);
                         }
+                        //TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
+                        //LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                     }
-                }else {
-                    String msh=res.getString("errmsg");
-                    if (null!=msh){
-                     //   ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,msh);
-                        Intent in = new Intent(CurrentContext, PayConfirmActivity.class);
-                        in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        in.putExtra("action", "cost");
-                        in.putExtra("chanl", chanl);
-                        in.putExtra("entMode", ent_mode);
-                        in.putExtra("pcode", pcode);
-                        in.putExtra("needpwd",true);
-                        in.putExtra("errmsg",msh);
-                        CurrentContext.startActivity(in);
-                    }
-                    //TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
-                    //LogUtil.e(TianHongPayMentUtil.CurrentContext,res.getString("errmsg"));
                 }
             }
             @Override
