@@ -489,7 +489,7 @@ public class TianHongPayMentUtil {
                         } else if ("05".equals(res.getString("errcode"))){
                           //  tv_rmb.setVisibility(View.GONE);
                             locked=true;
-                            TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed("账户已锁定");
+                            TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.PayFailed(res.getString("errmsg"));
                           //  return;
                            //QRCodeActivity.this.finish();
                             //closeALLActvivities();
