@@ -250,6 +250,7 @@ public class EnterCodeActivity extends BaseTokenActivity implements View.OnClick
                 showDialog(false);
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res=json.getJSONObject("res");
+                LogUtil.e(TianHongPayMentUtil.CurrentContext,"修改以后的Pcodeflag=="+res.toJSONString());
                 if (null!=res){
                     JSONObject dataMap=res.getJSONObject("dataMap");
                     if ("0000".equals(res.getString("status"))){
