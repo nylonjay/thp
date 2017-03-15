@@ -112,23 +112,30 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/submit"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tv_info"
+        >
 
-    <ImageView
-        android:id="@+id/img_bottom"
-        android:layout_width="wrap_content"
-        android:layout_above="@+id/tv_bottom"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/tiecard"/>
+        <ImageView
+            android:id="@+id/img_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/tiecard"/>
 
-    <TextView
-        android:id="@+id/tv_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14dp"
-        android:text="此涂层覆盖的为购物卡覆膜密码"
-        android:textColor="@color/text_red"
-        android:layout_alignLeft="@+id/img_bottom"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:layout_alignParentBottom="true"/>
+        <TextView
+            android:id="@+id/tv_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="此涂层覆盖的为购物卡覆膜密码"
+            android:textColor="@color/text_red"
+            android:layout_alignLeft="@+id/img_bottom"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 </RelativeLayout>

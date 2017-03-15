@@ -47,17 +47,16 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
     //private String Oid=String.valueOf(new Random().nextInt(201547994)+222255);
     private String noticeUrl="http://hlj.dev.rainbowcn.net/hongpay/notify";
     // http://hlj.dev.rainbowcn.net/hongpay/notify
-    private String Oid="n5555jd533dd4236";
-    private Double Amount=10.00;
+    private String Oid="qwdqwdwdw2342";
+    private Double Amount=568.00;
     private String Mid="00195";
-    private String consumeSign="bb5355ab986f3a53fdd5385e4402fc08cb352495";// 订单消费这两个都传
-    private String userSign="4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a" +
-            "";//进入首页传
+    private String consumeSign="98e43a0bf85ff02fa24872755de0e05adb46ba7a";// 订单消费这两个都传
+    private String userSign="4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a";//进入首页传
     //32307的userSign  4875dbbfd3987427b1dfb5d4c28760e2e5a50f9a
     //无交易记录的userSign:dd7ffbcc76ce695c3b7acff6ed3210c2905d4410
     //余丹丹的usersign a811c7ed7e37d367b1946b859e7a17b20b8b6543
     private Button btn_qry;
-    private String userAccno="7000290210055052291";
+    private String userAccno="7000290210000032307";
     private BindCardCallBack mBbindCardCallBack;
     private OnMainActivityFinished mOnMainfinished;
     private Button btn_qr,btn_getqr,btn_test;
@@ -68,7 +67,7 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madde);
         // initData();
-        Constant.setSERVERHOST("http://192.168.208.153:8080");
+        Constant.setSERVERHOST("http://192.168.163.38:8080");
         btn_test= (Button) findViewById(R.id.btn_test);
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +171,7 @@ public class MaddeActivity extends AppCompatActivity implements PayOrderListener
         order.setMid(Mid);
         order.setAmount(Amount);
         order.setAccno(Accno);
-        order.setNoticeUrl(noticeUrl);
+      //  order.setNoticeUrl(noticeUrl);
         tianHongPayMentUtil=TianHongPayMentUtil.getInstance(MaddeActivity.this);
         TianHongPayMentUtil.userSign=userSign;
         TianHongPayMentUtil.consumeSign=consumeSign;
