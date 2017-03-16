@@ -92,7 +92,9 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
                 token=getAccessGenToken(handler);
             } catch (Exception e) {
                 e.printStackTrace();
-                times=0;
+                showDialog(false);
+                Btn_Clickable();
+                ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,"交易授权失败");
             }
 
         }
@@ -106,12 +108,8 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
 //                        startActivityForResult(new Intent(BindShoppingCardActivity.this,Message_PayCode_Activity.class),Setting_Pay_Code);
 //                        return;
 //                    }
-                    times=0;
-                    if (null!=token){
-                        if (action.equals("bind"))
+                    if (null!=token&&action.equals("bind")){
                             BindShoppingCard(HttpUrls.bindCardConfirm);
-                        else
-                            BindShoppingCard(HttpUrls.unbindCardConfirm);
                     }
 
                     break;
@@ -127,7 +125,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
                             }else{
                                 bind.setBackgroundResource(R.drawable.next_step_gray);
                                 bind.setClickable(false);
-                               // ToastUtil.shortToast(BindShoppingCardActivity.this,"卡号的长度非法");
+                                // ToastUtil.shortToast(BindShoppingCardActivity.this,"卡号的长度非法");
                             }
                         }
                     }else{
@@ -139,7 +137,16 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
             //ToastUtil.shortToast(context,"获取到的Tokenuniqueid是"+msg.obj);
         }
     };
-    int times=0;
+
+    void Btn_Clickable(){
+        bind.setBackgroundResource(R.drawable.net_step_bg);
+        bind.setClickable(true);
+    }
+    void Btn_InClickable(){
+        bind.setBackgroundResource(R.drawable.next_step_gray);
+        bind.setClickable(false);
+    }
+
 
     private void initViews() {
         check_agree= (CheckBox) findViewById(R.id.check_agree);
@@ -184,7 +191,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
                 in.putExtra("url",Constant.TH_AGREEMENT);
                 in.putExtra("name","虹支付使用协议");
                 startActivity(in);
-              //  BindShoppingCardActivity.this.finish();
+                //  BindShoppingCardActivity.this.finish();
             }
         });
         bind= (Button) findViewById(R.id.submit);
@@ -192,13 +199,12 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
         bind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.OnBindCardToBuy();
+                //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.OnBindCardToBuy();
                 action="bind";
-                if (times==0){
-                    new Thread(sendable).start();
-                    times++;
+                showDialog(true);
+                Btn_InClickable();
+                new Thread(sendable).start();
 
-                }
                 // BindShoppingCard();
             }
         });
@@ -252,6 +258,8 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
         httpControl.HttpExcute(url, HttpControl.RequestPost, param, new ResultInterface() {
             @Override
             public void onSuccess(Object o) {
+                showDialog(false);
+                Btn_Clickable();
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res=json.getJSONObject("res");
                 if (null!=res) {
@@ -276,7 +284,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
                         }
 
                         if ("36".equals(res.getString("errcode"))){
-                          //  initChanceDialog("0");
+                            //  initChanceDialog("0");
                             ToastUtil.shortNToast(BindShoppingCardActivity.this,res.getString("errmsg"));
                         }
                         ToastUtil.shortToast(context,res.getString("errmsg"));
@@ -286,8 +294,8 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
                             //session过期弹出操作失败弹框
                             initSessionOutTime("操作失败"+("00013"));
                         }
-                       // showMyToastAutoDismiss(res.getString("errmsg"));
-                       ToastUtil.shortNToast(BindShoppingCardActivity.this,res.getString("errmsg"));
+                        // showMyToastAutoDismiss(res.getString("errmsg"));
+                        ToastUtil.shortNToast(BindShoppingCardActivity.this,res.getString("errmsg"));
                     }
 
                 }
@@ -297,6 +305,8 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
 
             @Override
             public void onError(Object o) {
+                showDialog(false);
+                Btn_Clickable();
                 Log.i("res err", "" + o.toString());
             }
 
@@ -321,7 +331,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
                 public void onClick(View v) {
                     // startActivity(new Intent(context,AuthenticationActivity.class));
                     dialog.dismiss();
-                   // BindShoppingCardActivity.this.finish();
+                    // BindShoppingCardActivity.this.finish();
                 }
             });
         }else{
