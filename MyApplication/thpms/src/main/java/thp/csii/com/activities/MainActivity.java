@@ -127,6 +127,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onPause() {
         super.onPause();
+        showDialog(false);
         dismissDialog();
 
     }

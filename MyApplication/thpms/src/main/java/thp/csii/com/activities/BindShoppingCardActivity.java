@@ -40,6 +40,7 @@ import thp.csii.com.http.HttpUrls;
 import thp.csii.com.paysdk.entity.Token;
 import thp.csii.com.utils.SharePreferencesUtils;
 import thp.csii.com.utils.ToastUtil;
+import thp.csii.com.views.THProgressDialog;
 
 /**
  *BindShoppingCardActivity 购物卡绑定页面
@@ -58,6 +59,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
     private int Setting_Pay_Code=1;
     private LinearLayout ll_back;
     private CheckBox check_agree;
+    cn.rainbow.thbase.ui.THProgressDialog bindProgressDialog=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +67,6 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
         setContentView(R.layout.activity_bind_shopping_card);
         setTitleText(R.string.bind_card);
         setBackView(R.drawable.u194);
-
         initViews();
 
     }
@@ -92,7 +93,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
                 token=getAccessGenToken(handler);
             } catch (Exception e) {
                 e.printStackTrace();
-                showDialog(false);
+                showBindDialog(false);
                 Btn_Clickable();
                 ToastUtil.shortNToast(TianHongPayMentUtil.CurrentContext,"交易授权失败");
             }
@@ -109,7 +110,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
 //                        return;
 //                    }
                     if (null!=token&&action.equals("bind")){
-                            BindShoppingCard(HttpUrls.bindCardConfirm);
+                        BindShoppingCard(HttpUrls.bindCardConfirm);
                     }
 
                     break;
@@ -143,7 +144,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
         bind.setClickable(true);
     }
     void Btn_InClickable(){
-        bind.setBackgroundResource(R.drawable.next_step_gray);
+        // bind.setBackgroundResource(R.drawable.next_step_gray);
         bind.setClickable(false);
     }
 
@@ -199,9 +200,8 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
         bind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  TianHongPayMentUtil.tianHongPayMentUtil.mPayOrderListener.OnBindCardToBuy();
+                showBindDialog(true);
                 action="bind";
-                showDialog(true);
                 Btn_InClickable();
                 new Thread(sendable).start();
 
@@ -258,7 +258,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
         httpControl.HttpExcute(url, HttpControl.RequestPost, param, new ResultInterface() {
             @Override
             public void onSuccess(Object o) {
-                showDialog(false);
+                showBindDialog(false);
                 Btn_Clickable();
                 JSONObject json = JSON.parseObject((String) o);
                 JSONObject res=json.getJSONObject("res");
@@ -305,7 +305,7 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
 
             @Override
             public void onError(Object o) {
-                showDialog(false);
+                showBindDialog(false);
                 Btn_Clickable();
                 Log.i("res err", "" + o.toString());
             }
@@ -351,7 +351,25 @@ public class BindShoppingCardActivity extends BaseTokenActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        bindProgressDialog=null;
         password.onDestroy();
+    }
+
+    protected void showBindDialog(boolean isShow) {
+
+        if (bindProgressDialog == null && isShow) {
+            bindProgressDialog = cn.rainbow.thbase.ui.THProgressDialog.createDialog(BindShoppingCardActivity.this);
+            bindProgressDialog.setMessage(R.string.loading);
+        }
+
+        if (bindProgressDialog != null) {
+
+            if (isShow) {
+                bindProgressDialog.show();
+            } else {
+                bindProgressDialog.dismiss();
+            }
+        }
     }
 
 

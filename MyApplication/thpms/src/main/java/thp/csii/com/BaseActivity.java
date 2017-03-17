@@ -334,4 +334,22 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+
+    protected void showCurrentDialog(boolean isShow,Context context) {
+
+        if (mTHProgressDialog == null && isShow) {
+            mTHProgressDialog = cn.rainbow.thbase.ui.THProgressDialog.createDialog(context);
+            mTHProgressDialog.setMessage(R.string.loading);
+        }
+
+        if (mTHProgressDialog != null) {
+
+            if (isShow) {
+                mTHProgressDialog.show();
+            } else {
+                mTHProgressDialog.dismiss();
+            }
+        }
+    }
+
 }
